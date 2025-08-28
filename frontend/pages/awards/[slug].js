@@ -40,7 +40,6 @@ const blockComponents = {
     image: ({ value }) => (
       <div className="relative w-full h-[300px]">
         <Image
-          className="w-full h-full"
           src={urlFor(value.asset).url()}
           layout="fill"
           objectFit="contain"
@@ -251,15 +250,8 @@ const validateSanityData = (data, slug) => {
     });
   }
 
-  const validation = validateAwardData(data);
 
-  return {
-    isValid: validation.isValid && errors.length === 0,
-    errors: [...errors, ...validation.errors],
-    warnings,
-    type: errors.length > 0 ? ValidationError.DATA_CORRUPTION : validation.type,
-    sanityStatus: errors.length === 0 ? "OK" : "HAS_ISSUES",
-  };
+  return 0
 };
 
 // Sample data generator for demonstration
@@ -360,10 +352,12 @@ const generateSampleAwardData = (slug) => {
 export const getStaticPaths = async () => {
   try {
     const awardPosts = await client.fetch(
-      `*[_type == "awards" && defined(slug.current)]{  
+      `*[_type == "award" && defined(slug.current)]{  
         "slug": slug.current,
       }`,
     );
+
+    console.log(awardPosts);
 
     // Validate slug format for each post
     const validPaths = awardPosts
@@ -413,7 +407,7 @@ export const getStaticProps = async (context) => {
     try {
       // Try to fetch from Sanity first
       const awardPost = await client.fetch(
-        `*[_type == "awards" && slug.current == $slug][0]{
+        `*[_type == "award" && slug.current == $slug][0]{
           _id,
           _createdAt,
           _updatedAt,
@@ -437,24 +431,14 @@ export const getStaticProps = async (context) => {
         { slug: sanitizedSlug },
       );
 
+      console.log(awardPost);
+
       if (awardPost) {
         // Validate the fetched data
-        const validation = validateSanityData(awardPost, sanitizedSlug, false);
 
         return {
           props: {
             awardPost,
-            validationErrors: validation.errors || [],
-            validationWarnings: validation.warnings || [],
-            errorType: null,
-            sanityStatus: validation.sanityStatus || "OK",
-            isDemoMode: false,
-            debugInfo: {
-              slug: sanitizedSlug,
-              originalSlug: slug,
-              timestamp: new Date().toISOString(),
-              source: "sanity",
-            },
           },
           revalidate: 10,
         };
@@ -653,7 +637,7 @@ const AwardPage = ({
   }, []);
 
   // Enhanced error boundary component with Sanity status
-  if (errors.length > 0 || !post) {
+  if (errors || !post) {
     return (
       <>
         <Head
