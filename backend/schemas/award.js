@@ -10,10 +10,7 @@ export default {
       options: {
         hotspot: true,
       },
-      validation: (Rule) =>
-        Rule.custom((image) => {
-          return true;
-        }),
+      validation: (Rule) => Rule.required(),
     },
     {
       title: "Award Title",
@@ -70,26 +67,24 @@ export default {
           options: {
             hotspot: true,
           },
-          fields: [
-            {
-              name: "alt",
-              type: "string",
-              title: "Alternative text",
-              description: "Describe the image for accessibility",
-            },
-            {
-              name: "caption",
-              type: "string",
-              title: "Caption",
-              description: "Optional caption for the image",
-            },
-          ],
         },
       ],
       validation: (Rule) => [
         Rule.required().error("Award images are required"),
         Rule.max(10).error("Maximum 10 images allowed"),
       ],
+    },
+    {
+      title: "Date Awarded",
+      name: "dateAwarded",
+      type: "datetime",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      title: "Award Description",
+      name: "awardDescription",
+      type: "text",
+      validation: (Rule) => Rule.required(),
     },
     {
       title: "Award Content",

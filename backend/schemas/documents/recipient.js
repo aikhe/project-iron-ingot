@@ -37,19 +37,21 @@ export default {
       type: "string",
       name: "pronouns",
       title: "Pronouns",
-      description: "Pronouns for the author",
     },
     {
       type: "string",
       name: "batchYear",
       title: "Batch Year",
-      description: "Batch Year of the Author",
     },
     {
       type: "string",
       name: "yearLevel",
       title: "Year Level",
-      description: "Year Level of the Author",
+    },
+    {
+      type: "string",
+      name: "program",
+      title: "Program",
     },
     {
       type: "image",
