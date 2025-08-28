@@ -5,12 +5,11 @@ import TopGradient from "../../components/TopGradient";
 import { _Transition_Page } from "../../components/_Animations";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import AwardCard from "../../components/card/Award";
 
 const Awards = () => {
   const { awards } = usePrefetcer();
   const [awardList, setAwardList] = useState([]);
-
-  console.log(awards);
 
   useEffect(() => {
     setAwardList(awards);
@@ -50,7 +49,7 @@ const Awards = () => {
               {awardList.length > 0 &&
                 awardList.map((awards, index) => (
                   <div key={index}>
-                    <p>{awards.title}</p>
+                    <AwardCard award={awards} />
                   </div>
                 ))}
 

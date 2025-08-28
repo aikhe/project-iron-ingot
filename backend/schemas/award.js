@@ -41,8 +41,8 @@ export default {
       },
     },
     {
-      title: "Recipients",
-      name: "recipients",
+      title: "Award Recipients",
+      name: "awardRecipients",
       type: "array",
       validation: (Rule) => Rule.required(),
       of: [
@@ -55,7 +55,6 @@ export default {
           ],
         },
       ],
-      validation: (Rule) => Rule.required(),
     },
     {
       title: "Award Images",

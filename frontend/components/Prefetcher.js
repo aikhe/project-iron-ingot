@@ -58,7 +58,7 @@ const query_award = `
     "title": awardTitle,
     "slug": slug.current,
     "category": awardCategory,
-    "resipients": awardResipients[] -> { fullName, pronouns, "recipientPhoto": resipient.asset -> url },
+    "recipients": awardRecipients[] -> { fullName, pronouns, "recipientPhoto": recipientPhoto.asset -> url },
     "images": awardImages[].asset->url,
     "content": awardContent,
     tags,

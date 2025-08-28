@@ -4,9 +4,9 @@ export default {
   title: "Recipient",
   fields: [
     {
-      type: "object",
-      name: "fullName",
       title: "Recipient Full Name",
+      name: "fullName",
+      type: "object",
       options: {
         collapsed: true,
       },

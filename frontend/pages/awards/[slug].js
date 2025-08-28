@@ -250,8 +250,7 @@ const validateSanityData = (data, slug) => {
     });
   }
 
-
-  return 0
+  return 0;
 };
 
 // Sample data generator for demonstration
@@ -359,7 +358,7 @@ export const getStaticPaths = async () => {
 
     console.log(awardPosts);
 
-    // Validate slug format for each post
+    // Vexcellence-in-computer-science-award-2024alidate slug format for each post
     const validPaths = awardPosts
       .filter((post) => {
         const slugValidation = validateField(post.slug, "slug", true);
@@ -417,8 +416,9 @@ export const getStaticProps = async (context) => {
           "slug": slug.current,
           "content": awardContent,
           "category": awardCategory,
-          "recipients": recipients[] -> {
+          "recipients": recipient[] -> {
             fullName,
+            pronouns,
             "recipientPhoto": recipientPhoto.asset -> url,
             yearLevel,
             batchYear,
