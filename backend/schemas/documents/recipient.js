@@ -52,6 +52,11 @@ export default {
       description: "Year Level of the Author",
     },
     {
+      type: "string",
+      name: "program",
+      title: "Program",
+    },
+    {
       type: "image",
       name: "recipientPhoto",
       title: "Recipient Photo",

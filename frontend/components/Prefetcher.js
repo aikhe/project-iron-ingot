@@ -58,7 +58,7 @@ const query_award = `
     "title": awardTitle,
     "slug": slug.current,
     "category": awardCategory,
-    "recipients": awardRecipients[] -> { fullName, pronouns, "recipientPhoto": recipientPhoto.asset -> url },
+    "recipients": awardRecipients[] -> { fullName, pronouns, batchYear, yearLeve, program, "recipientPhoto": recipientPhoto.asset -> url },
     "images": awardImages[].asset->url,
     "content": awardContent,
     tags,
@@ -89,7 +89,6 @@ const PrefetcherWrapper = ({ children }) => {
     const res_thesis = await client.fetch(query_thesis);
     const res_award = await client.fetch(query_award);
 
-    console.log(res_thesis);
     console.log(res_award);
 
     const globalItems = [

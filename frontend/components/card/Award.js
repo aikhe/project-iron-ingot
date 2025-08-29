@@ -20,11 +20,16 @@ const AwardCard = ({ award }) => {
     _id,
     _updatedAt,
     _createdAt,
-    recipients,
-    title,
-    tags,
-    slug,
     headerImage,
+    title,
+    slug,
+    category,
+    recipients,
+    images,
+    date,
+    description,
+    content,
+    tags,
   } = award;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -62,7 +67,17 @@ const AwardCard = ({ award }) => {
             <CardBody className="relative overflow-hidden">
               <p className="z-10 text-sm text-grey-700">Award</p>
               <p className="z-10 text-lg font-medium">{title}</p>
-              <p className="z-10 text-sm mt-3 text-grey-600 font-semibold"></p>
+              <p className="z-10 text-sm text-grey-700">Category</p>
+              <p className="z-10 text-lg font-medium">{category}</p>
+              <p className="z-10 text-sm text-grey-700">Badges</p>
+              <p className="z-10 text-lg font-medium">{category}</p>
+              <p className="z-10 text-sm mt-3 text-grey-600 font-semibold">
+                {recipients
+                  .map((recipient) => {
+                    return `${recipient.fullName.firstName} ${recipient.fullName.lastName} ${recipient.program} ${recipient.batchYear}`;
+                  })
+                  .join(", ")}
+              </p>
 
               <p className="z-10 text-sm text-grey-700">
                 {dayjs(_updatedAt).format("MMM DD, YYYY")}
