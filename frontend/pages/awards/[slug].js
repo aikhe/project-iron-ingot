@@ -416,7 +416,7 @@ export const getStaticProps = async (context) => {
           "slug": slug.current,
           "content": awardContent,
           "category": awardCategory,
-          "recipients": recipient[] -> {
+          "recipients": awardRecipients[] -> {
             fullName,
             pronouns,
             "recipientPhoto": recipientPhoto.asset -> url,

@@ -89,6 +89,9 @@ const PrefetcherWrapper = ({ children }) => {
     const res_thesis = await client.fetch(query_thesis);
     const res_award = await client.fetch(query_award);
 
+    console.log(res_thesis);
+    console.log(res_award);
+
     const globalItems = [
       ...res_blog,
       ...res_bulletin,

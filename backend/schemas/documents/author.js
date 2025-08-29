@@ -34,18 +34,9 @@ export default {
       ],
     },
     {
-      type: "image",
-      name: "authorPhoto",
-      title: "Author Photo",
-      options: {
-        hotspot: true,
-      },
-    },
-    {
       type: "string",
       name: "pronouns",
       title: "Pronouns",
-      description: "Pronouns for the author",
     },
     {
       type: "string",
@@ -58,6 +49,14 @@ export default {
       name: "yearLevel",
       title: "Year Level",
       description: "Year Level of the Author",
+    },
+    {
+      type: "image",
+      name: "authorPhoto",
+      title: "Author Photo",
+      options: {
+        hotspot: true,
+      },
     },
     {
       title: "Slug",
