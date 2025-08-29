@@ -24,6 +24,7 @@ const AwardCard = ({ award }) => {
     title,
     slug,
     category,
+    badges,
     recipients,
     images,
     date,
@@ -70,14 +71,21 @@ const AwardCard = ({ award }) => {
               <p className="z-10 text-sm text-grey-700">Category</p>
               <p className="z-10 text-lg font-medium">{category}</p>
               <p className="z-10 text-sm text-grey-700">Badges</p>
-              <p className="z-10 text-lg font-medium">{category}</p>
-              <p className="z-10 text-sm mt-3 text-grey-600 font-semibold">
+              <div className="my-2">
+                {badges &&
+                  badges.map((badge, i) => (
+                    <div key={i}>
+                      <Chip className="bg-[#27292D]" value={badge} />
+                    </div>
+                  ))}
+              </div>
+              {/* <p className="z-10 text-sm mt-3 text-grey-600 font-semibold">
                 {recipients
                   .map((recipient) => {
                     return `${recipient.fullName.firstName} ${recipient.fullName.lastName} ${recipient.program} ${recipient.batchYear}`;
                   })
                   .join(", ")}
-              </p>
+              </p> */}
 
               <p className="z-10 text-sm text-grey-700">
                 {dayjs(_updatedAt).format("MMM DD, YYYY")}

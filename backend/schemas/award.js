@@ -22,29 +22,39 @@ export default {
       title: "Slug",
       name: "slug",
       type: "slug",
-      validation: (Rule) => Rule.required(),
       options: {
         source: "awardTitle",
         maxLength: 100,
       },
+      validation: (Rule) => Rule.required(),
     },
     {
       title: "Award Category",
       name: "awardCategory",
       type: "string",
-      validation: (Rule) => Rule.required(),
       options: {
         list: [
           { title: "Academic Excellence", value: "Academic Excellence" },
           { title: "Relapsing", value: "Relapse" },
         ],
       },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      title: "Award Badges",
+      name: "awardBadges",
+      type: "array",
+      of: [
+        {
+          type: "string",
+        },
+      ],
+      validation: (Rule) => Rule.required(),
     },
     {
       title: "Award Recipients",
       name: "awardRecipients",
       type: "array",
-      validation: (Rule) => Rule.required(),
       of: [
         {
           type: "reference",
@@ -55,6 +65,7 @@ export default {
           ],
         },
       ],
+      validation: (Rule) => Rule.required(),
     },
     {
       title: "Award Images",
