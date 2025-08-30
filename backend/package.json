@@ -7,7 +7,7 @@
   "author": "computerscience-ucc <ucc.computersciencecouncil@gmail.com>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "sanity start",
+    "start": "sanity start --port 3334",
     "build": "sanity build"
   },
   "keywords": [
@@ -27,5 +27,7 @@
     "react-dom": "^17.0",
     "styled-components": "^5.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@sanity/cli": "^2.36.2"
+  }
 }

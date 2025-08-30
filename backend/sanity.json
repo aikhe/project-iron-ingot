@@ -4,7 +4,7 @@
     "name": "ucc-project-ingo-back-end"
   },
   "api": {
-    "projectId": "gjvp776o",
+    "projectId": "vih5gegt",
     "dataset": "production"
   },
   "plugins": [
@@ -16,9 +16,7 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [
