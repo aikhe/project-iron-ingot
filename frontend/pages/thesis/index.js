@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import Head from '../../components/Head';
-import ThesisCard from '../../components/card/Thesis';
-import TopGradient from '../../components/TopGradient';
-import { _Transition_Page } from '../../components/_Animations';
-import { motion } from 'framer-motion';
-import { usePrefetcer } from '../../components/Prefetcher';
+import Head from "../../components/Head";
+import ThesisCard from "../../components/card/Thesis";
+import TopGradient from "../../components/TopGradient";
+import { _Transition_Page } from "../../components/_Animations";
+import { motion } from "framer-motion";
+import { usePrefetcer } from "../../components/Prefetcher";
 
 const Thesis = (e) => {
   const { thesis } = usePrefetcer();
@@ -21,8 +21,8 @@ const Thesis = (e) => {
 
   return (
     <>
-      <TopGradient colorLeft={'#fd0101'} colorRight={'#a50000'} />
-      <Head 
+      <TopGradient colorLeft={"#fd0101"} colorRight={"#a50000"} />
+      <Head
         title="Thesis | Ingo"
         description="Innovative thesis projects by BSCS seniors. Explore cutting-edge research and connect with student developers."
         url="/thesis"
@@ -44,10 +44,10 @@ const Thesis = (e) => {
 
         <div className="flex flex-col gap-2 justify-center my-28">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {thesisList.length > 0 &&
-              thesisList.map((thesis, index) => (
+            {thesislist.length > 0 &&
+              thesislist.map((thesis, index) => (
                 <div key={index}>
-                  <ThesisCard thesis={thesis} />
+                  <thesiscard thesis={thesis} />
                 </div>
               ))}
 

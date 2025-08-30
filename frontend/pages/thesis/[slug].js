@@ -1,26 +1,26 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Breadcrumbs,
   Chip,
   IconButton,
   Tooltip,
-} from '@material-tailwind/react';
-import { CgChevronLeft, CgChevronUp } from 'react-icons/cg';
-import { useEffect, useRef, useState } from 'react';
+} from "@material-tailwind/react";
+import { CgChevronLeft, CgChevronUp } from "react-icons/cg";
+import { useEffect, useRef, useState } from "react";
 
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import { PortableText } from '@portabletext/react';
-import { _Transition_Page } from '../../components/_Animations';
-import { client } from '../../components/Prefetcher';
-import dayjs from 'dayjs';
-import urlBuilder from '@sanity/image-url';
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { PortableText } from "@portabletext/react";
+import { _Transition_Page } from "../../components/_Animations";
+import { client } from "../../components/Prefetcher";
+import dayjs from "dayjs";
+import urlBuilder from "@sanity/image-url";
 
 const urlFor = (source) =>
   urlBuilder({
-    projectId: 'gjvp776o',
-    dataset: 'production',
+    projectId: "gjvp776o",
+    dataset: "production",
   }).image(source);
 
 const blockComponents = {
@@ -55,7 +55,12 @@ const blockComponents = {
     ),
     span: ({ children }) => <span className="text-light">{children}</span>,
     image: ({ node }) => (
-      <Image src={urlFor(node.asset)} alt={node.alt} className="w-full" layout = "fill" />
+      <Image
+        src={urlFor(node.asset)}
+        alt={node.alt}
+        className="w-full"
+        layout="fill"
+      />
     ),
   },
   marks: {
@@ -77,14 +82,14 @@ export const getStaticPaths = async () => {
   const thesisPosts = await client.fetch(
     `*[_type == "thesis"]{  
       "slug": slug.current,
-    }`
+    }`,
   );
   const paths = thesisPosts.map((post) => ({
     params: { slug: post.slug },
   }));
   return {
     paths,
-    fallback: 'blocking', // enable incremental static regeneration
+    fallback: "blocking", // enable incremental static regeneration
   };
 };
 
@@ -103,7 +108,7 @@ export const getStaticProps = async (e) => {
       "authors": postAuthor[] -> {fullName, pronouns, "authorPhoto": authorPhoto.asset -> url, yearLevel, batchYear},
       tags,
       "owners": ownersInformation
-    }`
+    }`,
   );
   return {
     props: {
@@ -122,7 +127,7 @@ const ThesisPage = ({ thesisPost }) => {
     (e) => {
       setPost(thesisPost);
     },
-    [thesisPost]
+    [thesisPost],
   );
 
   // scroll to top on page load
@@ -132,23 +137,23 @@ const ThesisPage = ({ thesisPost }) => {
 
   // listen for scroll events
   useEffect(() => {
-    window.addEventListener('scroll', (e) => {
+    window.addEventListener("scroll", (e) => {
       // show scroll to top button if user has scrolled down by 20% to 80% of the page
       setScrollToTopButtonShown(
         window.scrollY > mainDocument.current?.scrollHeight * 0.2 &&
-          window.scrollY < mainDocument.current?.scrollHeight - 700
+          window.scrollY < mainDocument.current?.scrollHeight - 700,
       );
     });
 
     return () => {
-      window.removeEventListener('scroll', () => {});
+      window.removeEventListener("scroll", () => {});
     };
   }, []);
 
   return (
     <>
       <Head>
-        <title>{post ? `${post.title} | Ingo` : 'thesis'}</title>
+        <title>{post ? `${post.title} | Ingo` : "thesis"}</title>
       </Head>
 
       <motion.main
@@ -163,7 +168,7 @@ const ThesisPage = ({ thesisPost }) => {
         {/* title */}
         <div className="flex flex-col gap-7">
           <div className="flex flex-col lg:flex-row gap-3 lg:gap-7 lg:items-center lg:justify-between">
-            <p>{dayjs(post._updatedAt).format('MMMM D, YYYY')}</p>
+            <p>{dayjs(post._updatedAt).format("MMMM D, YYYY")}</p>
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag, i) => (
                 <Chip className="bg-[#010409]" key={i} value={tag} />
@@ -199,14 +204,14 @@ const ThesisPage = ({ thesisPost }) => {
           </div>
           <div className="flex gap-4 flex-col md:flex-row">
             <p className="flex flex-col">
-              Posted by:{' '}
+              Posted by:{" "}
               {post.authors.map((author, i) => (
                 <p key={i} className="text-header-color transition font-bold">
                   {author.fullName.firstName} {author.fullName.lastName} (
                   {author.pronouns})
                   {author.batchYear && author.yearLevel && (
                     <span>
-                      {' '}
+                      {" "}
                       / {author.batchYear} {author.yearLevel}
                     </span>
                   )}
@@ -214,7 +219,7 @@ const ThesisPage = ({ thesisPost }) => {
               ))}
             </p>
             <p className="flex flex-col">
-              Thesis Authors:{' '}
+              Thesis Authors:{" "}
               {post.owners.ownerFullname &&
                 post.owners.ownerFullname.map((owner, i) => (
                   <p key={i} className="text-header-color transition font-bold">
@@ -222,7 +227,7 @@ const ThesisPage = ({ thesisPost }) => {
                       <span className="text-pink-800">
                         ({post.owners.ownerSection})
                       </span>
-                    )}{' '}
+                    )}{" "}
                     {owner}
                   </p>
                 ))}
@@ -234,7 +239,7 @@ const ThesisPage = ({ thesisPost }) => {
                 src={post?.headerImage}
                 className="w-full h-full object-cover"
                 layout="fill"
-                alt = "header"
+                alt="header"
               />
             </div>
           )}
@@ -258,15 +263,15 @@ const ThesisPage = ({ thesisPost }) => {
               animate={{
                 opacity: 1,
                 x: 0,
-                transition: { duration: 0.5, ease: 'circOut' },
+                transition: { duration: 0.5, ease: "circOut" },
               }}
               exit={{
                 opacity: 0,
                 x: 10,
-                transition: { duration: 0.3, ease: 'circIn' },
+                transition: { duration: 0.3, ease: "circIn" },
               }}
               className="fixed z-30 bottom-5 right-5 md:bottom-10 md:right-10"
-              onClick={() => window.scroll({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scroll({ top: 0, behavior: "smooth" })}
             >
               <Tooltip content="Scroll to top" placement="left">
                 <IconButton className="bg-grey-800">

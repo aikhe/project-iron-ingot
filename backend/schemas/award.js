@@ -44,13 +44,6 @@ export default {
       },
     },
     {
-      title: "Award Description",
-      name: "awardDescription",
-      type: "text",
-      validation: (Rule) =>
-        Rule.max(500).error("Description must be 500 characters or less"),
-    },
-    {
       title: "Recipients",
       name: "recipients",
       type: "array",
@@ -62,17 +55,6 @@ export default {
               type: "recipient",
             },
           ],
-        },
-      ],
-      validation: (Rule) => Rule.required(),
-    },
-    {
-      title: "Tags",
-      name: "tags",
-      type: "array",
-      of: [
-        {
-          type: "string",
         },
       ],
       validation: (Rule) => Rule.required(),
@@ -93,6 +75,17 @@ export default {
           },
         },
       ],
+    },
+    {
+      title: "Tags",
+      name: "tags",
+      type: "array",
+      of: [
+        {
+          type: "string",
+        },
+      ],
+      validation: (Rule) => Rule.required(),
     },
   ],
 };

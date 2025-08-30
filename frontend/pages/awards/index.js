@@ -1,9 +1,24 @@
+import { useEffect, useState } from "react";
 import Head from "../../components/Head";
+import { usePrefetcer } from "../../components/Prefetcher";
 import TopGradient from "../../components/TopGradient";
 import { _Transition_Page } from "../../components/_Animations";
 import { motion } from "framer-motion";
 
 const Awards = () => {
+  const { awards } = usePrefetcer();
+  const [awardList, setAwardList] = useState([]);
+
+  console.log(awards);
+
+  useEffect(() => {
+    setAwardList(awards);
+  }, [awards]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <TopGradient colorLeft={"#fd0101"} colorRight={"#a50000"} />
@@ -29,8 +44,23 @@ const Awards = () => {
           </p>
 
           {/* Add your awards content here */}
-          <div className="text-center">
-            <p className="text-gray-400">Awards content coming soon...</p>
+          <div className="flex flex-col gap-2 justify-center my-28">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {awardList.length > 0 &&
+                awardList.map((awards, index) => (
+                  <div key={index}>
+                    <p>{awards.title}</p>
+                  </div>
+                ))}
+
+              {awardList.length < 1 && (
+                <div className="flex flex-col gap-2 justify-center">
+                  <p className="text-lg font-semibold">
+                    No award was uploaded yet. Check back later!
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </motion.main>
