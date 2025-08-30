@@ -15,13 +15,13 @@ export default {
       title: "Thesis Title",
       name: "thesisTitle",
       type: "string",
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     },
     {
       title: "Slug",
       name: "slug",
       type: "slug",
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
       options: {
         source: "thesisTitle",
         maxLength: 100,
@@ -58,7 +58,7 @@ export default {
           of: [
             {
               type: "string",
-              validation: Rule => Rule.required(),
+              validation: (Rule) => Rule.required(),
             },
           ],
         },
@@ -66,7 +66,7 @@ export default {
           title: "Owner's Section",
           name: "ownerSection",
           type: "string",
-          validation: Rule => Rule.required(),
+          validation: (Rule) => Rule.required(),
         },
       ],
     },
@@ -85,7 +85,7 @@ export default {
       title: "Thesis Content",
       name: "thesisContent",
       type: "array",
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
       of: [
         {
           type: "block",
