@@ -44,10 +44,10 @@ const Thesis = (e) => {
 
         <div className="flex flex-col gap-2 justify-center my-28">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {thesislist.length > 0 &&
-              thesislist.map((thesis, index) => (
+            {thesisList.length > 0 &&
+              thesisList.map((thesis, index) => (
                 <div key={index}>
-                  <thesiscard thesis={thesis} />
+                  <ThesisCard thesis={thesis} />
                 </div>
               ))}
 

@@ -4,6 +4,7 @@ import { usePrefetcer } from "../../components/Prefetcher";
 import TopGradient from "../../components/TopGradient";
 import { _Transition_Page } from "../../components/_Animations";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Awards = () => {
   const { awards } = usePrefetcer();

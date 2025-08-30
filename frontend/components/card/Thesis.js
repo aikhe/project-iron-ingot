@@ -1,22 +1,31 @@
-import { Card, CardBody, CardFooter, Chip } from '@material-tailwind/react';
+import { Card, CardBody, CardFooter, Chip } from "@material-tailwind/react";
 
-import Link from 'next/link';
-import { _Transition_Card } from '../_Animations';
-import dayjs from 'dayjs';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import Image from 'next/image';
+import Link from "next/link";
+import { _Transition_Card } from "../_Animations";
+import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import Image from "next/image";
 
 const titleCase = (str) => {
-  let split = str.toLowerCase().split(' ');
+  let split = str.toLowerCase().split(" ");
   for (let i = 0; i < split.length; i++) {
     split[i] = split[i][0].toUpperCase() + split[i].slice(1);
   }
-  return split.join(' ');
+  return split.join(" ");
 };
 
 const ThesisCard = ({ thesis }) => {
-  const { _id, _updatedAt, _createdAt, authors, title, tags, slug, headerImage } = thesis;
+  const {
+    _id,
+    _updatedAt,
+    _createdAt,
+    authors,
+    title,
+    tags,
+    slug,
+    headerImage,
+  } = thesis;
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,11 +67,11 @@ const ThesisCard = ({ thesis }) => {
                   .map((author) => {
                     return `${author.fullName.firstName} ${author.fullName.lastName}`;
                   })
-                  .join(', ')}
+                  .join(", ")}
               </p>
 
               <p className="z-10 text-sm text-grey-700">
-                {dayjs(_updatedAt).format('MMM DD, YYYY')}
+                {dayjs(_updatedAt).format("MMM DD, YYYY")}
               </p>
             </CardBody>
             <CardFooter className="flex justify-end flex-wrap gap-2 text-grey-600 ">

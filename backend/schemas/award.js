@@ -47,6 +47,7 @@ export default {
       title: "Recipients",
       name: "recipients",
       type: "array",
+      validation: (Rule) => Rule.required(),
       of: [
         {
           type: "reference",
@@ -60,10 +61,40 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      title: "Award Images",
+      name: "awardImages",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alternative text",
+              description: "Describe the image for accessibility",
+            },
+            {
+              name: "caption",
+              type: "string",
+              title: "Caption",
+              description: "Optional caption for the image",
+            },
+          ],
+        },
+      ],
+      validation: (Rule) => [
+        Rule.required().error("Award images are required"),
+        Rule.max(10).error("Maximum 10 images allowed"),
+      ],
+    },
+    {
       title: "Award Content",
       name: "awardContent",
       type: "array",
-      validation: (Rule) => Rule.required(),
       of: [
         {
           type: "block",
