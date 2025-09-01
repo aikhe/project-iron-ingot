@@ -21,6 +21,8 @@ export default {
         Rule.min(3).error("Award title must be at least 3 characters long"),
         Rule.max(200).error("Award title cannot exceed 200 characters"),
         Rule.custom((value) => {
+          if (!value) return true;
+
           // if title is only whitespace
           if (value && value.trim().length === 0) {
             return "Award title cannot be only whitespace";
@@ -47,6 +49,12 @@ export default {
       validation: (Rule) => [
         Rule.required().error("Slug is required"),
         Rule.custom((value) => {
+          if (!value) return true;
+
+          if (value.current.trim().length === 0) {
+            return "Slug cannot be only whitespace";
+          }
+
           // ensure slug follows proper format
           const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
           if (!slugPattern.test(value.current)) {
@@ -71,6 +79,8 @@ export default {
         Rule.min(2).error("Award category must be at least 2 characters long"),
         Rule.max(200).error("Award category cannot exceed 200 characters"),
         Rule.custom((value) => {
+          if (!value) return true;
+
           if (value.trim().length === 0) {
             return "Award category cannot be only whitespace";
           }
@@ -95,6 +105,8 @@ export default {
             Rule.min(2).error("Badge name must be at least 2 characters"),
             Rule.max(100).error("Badge name cannot exceed 100 characters"),
             Rule.custom((value) => {
+              if (!value) return true;
+
               if (value.trim().length === 0) {
                 return "Tag cannot be only whitespace";
               }
@@ -105,16 +117,17 @@ export default {
         },
       ],
       validation: (Rule) => [
-        Rule.required().error("At least one award badge is required"),
         Rule.min(1).error("At least one badge must be specified"),
         Rule.max(20).error("Maximum 20 badges allowed"),
         Rule.unique().error("No duplicate badges allowed"),
         Rule.custom((badges) => {
+          if (!badges) return true;
+
           const hasEmptyBadges = badges.some(
             (badge) => !badge || badge.trim().length === 0,
           );
           if (hasEmptyBadges) {
-            return "Badges cannot be empty or contain only whitespace";
+            return "Badges cannot be empty";
           }
 
           return true;
@@ -137,7 +150,6 @@ export default {
         },
       ],
       validation: (Rule) => [
-        Rule.required().error("At least one award recipient is required"),
         Rule.min(1).error("At least one recipient must be specified"),
         Rule.max(50).error("Maximum 50 recipients allowed"),
         Rule.unique().error("Recipients must be unique"),
@@ -196,6 +208,8 @@ export default {
       validation: (Rule) => [
         Rule.max(5000).error("Description cannot exceed 5000 characters"),
         Rule.custom((value) => {
+          if (!value) return true;
+
           if (value && value.trim().length === 0) {
             return "Description cannot be only whitespace";
           }
@@ -215,6 +229,8 @@ export default {
             Rule.min(2).error("Tag must be at least 2 characters long"),
             Rule.max(200).error("Tag cannot exceed 200 characters"),
             Rule.custom((value) => {
+              if (!value) return true;
+
               if (value.trim().length === 0) {
                 return "Tag cannot be only whitespace";
               }
@@ -225,16 +241,17 @@ export default {
         },
       ],
       validation: (Rule) => [
-        Rule.required().error("At least one tag is required"),
         Rule.min(1).error("At least one tag must be specified"),
         Rule.max(20).error("Maximum 20 tags allowed"),
         Rule.unique().error("No duplicate tags allowed"),
         Rule.custom((tags) => {
+          if (!tags) return true;
+
           const hasEmptyTags = tags.some(
             (tag) => !tag || tag.trim().length === 0,
           );
           if (hasEmptyTags) {
-            return "Tags cannot be empty or contain only whitespace";
+            return "Tags cannot be empty";
           }
 
           return true;
