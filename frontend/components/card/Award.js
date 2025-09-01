@@ -28,7 +28,6 @@ const AwardCard = ({ award }) => {
     recipients,
     images,
     date,
-    description,
     content,
     tags,
   } = award;

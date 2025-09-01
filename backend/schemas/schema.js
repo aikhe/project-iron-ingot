@@ -13,5 +13,5 @@ import recipient from "./documents/recipient";
 export default createSchema({
   name: "default",
 
-  types: schemaTypes.concat([blog, author, bulletin, thesis, recipient, award]),
+  types: schemaTypes.concat([blog, author, bulletin, thesis, award, recipient]),
 });
