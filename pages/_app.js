@@ -3,6 +3,10 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { PrefetcherWrapper } from "../components/Prefetcher";
+import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
+import { HiMoon, HiSun, HiSearch } from "react-icons/hi";
+import { Input } from "@/components/ui/input";
+import { Search } from "@geist-ui/icons";
 
 export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useState("dark");
@@ -13,6 +17,11 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, [theme]);
 
   useEffect(() => {
@@ -33,10 +42,11 @@ export default function App({ Component, pageProps }) {
           <title>Aikhe | Iron Ingot</title>
         </Head>
 
-        <header className="w-full relative">
+        <header className="w-full relative overflow-hidden">
+          <div className="stripe-banner absolute inset-0 z-0"></div>
           <div className="absolute top-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
           <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
-          <div className="z-[2] h-[4.8rem] grid grid-cols-12 gap-[1.2rem] items-center whitespace-nowrap font-mono font-medium tracking-[0.34%] text-[0.875rem] px-[2.4rem] text-[var(--color-text-muted)] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
+          <div className="relative z-[2] h-[4.8rem] grid grid-cols-12 gap-[1.2rem] items-center whitespace-nowrap font-mono font-normal tracking-[0.34%] text-[0.875rem] px-[2.4rem] text-[var(--color-text-muted)] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
             <div className="col-start-1 col-span-3 flex items-center gap-[0.8rem]">
               <Image
                 className="w-8 h-8 [filter:brightness(0)_invert(var(--logo-invert,0))]"
@@ -52,30 +62,111 @@ export default function App({ Component, pageProps }) {
             </div>
 
             {/* Centered Navigation Menu */}
-            <nav className="col-start-4 col-span-6 flex justify-center items-center gap-[2rem] font-sans text-[0.9375rem]">
+            <nav className="col-start-4 col-span-5 flex justify-center items-center gap-[2rem] font-sans text-[0.9375rem]">
               <div className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
                 <span>Blog</span>
-                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="10"
+                  height="6"
+                  viewBox="0 0 10 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 1L5 5L9 1"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </div>
-              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">Bulletin</div>
+              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
+                Bulletin
+              </div>
               <div className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
                 <span>Thesis</span>
-                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="10"
+                  height="6"
+                  viewBox="0 0 10 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 1L5 5L9 1"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </div>
-              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">Awards</div>
-              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">About</div>
+              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
+                Awards
+              </div>
+              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
+                About
+              </div>
             </nav>
 
-            <button
-              className="col-start-12 justify-self-end bg-none border-none text-[var(--color-text-muted)] font-mono text-[0.875rem] font-medium cursor-pointer p-0 transition-colors duration-150 hover:text-[var(--color-text)]"
-              onClick={toggleTheme}
-            >
-              MODE: {theme.toUpperCase()}
-            </button>
+            <div className="col-start-10 col-span-3 flex items-center justify-end gap-[1.2rem]">
+              <div
+                className="theme-switch"
+                onClick={toggleTheme}
+                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              >
+                <div className="theme-switch-thumb">
+                  {theme === "dark" ? (
+                    <HiMoon className="theme-switch-icon" />
+                  ) : (
+                    <HiSun className="theme-switch-icon" />
+                  )}
+                </div>
+              </div>
+
+              <div className="relative group/search w-full max-w-[167px] font-sans">
+                <Search
+                  className="absolute left-2 top-1/2 -translate-y-1/2 group-focus-within/search:text-[var(--color-text)] transition-colors duration-200"
+                  size={20}
+                  color="#8C8C8C"
+                />
+                <Input
+                  className="pl-8 pr-14 h-[42px] bg-[#1D1D1D] border-[#333333] rounded-[6px] focus-visible:ring-0 focus-visible:border-[var(--color-border-vivid)] transition-all placeholder:text-[#8C8C8C] placeholder:text-[1rem] text-[#8C8C8C] text-[1.125rem]"
+                  placeholder="Search"
+                />
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 px-[10px] py-[2px] border border-[#333333] rounded-[3px] bg-[var(--color-bg-secondary)] text-[0.8rem] text-[#8C8C8C] font-sans whitespace-nowrap">
+                  Ctrl K
+                </div>
+              </div>
+
+              <div className="flex items-center gap-[0.4rem] text-[#515151]">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
+                >
+                  <SiFacebook size={18} />
+                </a>
+                <a
+                  href="https://discord.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
+                >
+                  <SiDiscord size={18} />
+                </a>
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
+                >
+                  <SiGithub size={18} />
+                </a>
+              </div>
+            </div>
           </div>
         </header>
 
@@ -95,7 +186,10 @@ export default function App({ Component, pageProps }) {
           <div className="fixed inset-0 pointer-events-none z-[99999] flex justify-center">
             <div className="grid grid-cols-12 gap-[1.2rem] h-full max-w-[var(--container-max-width)] w-[var(--container-width)]">
               {Array.from({ length: 12 }).map((_, i) => (
-                <div key={i} className="bg-white/[0.03] dark:bg-white/[0.02] border-x border-white/[0.05] dark:border-white/[0.03]"></div>
+                <div
+                  key={i}
+                  className="bg-white/[0.03] dark:bg-white/[0.02] border-x border-white/[0.05] dark:border-white/[0.03]"
+                ></div>
               ))}
             </div>
           </div>
