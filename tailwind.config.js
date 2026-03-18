@@ -13,6 +13,7 @@ module.exports = withMT({
       fontFamily: {
         mono: ['"Geist Mono"', "monospace"],
         sans: ['"Geist"', "sans-serif"],
+        minecraft: ['"Minecraft"', "sans-serif"],
       },
 
     },

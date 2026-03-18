@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { PrefetcherWrapper } from "../components/Prefetcher";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
-import { HiMoon, HiSun, HiSearch } from "react-icons/hi";
+import { HiSun } from "react-icons/hi";
 import { Input } from "@/components/ui/input";
 import { Search } from "@geist-ui/icons";
 
@@ -120,10 +120,12 @@ export default function App({ Component, pageProps }) {
               >
                 <div className="theme-switch-thumb">
                   {theme === "dark" ? (
-                    <img
+                    <Image
                       src="/moon.svg"
-                      className="theme-switch-icon w-3.5 h-3.5"
+                      className="theme-switch-icon"
                       alt="moon"
+                      width={14}
+                      height={14}
                     />
                   ) : (
                     <HiSun className="theme-switch-icon" />
