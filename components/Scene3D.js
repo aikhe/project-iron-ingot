@@ -50,7 +50,7 @@ function createMarquee(count) {
     ctx.fillStyle = "#181818";
     ctx.fillRect(0, 0, w, canvas.height);
     ctx.font = `${fs}px "Minecraft", monospace`;
-    ctx.fillStyle = active ? "#ffffff" : "#444444";
+    ctx.fillStyle = active ? "#FF5154" : "#444444";
     ctx.textBaseline = "middle";
     ctx.fillText(text.toUpperCase(), 0, canvas.height / 2 + 4);
     textures.forEach((t) => (t.needsUpdate = true));

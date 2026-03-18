@@ -57,7 +57,7 @@ export default function HeroFooterStripe() {
     {
       src: "/stack/tailwindcss.svg",
       alt: "Tailwind",
-      w: "9rem",
+      w: "8.4rem",
       h: "1.8rem",
     },
     {
