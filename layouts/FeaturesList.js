@@ -34,14 +34,14 @@ export default function FeaturesList() {
     // Map latest (0-1) to indices (0, 1, 2)
     const index = Math.min(
       Math.floor(latest * features.length),
-      features.length - 1
+      features.length - 1,
     );
     // Clamp to at least 0
     setActiveIndex(Math.max(0, index));
   });
 
   return (
-    <div className="w-full font-sans mt-[4rem] mb-[6rem]">
+    <div className="w-full font-sans mt-[6rem] mb-[6rem]">
       <SecondaryStripe className="m-0" />
 
       <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
@@ -50,7 +50,7 @@ export default function FeaturesList() {
           <div></div>
 
           {/* Right Column: Features List */}
-          <div 
+          <div
             ref={containerRef}
             className="flex flex-col border-x border-dashed border-[#2A2A2A]"
           >
