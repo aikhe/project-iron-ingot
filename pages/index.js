@@ -2,7 +2,7 @@ import Head from "next/head";
 import Hero from "@/layouts/Hero";
 import HeroFooterStripe from "@/layouts/HeroFooterStripe";
 import CSBotSection from "@/layouts/CSBotSection";
-import SecondaryStripe from "@/layouts/SecondaryStripe";
+import FeaturesList from "@/layouts/FeaturesList";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       <Hero />
       <HeroFooterStripe />
       <CSBotSection />
-      <SecondaryStripe />
+      <FeaturesList />
     </>
   );
 }
