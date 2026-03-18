@@ -1,10 +1,31 @@
 import { useRef, useEffect, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Outlines, Edges } from "@react-three/drei";
 import * as THREE from "three";
 
 const W = 4,
   H = 1.1,
   D = 4;
+
+const BASE_ZOOM = 110;
+const BASE_WIDTH = 600;
+const BASE_HEIGHT = 800;
+
+/* ── Responsive zoom ────────────────────────────── */
+
+function ResponsiveZoom() {
+  const { camera, size } = useThree();
+
+  useEffect(() => {
+    const scaleW = size.width / BASE_WIDTH;
+    const scaleH = size.height / BASE_HEIGHT;
+    const scale = Math.min(scaleW, scaleH, 1);
+    camera.zoom = BASE_ZOOM * scale;
+    camera.updateProjectionMatrix();
+  }, [size.width, size.height, camera]);
+
+  return null;
+}
 
 /* ── Marquee canvas factory ──────────────────────── */
 
@@ -129,7 +150,7 @@ function EBoxMesh({
   const rot = useSpinOnActive(active, Math.PI * 2, 5, 1.5, 1);
   const mats = useMarquee(text, active, EBOX_SIDES);
 
-  const { ext, edges } = useMemo(() => {
+  const { ext } = useMemo(() => {
     const seg = D / 7,
       thk = seg,
       gap = 0.4;
@@ -160,7 +181,7 @@ function EBoxMesh({
     s.closePath();
 
     const ext = new THREE.ExtrudeGeometry(s, { depth: H, bevelEnabled: false });
-    return { ext, edges: new THREE.EdgesGeometry(ext, 15) };
+    return { ext };
   }, []);
 
   useFrame(() => {
@@ -183,14 +204,9 @@ function EBoxMesh({
           polygonOffsetFactor={2}
           polygonOffsetUnits={2}
         />
+        <Outlines color={col} thickness={3.4} />
+        <Edges color={col} threshold={15} />
       </mesh>
-      <lineSegments
-        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
-        position={[0, 0.55, 0]}
-        geometry={edges}
-      >
-        <lineBasicMaterial color={col} />
-      </lineSegments>
       {active && (
         <>
           <mesh position={[0, 0, D / 2]} material={mats[0]}>
@@ -234,9 +250,9 @@ function BoxMesh({
   const rot = useSpinOnActive(active, Math.PI, 3.4, 3, 1);
   const mats = useMarquee(text, active, BOX_SIDES);
 
-  const { box, edges } = useMemo(() => {
+  const { box } = useMemo(() => {
     const box = new THREE.BoxGeometry(W, H, D);
-    return { box, edges: new THREE.EdgesGeometry(box, 15) };
+    return { box };
   }, []);
 
   useFrame(() => {
@@ -255,10 +271,9 @@ function BoxMesh({
           polygonOffsetFactor={2}
           polygonOffsetUnits={2}
         />
+        <Outlines color={col} thickness={3.4} />
+        <Edges color={col} threshold={15} />
       </mesh>
-      <lineSegments geometry={edges}>
-        <lineBasicMaterial color={col} />
-      </lineSegments>
       {active && (
         <>
           <mesh position={[0, 0, D / 2]} material={mats[0]}>
@@ -297,7 +312,7 @@ export default function Scene3D({ activeIndex = 0 }) {
   return (
     <Canvas
       orthographic
-      camera={{ position: [10, 9, 10], zoom: 110, near: -100, far: 100 }}
+      camera={{ position: [10, 9, 10], zoom: BASE_ZOOM, near: -100, far: 100 }}
       onCreated={({ camera }) => {
         camera.lookAt(0, 0, 0);
         camera.updateProjectionMatrix();
@@ -305,6 +320,7 @@ export default function Scene3D({ activeIndex = 0 }) {
       gl={{ alpha: true, antialias: true }}
       style={{ background: "transparent" }}
     >
+      <ResponsiveZoom />
       <EBoxMesh position={[0, 1.3, 0]} active={activeIndex === 0} />
       <BoxMesh position={[0, 0, 0]} active={activeIndex === 1} />
       <BoxMesh
