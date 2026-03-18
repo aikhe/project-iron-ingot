@@ -9,7 +9,11 @@ module.exports = withMT({
         "nav-color": "var(--color-nav, #ffffff)",
         "button-texts-color": "var(--color-button-text, #ffffff)",
         "header-color": "var(--color-header, #fe4c4c)",
-      }
+      },
+      fontFamily: {
+        mono: ['"Geist Mono"', "monospace"],
+        sans: ['"Geist"', "sans-serif"],
+      },
 
     },
   },

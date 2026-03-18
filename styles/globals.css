@@ -1,43 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap");
+@import "tw-animate-css";
+@import "./base/_colors.css";
+@import "./layout/_containers.css";
+@import "./base/_typography.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─── CMS-driven CSS custom properties (defaults match original hardcoded values) ─── */
-:root {
-  --color-background: #0a0c10;
-  --color-button: #a50000;
-  --color-button-text: #ffffff;
-  --color-nav: #ffffff;
-  --color-header: #fe4c4c;
-  --color-theme: #d44694;
-  --color-scrollbar: #fae63a;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
 }
 
-* {
-  user-select: none;
+:root {
+  --font-sans: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+  font-family: var(--font-sans);
+  font-weight: 200;
+  letter-spacing: 0.34%;
+  color: var(--color-text);
 }
 
 body {
-  background: var(--color-background);
-  font-family: 'Quicksand', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg);
 }
 
-/* custom scrollbar */
-* {
-  scrollbar-width: auto;
-  scrollbar-color: #707070 var(--color-background);
+/* custom dashed borders */
+.border-dashed-long-h {
+  border-top: 1px dashed var(--color-border-dashed);
 }
-*::-webkit-scrollbar {
-  width: 5px;
-}
-*::-webkit-scrollbar-track {
-  background: #09090b;
-}
-*::-webkit-scrollbar-thumb {
-  background-color: var(--color-scrollbar);
-  border-radius: 10px;
-  border: 0px none #ffffff;
+
+.border-dashed-long-v {
+  border-left: 1px dashed var(--color-border-dashed);
 }
