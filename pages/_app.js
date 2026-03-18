@@ -6,11 +6,13 @@ import { PrefetcherWrapper } from "../components/Prefetcher";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { HiSun } from "react-icons/hi";
 import { Input } from "@/components/ui/input";
-import { Search } from "@geist-ui/icons";
+import { Search, X } from "@geist-ui/icons";
+import { motion } from "motion/react";
 
 export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useState("dark");
   const [showGrid, setShowGrid] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
 
   const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
   const toggleGrid = () => setShowGrid((s) => !s);
@@ -37,6 +39,46 @@ export default function App({ Component, pageProps }) {
   return (
     <PrefetcherWrapper>
       <div className="app-root">
+        {showBanner && (
+          <div className="w-full bg-[#FF3538] h-[2.5rem] flex items-center px-2 relative z-[100] transition-all duration-300 overflow-hidden group">
+            <motion.div
+              className="flex whitespace-nowrap gap-2 pr-12"
+              initial={{ x: "-50%" }}
+              animate={{ x: "0%" }}
+              transition={{ repeat: Infinity, ease: "linear", duration: 90 }}
+            >
+              {[...Array(2)].map((_, groupIndex) => (
+                <div key={groupIndex} className="flex items-center gap-4">
+                  {[...Array(2)].map((_, i) => (
+                    <div key={i} className="flex items-center gap-4">
+                      {[
+                        "📅 Thesis Milestones → Proposal • Implementation • Final Defense",
+                        "🎓 BSCS Graduation 2026! Stay updated with important announcements",
+                        "📚 Thesis 2026 : Deadlines, proposals, and final defense schedules",
+                        "🚀 Celebrate the BSCS Class of 2026",
+                      ].map((text, idx) => (
+                        <div key={idx} className="flex items-center gap-4">
+                          <span className="text-white font-sans font-medium text-[0.875rem]">
+                            {text}
+                          </span>
+                          <span className="text-white">✱</span>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </motion.div>
+            <button
+              onClick={() => setShowBanner(false)}
+              className="absolute right-0 h-full px-2 bg-[#FF3538] text-white hover:opacity-80 transition-opacity flex items-center justify-center z-10"
+              title="Close notification"
+            >
+              <X size={16} strokeWidth={2.5} />
+            </button>
+          </div>
+        )}
+
         <Head>
           <link rel="icon" href="/branding/logo.ico" />
           <title>Aikhe | Iron Ingot</title>

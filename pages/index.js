@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ArrowRight } from "@geist-ui/icons";
+import { ArrowRight } from "@geist-ui/icons";
 
 export default function Home() {
   return (
@@ -9,10 +9,10 @@ export default function Home() {
       <Head>
         <title>Aikhe | Iron Ingot</title>
       </Head>
-      <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[5rem] mt-[5rem] mb-[2rem] font-sans">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-[2rem] items-center">
+      <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[2.6rem] mb-[2rem] font-sans">
+        <div className="grid grid-cols-[1.1fr_1.05fr] gap-[2rem] items-center">
           {/* Left Column: Hero Content */}
-          <div className="flex flex-col items-start gap-2 lg:pr-[2rem]">
+          <div className="flex flex-col items-start gap-2 pr-[2rem] -mt-16">
             {/* Welcome Tag */}
             <div className="flex -ml-10 items-center gap-4">
               <div className="relative w-[180px] h-[180px]">
@@ -67,25 +67,39 @@ export default function Home() {
               <Button className="bg-[#333333] hover:bg-[#444444] text-[var(--color-text)] border-none h-[40px] px-4 rounded-[6px] font-sans font-medium text-[0.9375rem] transition-colors">
                 See whats new on the board
               </Button>
-              <Button className="bg-gradient-to-r from-[#FF3538] to-[#DE2528] hover:brightness-110 text-white border-none h-[40px] px-4 rounded-[6px] font-sans font-medium text-[0.9375rem] transition-all flex items-center gap-[0.6rem]">
-                2026 Thesis <ArrowRight size={18} />
-              </Button>
+              <div className="relative">
+                <Button className="bg-gradient-to-r from-[#FF3538] to-[#DE2528] hover:brightness-110 text-white border-none h-[40px] px-4 rounded-[6px] font-sans font-medium text-[0.9375rem] transition-all flex items-center gap-[0.6rem]">
+                  2026 Thesis <ArrowRight size={18} />
+                </Button>
+                <div className="absolute -top-[1.2rem] -right-[2.4rem] bg-white/60 rounded-[4px] px-[0.6rem] py-[0.1rem] rotate-[12deg] whitespace-nowrap pointer-events-none z-10 outline-[2px] outline-dashed outline-white">
+                  <span className="text-[#121212] font-sans font-medium text-[0.9rem] tracking-normal">
+                    Coming Soon!
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Right Column: Carousel Placeholder */}
-          <div className="relative w-full aspect-[4/3] bg-[#1D1D1D] rounded-[24px] flex flex-col justify-end p-8 mt-10 lg:mt-0">
+          <div className="relative w-full aspect-[3/3] bg-[#1D1D1D] rounded-[12px] p-4 flex flex-col items-center justify-end">
             {/* Pagination Dots Placeholder */}
             <div className="flex items-center justify-center gap-[0.6rem] mb-2 w-full">
               <div className="h-1.5 w-10 bg-[#444444] rounded-full"></div>
               <div className="h-1.5 w-12 bg-[#EFEFEF] rounded-full"></div>
               <div className="h-1.5 w-10 bg-[#444444] rounded-full"></div>
-              <div className="h-1.5 w-10 bg-[#444444] rounded-full"></div>
-              <div className="h-1.5 w-10 bg-[#444444] rounded-full"></div>
+              <div className="h-1.5 w-8 bg-[#444444] rounded-full"></div>
+              <div className="h-1.5 w-6 bg-[#444444] rounded-full"></div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Hero Footer Stripe */}
+      <div className="w-full relative h-[3.8rem] mt-[4rem] overflow-hidden">
+        <div className="stripe-banner absolute inset-0 z-0"></div>
+        <div className="absolute top-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
+        <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
+      </div>
     </>
   );
 }
