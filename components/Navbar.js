@@ -1,4 +1,4 @@
-﻿import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button, IconButton, Input, Tooltip } from "@material-tailwind/react";
 import { CgClose, CgMenu, CgSearch } from "react-icons/cg";
 import { useEffect, useState } from "react";

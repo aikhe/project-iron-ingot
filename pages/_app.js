@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { PrefetcherWrapper } from "../components/Prefetcher";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
@@ -11,6 +12,7 @@ import { Search, X } from "@geist-ui/icons";
 import { motion } from "motion/react";
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
   const [theme, setTheme] = useState("dark");
   const [showGrid, setShowGrid] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
@@ -36,6 +38,14 @@ export default function App({ Component, pageProps }) {
     window.addEventListener("keydown", handleKeydown);
     return () => window.removeEventListener("keydown", handleKeydown);
   }, []);
+
+  const navLinks = [
+    { href: "/blog", label: "Blog", hasChevron: true },
+    { href: "/bulletin", label: "Bulletin" },
+    { href: "/thesis", label: "Thesis", hasChevron: true },
+    { href: "/awards", label: "Awards" },
+    { href: "/about", label: "About" },
+  ];
 
   return (
     <PrefetcherWrapper>
@@ -91,7 +101,10 @@ export default function App({ Component, pageProps }) {
           <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
           <div className="relative z-[2] h-[4.8rem] flex items-center justify-between px-[1.4rem] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto font-mono font-normal tracking-[0.34%] text-[0.875rem] text-[var(--color-text-muted)]">
             {/* Logo Group */}
-            <Link href="/" className="flex items-center gap-[0.8rem] group cursor-pointer">
+            <Link
+              href="/"
+              className="flex items-center gap-[0.8rem] group cursor-pointer"
+            >
               <Image
                 className="w-8 h-8 [filter:brightness(0)_invert(var(--logo-invert,0))] group-hover:opacity-80 transition-opacity"
                 src="/branding/logo.svg"
@@ -107,51 +120,39 @@ export default function App({ Component, pageProps }) {
 
             {/* Absolutely Centered Navigation Menu */}
             <nav className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center gap-[2rem] font-sans text-[0.9375rem]">
-              <Link href="/blog" className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
-                <span>Blog</span>
-                <svg
-                  width="10"
-                  height="6"
-                  viewBox="0 0 10 6"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 1L5 5L9 1"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-              <Link href="/bulletin" className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
-                Bulletin
-              </Link>
-              <Link href="/thesis" className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
-                <span>Thesis</span>
-                <svg
-                  width="10"
-                  height="6"
-                  viewBox="0 0 10 6"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 1L5 5L9 1"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-              <Link href="/awards" className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
-                Awards
-              </Link>
-              <Link href="/about" className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
-                About
-              </Link>
+              {navLinks.map((link) => {
+                const isActive = router.pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`flex items-center gap-[0.4rem] cursor-pointer transition-colors duration-200 ${
+                      isActive
+                        ? "text-[#FF5154]"
+                        : "text-[var(--color-text-muted)] hover:text-[#FF5154]"
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                    {link.hasChevron && (
+                      <svg
+                        width="10"
+                        height="6"
+                        viewBox="0 0 10 6"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1 1L5 5L9 1"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Actions Group */}
