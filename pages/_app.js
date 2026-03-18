@@ -46,8 +46,9 @@ export default function App({ Component, pageProps }) {
           <div className="stripe-banner absolute inset-0 z-0"></div>
           <div className="absolute top-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
           <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
-          <div className="relative z-[2] h-[4.8rem] grid grid-cols-12 gap-[1.2rem] items-center whitespace-nowrap font-mono font-normal tracking-[0.34%] text-[0.875rem] px-[2.4rem] text-[var(--color-text-muted)] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
-            <div className="col-start-1 col-span-3 flex items-center gap-[0.8rem]">
+          <div className="relative z-[2] h-[4.8rem] flex items-center justify-between px-[1.4rem] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto font-mono font-normal tracking-[0.34%] text-[0.875rem] text-[var(--color-text-muted)]">
+            {/* Logo Group */}
+            <div className="flex items-center gap-[0.8rem]">
               <Image
                 className="w-8 h-8 [filter:brightness(0)_invert(var(--logo-invert,0))]"
                 src="/branding/logo.svg"
@@ -61,8 +62,8 @@ export default function App({ Component, pageProps }) {
               </span>
             </div>
 
-            {/* Centered Navigation Menu */}
-            <nav className="col-start-4 col-span-5 flex justify-center items-center gap-[2rem] font-sans text-[0.9375rem]">
+            {/* Absolutely Centered Navigation Menu */}
+            <nav className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center gap-[2rem] font-sans text-[0.9375rem]">
               <div className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
                 <span>Blog</span>
                 <svg
@@ -110,7 +111,8 @@ export default function App({ Component, pageProps }) {
               </div>
             </nav>
 
-            <div className="col-start-10 col-span-3 flex items-center justify-end gap-[1.2rem]">
+            {/* Actions Group */}
+            <div className="flex items-center justify-end gap-[1.2rem]">
               <div
                 className="theme-switch"
                 onClick={toggleTheme}
@@ -118,14 +120,18 @@ export default function App({ Component, pageProps }) {
               >
                 <div className="theme-switch-thumb">
                   {theme === "dark" ? (
-                    <HiMoon className="theme-switch-icon" />
+                    <img
+                      src="/moon.svg"
+                      className="theme-switch-icon w-3.5 h-3.5"
+                      alt="moon"
+                    />
                   ) : (
                     <HiSun className="theme-switch-icon" />
                   )}
                 </div>
               </div>
 
-              <div className="relative group/search w-full max-w-[167px] font-sans">
+              <div className="relative group/search w-full max-w-[156px] font-sans">
                 <Search
                   className="absolute left-2 top-1/2 -translate-y-1/2 group-focus-within/search:text-[var(--color-text)] transition-colors duration-200"
                   size={20}
@@ -135,19 +141,19 @@ export default function App({ Component, pageProps }) {
                   className="pl-8 pr-14 h-[42px] bg-[#1D1D1D] border-[#333333] rounded-[6px] focus-visible:ring-0 focus-visible:border-[var(--color-border-vivid)] transition-all placeholder:text-[#8C8C8C] placeholder:text-[1rem] text-[#8C8C8C] text-[1.125rem]"
                   placeholder="Search"
                 />
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 px-[10px] py-[2px] border border-[#333333] rounded-[3px] bg-[var(--color-bg-secondary)] text-[0.8rem] text-[#8C8C8C] font-sans whitespace-nowrap">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 px-[8px] py-[2px] border border-[#333333] rounded-[4px] bg-[var(--color-bg-secondary)] text-[0.8rem] text-[#8C8C8C] font-sans whitespace-nowrap">
                   Ctrl K
                 </div>
               </div>
 
-              <div className="flex items-center gap-[0.4rem] text-[#515151]">
+              <div className="flex items-center gap-[0.2rem] text-[#515151]">
                 <a
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
                 >
-                  <SiFacebook size={18} />
+                  <SiFacebook size={20} />
                 </a>
                 <a
                   href="https://discord.com"
@@ -155,7 +161,7 @@ export default function App({ Component, pageProps }) {
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
                 >
-                  <SiDiscord size={18} />
+                  <SiDiscord size={20} />
                 </a>
                 <a
                   href="https://github.com"
@@ -163,7 +169,7 @@ export default function App({ Component, pageProps }) {
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
                 >
-                  <SiGithub size={18} />
+                  <SiGithub size={20} />
                 </a>
               </div>
             </div>
