@@ -15,6 +15,7 @@ export default function Home() {
       <HeroFooterStripe />
       <CSBotSection />
       <FeaturesList />
+      <div className="h-[100vh] w-full" />
     </>
   );
 }

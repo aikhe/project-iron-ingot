@@ -1,3 +1,27 @@
+import { motion } from "motion/react";
+
+const LogoMask = ({ stack }) => (
+  <motion.div
+    variants={{
+      initial: { backgroundColor: "#3A3A3A" },
+      hover: { backgroundColor: "#EFEFEF" },
+    }}
+    transition={{ duration: 0.2, ease: "easeInOut" }}
+    style={{
+      width: stack.w,
+      height: stack.h,
+      maskImage: `url(${stack.src})`,
+      WebkitMaskImage: `url(${stack.src})`,
+      maskRepeat: "no-repeat",
+      WebkitMaskRepeat: "no-repeat",
+      maskSize: "contain",
+      WebkitMaskSize: "contain",
+      maskPosition: "center",
+      WebkitMaskPosition: "center",
+    }}
+  />
+);
+
 export default function HeroFooterStripe() {
   const stackLogos = [
     {
@@ -47,26 +71,34 @@ export default function HeroFooterStripe() {
       <div className="relative z-10 w-full h-full flex items-center justify-center">
         <div className="flex items-center h-full border-l border-dashed border-[#2A2A2A]">
           {stackLogos.map((stack, i) => (
-            <div
+            <motion.div
               key={i}
-              className="flex items-center justify-center px-6 h-full border-r border-dashed border-[#2A2A2A] group"
+              className="relative flex items-center justify-center px-6 h-full border-r border-dashed border-[#2A2A2A] overflow-hidden cursor-pointer"
+              initial="initial"
+              whileHover="hover"
             >
-              <div
-                className="transition-all duration-300 bg-[#3A3A3A] group-hover:bg-[#EFEFEF]"
-                style={{
-                  width: stack.w,
-                  height: stack.h,
-                  maskImage: `url(${stack.src})`,
-                  WebkitMaskImage: `url(${stack.src})`,
-                  maskRepeat: "no-repeat",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskSize: "contain",
-                  WebkitMaskSize: "contain",
-                  maskPosition: "center",
-                  WebkitMaskPosition: "center",
+              {/* Invisible spacer to maintain layout width exactly */}
+              <div style={{ width: stack.w, height: stack.h, opacity: 0 }} />
+              
+              {/* Animating container moving from 0 to -50% to show the cloned logo below */}
+              <motion.div
+                className="absolute top-0 left-0 w-full flex flex-col"
+                variants={{
+                  initial: { y: 0 },
+                  hover: { y: "-50%" },
                 }}
-              />
-            </div>
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+              >
+                {/* Original Logo taking exactly the visual bounds of the stripe */}
+                <div className="flex items-center justify-center w-full h-[3.2rem]">
+                  <LogoMask stack={stack} />
+                </div>
+                {/* Clone Logo sitting just underneath it */}
+                <div className="flex items-center justify-center w-full h-[3.2rem]">
+                  <LogoMask stack={stack} />
+                </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>
