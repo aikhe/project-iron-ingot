@@ -1,6 +1,9 @@
 import { useState, useRef } from "react";
 import { useScroll, useMotionValueEvent } from "motion/react";
+import dynamic from "next/dynamic";
 import SecondaryStripe from "./SecondaryStripe";
+
+const Scene3D = dynamic(() => import("../components/Scene3D"), { ssr: false });
 
 export default function FeaturesList() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -45,14 +48,16 @@ export default function FeaturesList() {
       <SecondaryStripe className="m-0" />
 
       <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
-        <div className="relative z-10 grid grid-cols-2 px-[10rem]">
-          {/* Left Column (Empty for alignment) */}
-          <div></div>
+        <div className="relative z-10 flex pl-[10rem]">
+          {/* Left Column: 3D Scene */}
+          <div className="flex-1 flex items-center justify-center pr-[4rem] min-h-[80vh] overflow-hidden">
+            <Scene3D activeIndex={activeIndex} />
+          </div>
 
           {/* Right Column: Features List */}
           <div
             ref={containerRef}
-            className="flex flex-col border-x border-dashed border-[#2A2A2A]"
+            className="shrink-0 flex flex-col border-x border-dashed border-[#2A2A2A] w-[42rem] mr-[10rem]"
           >
             {/* Stripe background block at the top */}
             <div className="relative min-h-[200px] border-b border-dashed border-[#2A2A2A] overflow-hidden">
