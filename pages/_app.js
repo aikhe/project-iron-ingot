@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { PrefetcherWrapper } from "../components/Prefetcher";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
@@ -90,9 +91,9 @@ export default function App({ Component, pageProps }) {
           <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
           <div className="relative z-[2] h-[4.8rem] flex items-center justify-between px-[1.4rem] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto font-mono font-normal tracking-[0.34%] text-[0.875rem] text-[var(--color-text-muted)]">
             {/* Logo Group */}
-            <div className="flex items-center gap-[0.8rem]">
+            <Link href="/" className="flex items-center gap-[0.8rem] group cursor-pointer">
               <Image
-                className="w-8 h-8 [filter:brightness(0)_invert(var(--logo-invert,0))]"
+                className="w-8 h-8 [filter:brightness(0)_invert(var(--logo-invert,0))] group-hover:opacity-80 transition-opacity"
                 src="/branding/logo.svg"
                 alt="Logo"
                 width={32}
@@ -102,11 +103,11 @@ export default function App({ Component, pageProps }) {
               <span className="whitespace-nowrap font-sans font-semibold text-[1.25rem] tracking-tight text-[var(--color-text)]">
                 uccingo
               </span>
-            </div>
+            </Link>
 
             {/* Absolutely Centered Navigation Menu */}
             <nav className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center gap-[2rem] font-sans text-[0.9375rem]">
-              <div className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
+              <Link href="/blog" className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
                 <span>Blog</span>
                 <svg
                   width="10"
@@ -123,11 +124,11 @@ export default function App({ Component, pageProps }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </div>
-              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
+              </Link>
+              <Link href="/bulletin" className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
                 Bulletin
-              </div>
-              <div className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
+              </Link>
+              <Link href="/thesis" className="flex items-center gap-[0.4rem] cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
                 <span>Thesis</span>
                 <svg
                   width="10"
@@ -144,13 +145,13 @@ export default function App({ Component, pageProps }) {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </div>
-              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
+              </Link>
+              <Link href="/awards" className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
                 Awards
-              </div>
-              <div className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
+              </Link>
+              <Link href="/about" className="cursor-pointer hover:text-[var(--color-text)] transition-colors duration-150">
                 About
-              </div>
+              </Link>
             </nav>
 
             {/* Actions Group */}

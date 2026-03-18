@@ -95,11 +95,99 @@ export default function Home() {
       </section>
 
       {/* Hero Footer Stripe */}
-      <div className="w-full relative h-[3.8rem] mt-[4rem] overflow-hidden">
+      <div className="w-full relative h-[3.2rem] mt-[4rem] overflow-hidden">
         <div className="stripe-banner absolute inset-0 z-0"></div>
-        <div className="absolute top-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
-        <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
+        <div className="absolute top-0 left-0 w-full border-dashed-long-h text-[#2A2A2A]"></div>
+        <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[#2A2A2A]"></div>
+
+        <div className="relative z-10 w-full h-full flex items-center justify-center">
+          <div className="flex items-center h-full border-l border-dashed border-[#2A2A2A]">
+            {[
+              {
+                src: "/stack/nextjs.svg",
+                alt: "Next.js",
+                w: "6rem",
+                h: "2rem",
+              },
+              {
+                src: "/stack/vercel.svg",
+                alt: "Vercel",
+                w: "6rem",
+                h: "1.2rem",
+              },
+              {
+                src: "/stack/sanity.svg",
+                alt: "Sanity",
+                w: "6.5rem",
+                h: "1.2rem",
+              },
+              {
+                src: "/stack/shadcn.svg",
+                alt: "Shadcn/UI",
+                w: "7.5rem",
+                h: "1.6rem",
+              },
+              {
+                src: "/stack/motion.svg",
+                alt: "Motion",
+                w: "7.5rem",
+                h: "0.8rem",
+              },
+              {
+                src: "/stack/tailwindcss.svg",
+                alt: "Tailwind",
+                w: "9rem",
+                h: "1rem",
+              },
+            ].map((stack, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-center px-6 h-full border-r border-dashed border-[#2A2A2A] group"
+              >
+                <div
+                  className="transition-all duration-300 bg-[#3A3A3A] group-hover:bg-[#EFEFEF]"
+                  style={{
+                    width: stack.w,
+                    height: stack.h,
+                    maskImage: `url(${stack.src})`,
+                    WebkitMaskImage: `url(${stack.src})`,
+                    maskRepeat: "no-repeat",
+                    WebkitMaskRepeat: "no-repeat",
+                    maskSize: "contain",
+                    WebkitMaskSize: "contain",
+                    maskPosition: "center",
+                    WebkitMaskPosition: "center",
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+
+      {/* CS Bot Section */}
+      <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[6rem] mb-[4rem] font-sans">
+        <div className="flex flex-col items-center justify-center text-center gap-[0.6rem]">
+          <div className="relative w-[200px] h-[200px]">
+            <Image
+              src="/cs-bot.png"
+              alt="CS Bot"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <h2 className="text-[2.5rem] font-bold text-[var(--color-text)] leading-[1.1] tracking-[0.34%] max-w-[20ch]">
+            See what{" "}
+            <span className="font-minecraft text-[#FF5154] font-normal">
+              Ingo
+            </span>{" "}
+            has to offer
+          </h2>
+          <p className="text-[#EFEFEF] text-[1.1rem] max-w-[50ch] leading-relaxed font-normal">
+            Explore projects, people, and the bscs community
+          </p>
+        </div>
+      </section>
     </>
   );
 }
