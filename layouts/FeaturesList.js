@@ -48,16 +48,16 @@ export default function FeaturesList() {
       <SecondaryStripe className="m-0" />
 
       <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
-        <div className="relative z-10 flex pl-[10rem]">
+        <div className="relative z-10 flex pointer-events-none">
           {/* Left Column: 3D Scene */}
-          <div className="flex-1 flex items-center justify-center pr-[4rem] min-h-[80vh] overflow-hidden">
+          <div className="absolute top-1/2 -translate-y-1/2 left-[2rem] right-[54rem] h-[80vh] flex items-center justify-center overflow-visible pointer-events-auto">
             <Scene3D activeIndex={activeIndex} />
           </div>
 
           {/* Right Column: Features List */}
           <div
             ref={containerRef}
-            className="shrink-0 flex flex-col border-x border-dashed border-[#2A2A2A] w-[42rem] mr-[10rem]"
+            className="shrink-0 ml-auto flex flex-col border-x border-dashed border-[#2A2A2A] w-[48rem] mr-[6rem] pointer-events-auto"
           >
             {/* Stripe background block at the top */}
             <div className="relative min-h-[200px] border-b border-dashed border-[#2A2A2A] overflow-hidden">

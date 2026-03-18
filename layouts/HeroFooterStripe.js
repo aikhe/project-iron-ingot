@@ -39,13 +39,13 @@ export default function HeroFooterStripe() {
     {
       src: "/stack/sanity.svg",
       alt: "Sanity",
-      w: "6.5rem",
+      w: "6rem",
       h: "1.2rem",
     },
     {
       src: "/stack/shadcn.svg",
       alt: "Shadcn/UI",
-      w: "7.5rem",
+      w: "7.6rem",
       h: "1.6rem",
     },
     {
@@ -58,7 +58,13 @@ export default function HeroFooterStripe() {
       src: "/stack/tailwindcss.svg",
       alt: "Tailwind",
       w: "9rem",
-      h: "1rem",
+      h: "1.8rem",
+    },
+    {
+      src: "/stack/threejs.svg",
+      alt: "Three.js",
+      w: "6rem",
+      h: "1.6rem",
     },
   ];
 
@@ -79,7 +85,7 @@ export default function HeroFooterStripe() {
             >
               {/* Invisible spacer to maintain layout width exactly */}
               <div style={{ width: stack.w, height: stack.h, opacity: 0 }} />
-              
+
               {/* Animating container moving from 0 to -50% to show the cloned logo below */}
               <motion.div
                 className="absolute top-0 left-0 w-full flex flex-col"
