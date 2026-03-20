@@ -51,7 +51,7 @@ export default function MeetCouncilOfficers() {
   };
 
   return (
-    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[4rem] mb-[4rem] font-sans">
+    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[3.4rem] mb-[2rem] font-sans">
       <div className="flex gap-[6rem]">
         {/* Executive Column */}
         <div className="flex flex-col">
@@ -74,10 +74,11 @@ export default function MeetCouncilOfficers() {
             <div className="flex gap-2">
               <Button
                 onClick={prev}
-                className={`w-10 h-10 flex items-center justify-center rounded-[4px] border-none shadow-none ${currentIndex === 0
-                  ? "bg-[#333333] text-gray-600 cursor-not-allowed"
-                  : "bg-[#F02E31] text-white hover:bg-[#F02E31]/90"
-                  }`}
+                className={`w-10 h-10 flex items-center justify-center rounded-[4px] border-none shadow-none ${
+                  currentIndex === 0
+                    ? "bg-[#333333] text-gray-600 cursor-not-allowed"
+                    : "bg-[#F02E31] text-white hover:bg-[#F02E31]/90"
+                }`}
                 disabled={currentIndex === 0}
               >
                 <svg
@@ -95,10 +96,11 @@ export default function MeetCouncilOfficers() {
               </Button>
               <Button
                 onClick={next}
-                className={`w-10 h-10 flex items-center justify-center rounded-[4px] border-none shadow-none ${currentIndex >= officersList.length - 1
-                  ? "bg-[#333333] text-gray-600 cursor-not-allowed"
-                  : "bg-[#F02E31] text-white hover:bg-[#F02E31]/90"
-                  }`}
+                className={`w-10 h-10 flex items-center justify-center rounded-[4px] border-none shadow-none ${
+                  currentIndex >= officersList.length - 1
+                    ? "bg-[#333333] text-gray-600 cursor-not-allowed"
+                    : "bg-[#F02E31] text-white hover:bg-[#F02E31]/90"
+                }`}
                 disabled={currentIndex >= officersList.length - 1}
               >
                 <svg

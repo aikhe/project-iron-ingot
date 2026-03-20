@@ -13,7 +13,7 @@ import MeetCouncilTicker from "@/layouts/MeetCouncilTicker";
 import MeetCouncilAdviser from "@/layouts/MeetCouncilAdviser";
 import MeetCouncilOfficers from "@/layouts/MeetCouncilOfficers";
 import MeetCouncilAbout from "@/layouts/MeetCouncilAbout";
-import MeetCouncilFAQ from "@/layouts/MeetCouncilFAQ";
+import FAQ from "@/layouts/FAQ";
 import HappyCodingSection from "@/layouts/HappyCodingSection";
 import Footer from "@/layouts/Footer";
 
@@ -34,13 +34,13 @@ export default function Home() {
       <SectionStripe className="mt-[4rem]" />
       <LatestOnIngo />
       <LatestOnIngoCards />
-      <SectionStripe className="mt-[6rem]" />
+      <SectionStripe className="mt-[5rem]" />
       <MeetCouncilTicker />
       <MeetCouncilAdviser />
       <MeetCouncilOfficers />
       <MeetCouncilAbout />
       <SectionStripe className="mt-[4rem]" />
-      <MeetCouncilFAQ />
+      <FAQ />
       <HappyCodingSection />
       <SectionStripe className="mt-0" />
       <Footer />

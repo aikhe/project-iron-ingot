@@ -61,7 +61,7 @@ export default function MeetCouncilTicker() {
   );
 
   return (
-    <div className="w-full bg-transparent h-[10rem] flex items-center overflow-hidden relative mt-[3.4rem]">
+    <div className="w-full bg-transparent h-[8rem] flex items-center overflow-hidden relative mt-[2.4rem]">
       <motion.div className="flex whitespace-nowrap gap-10" style={{ x }}>
         <TickerGroup />
         <TickerGroup />

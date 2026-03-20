@@ -8,34 +8,37 @@ export default function LatestOnIngoCards() {
       blogImage: "/vibe-bot.png",
       blogAlt: "Vibe Bot",
       blogTitle: "Blog",
-      blogDesc: "Explore expert articles, technical tutorials, and the latest trends in the ever-evolving field of computer science.",
+      blogDesc:
+        "Explore expert articles, technical tutorials, and the latest trends in the ever-evolving field of computer science.",
       articleTitle: "Introduction to Computer Science Program",
       articleAuthor: "By Jacqueline Porral, Justine Consulta on Jul 29, 2022",
       articleTags: ["COMPUTER NETWORKS"],
-      articleBg: "bg-[#242424]"
+      articleBg: "bg-[#242424]",
     },
     {
       id: 2,
       blogImage: "/thesis-bot.png",
       blogAlt: "Thesis Bot",
       blogTitle: "Thesis Showcase",
-      blogDesc: "Explore the latest senior research projects and innovations from our BSCS candidates.",
+      blogDesc:
+        "Explore the latest senior research projects and innovations from our BSCS candidates.",
       articleTitle: "CyKlas",
       articleAuthor: "By Prof. Joemen Barrios on Jul 27, 2022",
       articleTags: ["WEBSITE", "E-LEARNING", "EDUCATION"],
-      articleBg: "bg-[#242424]"
+      articleBg: "bg-[#242424]",
     },
     {
       id: 3,
       blogImage: "/bulletin-bot.png",
       blogAlt: "Bulletin Bot",
       blogTitle: "Information Board",
-      blogDesc: "Stay updated with important announcements, academic schedules, and program notices.",
+      blogDesc:
+        "Stay updated with important announcements, academic schedules, and program notices.",
       articleTitle: "MARK YOUR DATES! AUGUST 9 2024",
       articleAuthor: "By Genrey Cristobal on Aug 05, 2024",
       articleTags: ["RESUMPTION OF CLASSES"],
-      articleBg: "bg-[#242424]"
-    }
+      articleBg: "bg-[#242424]",
+    },
   ];
 
   return (
@@ -49,7 +52,9 @@ export default function LatestOnIngoCards() {
 
         // Internal content for the Blog Card (Image-based)
         const BlogCard = (
-          <div className={`${cardBaseClass} ${isEven ? "border-r" : "border-x"} group/card`}>
+          <div
+            className={`${cardBaseClass} ${isEven ? "border-r" : "border-x"} group/card`}
+          >
             <div className="p-[1.8rem] pb-0 text-left">
               <h3 className="text-[1.6rem] font-semibold text-white flex items-center gap-2 tracking-tight group cursor-pointer leading-none">
                 {row.blogTitle}{" "}
@@ -78,7 +83,9 @@ export default function LatestOnIngoCards() {
 
         // Internal content for the Article Card (Banner-based)
         const ArticleCard = (
-          <div className={`${cardBaseClass} ${isEven ? "border-x" : "border-r"}`}>
+          <div
+            className={`${cardBaseClass} ${isEven ? "border-x" : "border-r"}`}
+          >
             <div className="p-[1.8rem] pb-8 text-left">
               <h3 className="text-[1.6rem] font-semibold text-white leading-[1.2] tracking-wide mb-2 hover:text-[#FF5154] cursor-pointer transition-colors leading-tight">
                 {row.articleTitle}
@@ -88,10 +95,15 @@ export default function LatestOnIngoCards() {
               </p>
             </div>
 
-            <div className={`flex-1 relative overflow-hidden ${row.articleBg} group cursor-pointer`}>
+            <div
+              className={`flex-1 relative overflow-hidden ${row.articleBg} group cursor-pointer`}
+            >
               <div className="absolute bottom-6 left-6 z-10 flex items-center gap-2">
                 {row.articleTags.map((tag) => (
-                  <span key={tag} className="px-2 py-0.5 bg-[#333333] text-[#EFEFEF] text-[0.8rem] font-sans font-medium uppercase tracking-wide">
+                  <span
+                    key={tag}
+                    className="px-2 py-0.5 bg-[#333333] text-[#EFEFEF] text-[0.8rem] font-sans font-medium uppercase tracking-wide"
+                  >
                     {tag}
                   </span>
                 ))}

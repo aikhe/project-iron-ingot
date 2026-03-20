@@ -6,7 +6,7 @@ export default function AwardGallery() {
   const rayTopWidth = 50;
 
   return (
-    <section className="relative w-full flex flex-col items-center pt-8 pb-8 overflow-hidden">
+    <section className="relative w-full flex flex-col items-center pt-4 pb-2 overflow-hidden">
       {/* Robot Head */}
       <div className="relative z-30 mb-[-3.5rem]">
         <div className="relative w-[14rem] h-[14rem]">

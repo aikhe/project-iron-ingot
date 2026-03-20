@@ -3,8 +3,8 @@ import { ArrowRight } from "@geist-ui/icons";
 
 export default function MeetCouncilAbout() {
   return (
-    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mb-[8rem] font-sans">
-      <div className="flex flex-col items-center justify-center text-center gap-[1rem] cursor-pointer group">
+    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mb-[2rem] font-sans">
+      <div className="flex flex-col items-center justify-center text-center cursor-pointer group">
         {/* Robot Image */}
         <div className="relative w-[340px] h-[200px]">
           <Image

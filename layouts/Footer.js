@@ -31,9 +31,9 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="relative w-full overflow-hidden font-sans">
-      <div className="max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[9.5rem] pt-[3rem] pb-0 flex flex-col">
+      <div className="max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[9.5rem] pt-[2.8rem] pb-0 flex flex-col">
         {/* Main Grid Layout */}
-        <div className="grid grid-cols-[3.5fr_1fr_1.5fr_1fr_1fr] gap-[2rem] w-full pb-[4rem] mb-0">
+        <div className="grid grid-cols-[3.5fr_1fr_1.5fr_1fr_1fr] gap-[2rem] w-full pb-[2rem] mb-0">
           {/* Logo Column */}
           <div className="flex flex-col">
             <Link
@@ -88,7 +88,10 @@ export default function Footer() {
                       href={link.href}
                       className="text-[#8C8C8C] text-[1.1rem] font-normal hover:text-white transition-colors flex items-center gap-[0.8rem] leading-relaxed group"
                     >
-                      <Icon size={19} className="text-[#515151] group-hover:text-white transition-colors" />
+                      <Icon
+                        size={19}
+                        className="text-[#515151] group-hover:text-white transition-colors"
+                      />
                       {link.label}
                     </Link>
                   </li>
@@ -99,7 +102,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright Text */}
-        <div className="text-[0.8rem] font-sans font-medium tracking-wide text-[#434343] pb-[4rem]">
+        <div className="text-[0.8rem] font-sans font-medium tracking-wide text-[#434343] pb-[3.4rem]">
           @ 2026 CS Council and Technical Committee. All rights reserved
         </div>
       </div>

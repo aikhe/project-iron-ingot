@@ -62,13 +62,13 @@ const FAQItem = ({ faq, isOpen, onClick }) => {
 
       <AnimatePresence initial={false}>
         {isOpen && (
-            <motion.div
-              initial={{ height: 0 }}
-              animate={{ height: "auto" }}
-              exit={{ height: 0 }}
-              transition={{ duration: 0.2, ease: "circOut" }}
-            >
-            <div className="pb-[1.5rem] pt-0 text-[#8C8C8C] text-[1.1rem] leading-relaxed font-normal max-w-[85ch]">
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            exit={{ height: 0 }}
+            transition={{ duration: 0.2, ease: "circOut" }}
+          >
+            <div className="pb-[1.5rem] pt-0 text-[#8C8C8C] text-[1.1rem] leading-tight font-normal max-w-[85ch]">
               {faq.answer}
             </div>
           </motion.div>
@@ -78,11 +78,11 @@ const FAQItem = ({ faq, isOpen, onClick }) => {
   );
 };
 
-export default function MeetCouncilFAQ() {
+export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(-1);
 
   return (
-    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[4rem] mb-[8rem] font-sans">
+    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[3rem] mb-[6rem] font-sans">
       <div className="flex flex-col w-full max-w-[900px] mx-auto">
         {/* Header Section */}
         <div className="flex items-center gap-[0.8rem] mb-[2rem] -ml-[1.2rem]">

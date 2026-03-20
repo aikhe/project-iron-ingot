@@ -1,6 +1,6 @@
 export default function MeetCouncilAdviser() {
   return (
-    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[1.34rem] font-sans flex flex-col items-center">
+    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[1.4rem] font-sans flex flex-col items-center">
       <h3 className="text-[1.6rem] font-semibold text-white leading-tight tracking-wide mb-[1.5rem]">
         Adviser
       </h3>
