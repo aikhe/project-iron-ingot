@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Aikhe | Iron Ingot</title>
+        <title>Home | Ingo</title>
       </Head>
 
       <Hero />

@@ -105,8 +105,8 @@ export default function App({ Component, pageProps }) {
         )}
 
         <Head>
-          <link rel="icon" href="/branding/logo.ico" />
-          <title>Aikhe | Iron Ingot</title>
+          <link rel="icon" href="/favicon.ico" />
+          <title>Ingo</title>
         </Head>
 
         <motion.header 
