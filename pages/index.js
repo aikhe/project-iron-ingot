@@ -9,6 +9,7 @@ import AwardGallery from "@/layouts/AwardGallery";
 import AwardsFooterStripe from "@/layouts/AwardsFooterStripe";
 import LatestOnIngo from "@/layouts/LatestOnIngo";
 import LatestOnIngoCards from "@/layouts/LatestOnIngoCards";
+import LatestOnIngoFooterStripe from "@/layouts/LatestOnIngoFooterStripe";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
       <AwardsFooterStripe />
       <LatestOnIngo />
       <LatestOnIngoCards />
+      <LatestOnIngoFooterStripe />
       <div className="h-[100vh] w-full" />
     </>
   );
