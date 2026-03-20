@@ -13,6 +13,7 @@ import MeetCouncilTicker from "@/layouts/MeetCouncilTicker";
 import MeetCouncilAdviser from "@/layouts/MeetCouncilAdviser";
 import MeetCouncilOfficers from "@/layouts/MeetCouncilOfficers";
 import MeetCouncilAbout from "@/layouts/MeetCouncilAbout";
+import MeetCouncilFAQ from "@/layouts/MeetCouncilFAQ";
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
       <MeetCouncilOfficers />
       <MeetCouncilAbout />
       <SectionStripe className="mt-[4rem]" />
+      <MeetCouncilFAQ />
       <div className="h-[100vh] w-full" />
     </>
   );

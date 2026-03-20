@@ -9,13 +9,27 @@ import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { HiSun } from "react-icons/hi";
 import { Input } from "@/components/ui/input";
 import { Search, X } from "@geist-ui/icons";
-import { motion } from "motion/react";
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [theme, setTheme] = useState("dark");
   const [showGrid, setShowGrid] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
+  
+  const [yPos, setYPos] = useState(0);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    // Hide immediately when scrolling down
+    // Show back immediately when scrolling up
+    if (latest > previous && latest > 0) {
+      setYPos("-100%");
+    } else {
+      setYPos("0%");
+    }
+  });
 
   const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
   const toggleGrid = () => setShowGrid((s) => !s);
@@ -95,9 +109,18 @@ export default function App({ Component, pageProps }) {
           <title>Aikhe | Iron Ingot</title>
         </Head>
 
-        <header className="w-full relative overflow-hidden">
+        <motion.header 
+          className="w-full relative overflow-hidden z-[50]"
+          style={{
+            position: "sticky",
+            top: 0,
+            background: "var(--color-bg)",
+          }}
+          initial={{ y: 0 }}
+          animate={{ y: yPos }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
           <div className="stripe-banner absolute inset-0 z-0"></div>
-          <div className="absolute top-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
           <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
           <div className="relative z-[2] h-[4rem] flex items-center justify-between px-[1.4rem] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto font-mono font-normal tracking-[0.34%] text-[0.875rem] text-[var(--color-text-muted)]">
             {/* Logo Group */}
@@ -220,7 +243,7 @@ export default function App({ Component, pageProps }) {
               </div>
             </div>
           </div>
-        </header>
+        </motion.header>
 
         <div className="fixed inset-0 pointer-events-none z-[-1] flex justify-center">
           <div className="grid grid-cols-12 gap-[1.2rem] h-full max-w-[var(--container-max-width)] w-[var(--container-width)]">
