@@ -80,7 +80,7 @@ export default function LatestOnIngoCards() {
         const ArticleCard = (
           <div className={`${cardBaseClass} ${isEven ? "border-x" : "border-r"}`}>
             <div className="p-[1.8rem] pb-8 text-left">
-              <h3 className="text-[1.6rem] font-semibold text-white leading-[1.2] tracking-tight mb-2 hover:text-[#FF5154] cursor-pointer transition-colors leading-tight">
+              <h3 className="text-[1.6rem] font-semibold text-white leading-[1.2] tracking-wide mb-2 hover:text-[#FF5154] cursor-pointer transition-colors leading-tight">
                 {row.articleTitle}
               </h3>
               <p className="text-[#8C8C8C] text-[1.1rem] leading-tight font-normal">
