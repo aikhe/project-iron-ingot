@@ -50,14 +50,14 @@ export default function FeaturesList() {
       <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
         <div className="relative z-10 flex pointer-events-none">
           {/* Left Column: 3D Scene */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-[2rem] right-[54rem] h-[80vh] flex items-center justify-center overflow-visible pointer-events-auto">
+          <div className="absolute top-1/2 -translate-y-1/2 left-[4rem] right-[54rem] h-[80vh] flex items-center justify-center overflow-visible pointer-events-auto">
             <Scene3D activeIndex={activeIndex} />
           </div>
 
           {/* Right Column: Features List */}
           <div
             ref={containerRef}
-            className="shrink-0 ml-auto flex flex-col border-x border-dashed border-[#2A2A2A] w-[48rem] mr-[6rem] pointer-events-auto"
+            className="shrink-0 ml-auto flex flex-col border-x border-dashed border-[#2A2A2A] w-[42rem] mr-[10rem] pointer-events-auto"
           >
             {/* Stripe background block at the top */}
             <div className="relative min-h-[200px] border-b border-dashed border-[#2A2A2A] overflow-hidden">
@@ -72,16 +72,16 @@ export default function FeaturesList() {
                     isActive ? "bg-[#242424]" : "bg-[#1C1C1C]"
                   }`}
                 >
-                  <div className="flex justify-between items-start mb-2">
+                  <div className="flex justify-between items-start mb-3">
                     <span
-                      className={`font-minecraft text-[4rem] leading-none transition-colors duration-500 ${
+                      className={`font-minecraft text-[3.6rem] leading-none transition-colors duration-500 ${
                         isActive ? "text-[#EFEFEF]" : "text-[#434343]"
                       }`}
                     >
                       {feature.num}
                     </span>
                     <h3
-                      className={`text-[2rem] font-semibold text-right leading-none transition-colors duration-500 ${
+                      className={`text-[1.6rem] font-semibold text-right leading-none transition-colors duration-500 ${
                         isActive ? "text-[#EFEFEF]" : "text-[#434343]"
                       }`}
                     >
@@ -89,7 +89,7 @@ export default function FeaturesList() {
                     </h3>
                   </div>
                   <p
-                    className={`text-[1.1rem] leading-normal font-normal transition-colors duration-500 ${
+                    className={`text-[1.1rem] leading-tight font-normal transition-colors duration-500 ${
                       isActive ? "text-[#8C8C8C]" : "text-[#2A2A2A]"
                     }`}
                   >

@@ -54,35 +54,31 @@ export default function Hero() {
 
           {/* Description */}
           <p className="text-[#EFEFEF] text-[1rem] max-w-[40ch] leading-relaxed mb-4 font-normal">
-            Stay informed about the latest announcements, academic updates,
-            and important events happening in the BSCS program.
+            Stay informed about the latest announcements, academic updates, and
+            important events happening in the BSCS program.
           </p>
 
           {/* Buttons */}
           <div className="flex flex-wrap items-center gap-3">
-            <Button className="bg-[#333333] hover:bg-[#444444] text-[var(--color-text)] border-none h-[40px] px-4 rounded-[6px] font-sans font-medium text-[0.9375rem] transition-colors">
+            <Button className="bg-[#333333] hover:bg-[#444444] text-[var(--color-text)] border-none h-[40px] px-4 rounded-[4px] font-sans font-medium text-[0.9375rem] transition-colors">
               See whats new on the board
             </Button>
-            <motion.div 
-              className="relative"
-              initial="rest"
-              whileHover="hover"
-            >
-              <Button className="bg-gradient-to-r from-[#FF3538] to-[#DE2528] hover:brightness-110 text-white border-none h-[40px] px-4 rounded-[6px] font-sans font-medium text-[0.9375rem] transition-all flex items-center gap-[0.6rem]">
+            <motion.div className="relative" initial="rest" whileHover="hover">
+              <Button className="bg-gradient-to-r from-[#FF3538] to-[#DE2528] hover:brightness-110 text-white border-none h-[40px] px-4 rounded-[4px] font-sans font-medium text-[0.9375rem] transition-all flex items-center gap-[0.6rem]">
                 2026 Thesis <ArrowRight size={18} />
               </Button>
-              <motion.div 
-                className="absolute -top-[1.2rem] -right-[2.4rem] bg-white/60 rounded-[4px] px-[0.6rem] py-[0.1rem] whitespace-nowrap pointer-events-none z-10 outline-[2px] outline-dashed outline-white"
+              <motion.div
+                className="absolute -top-[1.2rem] -right-[2.4rem] bg-white/60 rounded-[2px] px-[0.6rem] py-[0.1rem] whitespace-nowrap pointer-events-none z-10 outline-[2px] outline-dashed outline-white"
                 variants={{
                   rest: { y: 0, rotate: 12 },
-                  hover: { 
-                    y: [0, -6, 0], 
-                    rotate: [12, 4, 20, 6, 18, 4, 20, 6, 18, 12], 
-                    transition: { 
+                  hover: {
+                    y: [0, -6, 0],
+                    rotate: [12, 4, 20, 6, 18, 4, 20, 6, 18, 12],
+                    transition: {
                       duration: 0.8,
-                      ease: "easeInOut"
-                    }
-                  }
+                      ease: "easeInOut",
+                    },
+                  },
                 }}
               >
                 <span className="text-[#121212] font-sans font-medium text-[0.9rem] tracking-normal">

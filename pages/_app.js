@@ -51,7 +51,7 @@ export default function App({ Component, pageProps }) {
     <PrefetcherWrapper>
       <div className="app-root">
         {showBanner && (
-          <div className="w-full bg-[#FF3538] h-[2.5rem] flex items-center px-2 relative z-[100] transition-all duration-300 overflow-hidden group">
+          <div className="w-full bg-[#FF3538] h-[2rem] flex items-center px-2 relative z-[100] transition-all duration-300 overflow-hidden group">
             <motion.div
               className="flex whitespace-nowrap gap-2 pr-12"
               initial={{ x: "-50%" }}
@@ -99,7 +99,7 @@ export default function App({ Component, pageProps }) {
           <div className="stripe-banner absolute inset-0 z-0"></div>
           <div className="absolute top-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
           <div className="absolute bottom-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
-          <div className="relative z-[2] h-[4.8rem] flex items-center justify-between px-[1.4rem] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto font-mono font-normal tracking-[0.34%] text-[0.875rem] text-[var(--color-text-muted)]">
+          <div className="relative z-[2] h-[4rem] flex items-center justify-between px-[1.4rem] max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto font-mono font-normal tracking-[0.34%] text-[0.875rem] text-[var(--color-text-muted)]">
             {/* Logo Group */}
             <Link
               href="/"
