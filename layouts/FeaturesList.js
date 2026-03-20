@@ -44,7 +44,7 @@ export default function FeaturesList() {
   });
 
   return (
-    <div className="w-full font-sans mt-[6rem] mb-[6rem]">
+    <div className="w-full font-sans mt-[6rem] mb-[4rem]">
       <SecondaryStripe className="m-0" />
 
       <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
