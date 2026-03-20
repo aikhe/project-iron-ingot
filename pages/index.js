@@ -14,6 +14,8 @@ import MeetCouncilAdviser from "@/layouts/MeetCouncilAdviser";
 import MeetCouncilOfficers from "@/layouts/MeetCouncilOfficers";
 import MeetCouncilAbout from "@/layouts/MeetCouncilAbout";
 import MeetCouncilFAQ from "@/layouts/MeetCouncilFAQ";
+import HappyCodingSection from "@/layouts/HappyCodingSection";
+import Footer from "@/layouts/Footer";
 
 export default function Home() {
   return (
@@ -39,7 +41,9 @@ export default function Home() {
       <MeetCouncilAbout />
       <SectionStripe className="mt-[4rem]" />
       <MeetCouncilFAQ />
-      <div className="h-[100vh] w-full" />
+      <HappyCodingSection />
+      <SectionStripe className="mt-0" />
+      <Footer />
     </>
   );
 }

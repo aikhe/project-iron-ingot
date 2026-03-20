@@ -42,7 +42,7 @@ const FAQItem = ({ faq, isOpen, onClick }) => {
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.2, ease: "circOut" }}
           className="text-[#8C8C8C] shrink-0 ml-4 group-hover:text-white transition-colors"
         >
           <svg
@@ -62,12 +62,12 @@ const FAQItem = ({ faq, isOpen, onClick }) => {
 
       <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            exit={{ height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: "auto" }}
+              exit={{ height: 0 }}
+              transition={{ duration: 0.2, ease: "circOut" }}
+            >
             <div className="pb-[1.5rem] pt-0 text-[#8C8C8C] text-[1.1rem] leading-relaxed font-normal max-w-[85ch]">
               {faq.answer}
             </div>

@@ -14,6 +14,8 @@ module.exports = withMT({
         mono: ['"Geist Mono"', "monospace"],
         sans: ['"Geist"', "sans-serif"],
         minecraft: ['"Minecraft"', "sans-serif"],
+        geistPixel: ['"GeistPixel Square"', "sans-serif"],
+        geistLine: ['"GeistPixel Line"', "sans-serif"],
       },
 
     },
