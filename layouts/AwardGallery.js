@@ -235,10 +235,14 @@ export default function AwardGallery() {
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
-  const handleMouseMove = (e) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
-  };
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
 
   useEffect(() => {
     let timer;
@@ -296,7 +300,6 @@ export default function AwardGallery() {
     <section
       ref={sectionRef}
       className="relative w-full flex flex-col items-center pt-4 pb-2 overflow-hidden"
-      onMouseMove={handleMouseMove}
     >
       {/* Custom Cursor Circle */}
       <motion.div

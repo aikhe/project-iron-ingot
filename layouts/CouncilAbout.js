@@ -17,10 +17,14 @@ export default function CouncilAbout() {
   const springX = useSpring(mouseX, springConfig);
   const springY = useSpring(mouseY, springConfig);
 
-  const handleMouseMove = (e) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
-  };
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
 
   // Delay cursor hiding to make it feel more natural
   useEffect(() => {
@@ -37,7 +41,6 @@ export default function CouncilAbout() {
   return (
     <section
       ref={sectionRef}
-      onMouseMove={handleMouseMove}
       className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mb-[2rem] font-sans py-[1.5rem] overflow-visible"
     >
       {/* Custom Cursor Circle */}
