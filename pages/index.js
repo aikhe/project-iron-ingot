@@ -9,15 +9,16 @@ import AwardGallery from "@/layouts/AwardGallery";
 import SectionStripe from "@/components/SectionStripe";
 import LatestOnIngo from "@/layouts/LatestOnIngo";
 import LatestOnIngoCards from "@/layouts/LatestOnIngoCards";
-import MeetCouncilTicker from "@/layouts/MeetCouncilTicker";
-import MeetCouncilAdviser from "@/layouts/MeetCouncilAdviser";
-import MeetCouncilOfficers from "@/layouts/MeetCouncilOfficers";
-import MeetCouncilAbout from "@/layouts/MeetCouncilAbout";
+import CouncilTicker from "@/layouts/CouncilTicker";
+import Council from "@/layouts/Council";
+import CouncilAbout from "@/layouts/CouncilAbout";
 import FAQ from "@/layouts/FAQ";
 import HappyCodingSection from "@/layouts/HappyCodingSection";
 import Footer from "@/layouts/Footer";
+import { usePrefetcher } from "@/components/Prefetcher";
 
 export default function Home() {
+  const { blogs, thesis, bulletins } = usePrefetcher();
   return (
     <>
       <Head>
@@ -33,12 +34,15 @@ export default function Home() {
       <AwardGallery />
       <SectionStripe className="mt-[4rem]" />
       <LatestOnIngo />
-      <LatestOnIngoCards />
+      <LatestOnIngoCards 
+        blog={blogs?.[0]} 
+        thesis={thesis?.[0]} 
+        bulletin={bulletins?.[0]} 
+      />
       <SectionStripe className="mt-[5rem]" />
-      <MeetCouncilTicker />
-      <MeetCouncilAdviser />
-      <MeetCouncilOfficers />
-      <MeetCouncilAbout />
+      <CouncilTicker />
+      <Council />
+      <CouncilAbout />
       <SectionStripe className="mt-[4rem]" />
       <FAQ />
       <HappyCodingSection />

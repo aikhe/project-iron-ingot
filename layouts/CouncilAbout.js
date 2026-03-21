@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowRight } from "@geist-ui/icons";
 
-export default function MeetCouncilAbout() {
+export default function CouncilAbout() {
   return (
     <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mb-[2rem] font-sans">
       <div className="flex flex-col items-center justify-center text-center cursor-pointer group">
