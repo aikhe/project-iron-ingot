@@ -1,15 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { client } from "@/lib/sanity";
 
-const OfficerCard = ({ name, role }) => (
+const COUNCIL_QUERY = `
+  *[_type == 'council' && isCurrent == true][0] {
+    "adviser": {
+      "name": adviser.name,
+      "photo": adviser.photo.asset->url
+    },
+    "president": {
+      "name": president.name,
+      "photo": president.photo.asset->url
+    },
+    "vicePresident": {
+      "name": vicePresident.name,
+      "photo": vicePresident.photo.asset->url
+    },
+    officers[] {
+      name, position,
+      "photo": photo.asset->url
+    }
+  }
+`;
+
+const OfficerCard = ({ name, role, photo }) => (
   <div className="flex flex-col min-w-[25rem] w-[25rem]">
-    <div className="relative w-full aspect-square bg-[#242424] border border-dashed border-[#8E8E8E] flex items-center justify-center mb-[1.2rem]">
+    <div className="relative w-full aspect-square bg-[#242424] border border-dashed border-[#8E8E8E] flex items-center justify-center mb-[1.2rem] overflow-hidden">
       {/* Corner alignment markers */}
-      <div className="absolute top-[-1px] left-[-1px] w-[8px] h-[8px] bg-[#FF5154]"></div>
-      <div className="absolute top-[-1px] right-[-1px] w-[8px] h-[8px] bg-[#FF5154]"></div>
-      <div className="absolute bottom-[-1px] left-[-1px] w-[8px] h-[8px] bg-[#FF5154]"></div>
-      <div className="absolute bottom-[-1px] right-[-1px] w-[8px] h-[8px] bg-[#FF5154]"></div>
+      <div className="absolute top-[-1px] left-[-1px] w-[8px] h-[8px] bg-[#FF5154] z-10"></div>
+      <div className="absolute top-[-1px] right-[-1px] w-[8px] h-[8px] bg-[#FF5154] z-10"></div>
+      <div className="absolute bottom-[-1px] left-[-1px] w-[8px] h-[8px] bg-[#FF5154] z-10"></div>
+      <div className="absolute bottom-[-1px] right-[-1px] w-[8px] h-[8px] bg-[#FF5154] z-10"></div>
+      {photo && (
+        <img
+          src={photo}
+          alt={name}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
     </div>
     <div className="flex flex-col items-start gap-1">
       <h4 className="text-[1.4rem] font-semibold text-white leading-tight tracking-wide truncate w-full">
@@ -23,20 +52,31 @@ const OfficerCard = ({ name, role }) => (
 );
 
 export default function Council() {
-  const executives = [
-    { name: "Gwyneth F. Uy", role: "President" },
-    { name: "Celest Jerez", role: "Vice President" },
-  ];
-
-  const officersList = [
-    { name: "Crystal Florano", role: "Secretary" },
-    { name: "John Aryan Balangeg", role: "Assistant Secretary" },
-    { name: "Miguel Santos", role: "Treasurer" },
-    { name: "Sophia Reyes", role: "Auditor" },
-    { name: "Aiden Cruz", role: "P.R.O." },
-  ];
-
+  const [council, setCouncil] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    client.fetch(COUNCIL_QUERY).then((data) => setCouncil(data));
+  }, []);
+
+  const adviser = council?.adviser;
+  const executives = [
+    council?.president && {
+      name: council.president.name,
+      role: "President",
+      photo: council.president.photo,
+    },
+    council?.vicePresident && {
+      name: council.vicePresident.name,
+      role: "Vice President",
+      photo: council.vicePresident.photo,
+    },
+  ].filter(Boolean);
+  const officersList = (council?.officers || []).map((o) => ({
+    name: o.name,
+    role: o.position,
+    photo: o.photo,
+  }));
 
   const next = () => {
     if (currentIndex < officersList.length - 1) {
@@ -58,20 +98,27 @@ export default function Council() {
           Adviser
         </h3>
 
-        <div className="relative w-full max-w-[28rem] aspect-square bg-[#242424] border border-dashed border-[#8E8E8E] flex items-center justify-center">
+        <div className="relative w-full max-w-[28rem] aspect-square bg-[#242424] border border-dashed border-[#8E8E8E] flex items-center justify-center overflow-hidden">
           {/* Corner alignment markers */}
-          <div className="absolute top-[-1px] left-[-1px] w-[8px] h-[8px] bg-[#FF5154]"></div>
-          <div className="absolute top-[-1px] right-[-1px] w-[8px] h-[8px] bg-[#FF5154]"></div>
-          <div className="absolute bottom-[-1px] left-[-1px] w-[8px] h-[8px] bg-[#FF5154]"></div>
-          <div className="absolute bottom-[-1px] right-[-1px] w-[8px] h-[8px] bg-[#FF5154]"></div>
+          <div className="absolute top-[-1px] left-[-1px] w-[8px] h-[8px] bg-[#FF5154] z-10"></div>
+          <div className="absolute top-[-1px] right-[-1px] w-[8px] h-[8px] bg-[#FF5154] z-10"></div>
+          <div className="absolute bottom-[-1px] left-[-1px] w-[8px] h-[8px] bg-[#FF5154] z-10"></div>
+          <div className="absolute bottom-[-1px] right-[-1px] w-[8px] h-[8px] bg-[#FF5154] z-10"></div>
+          {adviser?.photo && (
+            <img
+              src={adviser.photo}
+              alt={adviser.name}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
         </div>
 
         <div className="flex flex-col items-center mt-[1.2rem] gap-1">
           <h4 className="text-[1.6rem] font-semibold text-white leading-[1.2] tracking-wide">
-            Joemen G. Barrios
+            {adviser?.name || "—"}
           </h4>
           <p className="text-[#8C8C8C] text-[1rem] leading-relaxed font-normal">
-            CS Coordinator / Council Adviser
+            Council Adviser
           </p>
         </div>
       </section>
@@ -86,7 +133,12 @@ export default function Council() {
             </h3>
             <div className="flex gap-[1.5rem]">
               {executives.map((exec, idx) => (
-                <OfficerCard key={idx} name={exec.name} role={exec.role} />
+                <OfficerCard
+                  key={idx}
+                  name={exec.name}
+                  role={exec.role}
+                  photo={exec.photo}
+                />
               ))}
             </div>
           </div>
@@ -157,6 +209,7 @@ export default function Council() {
                     key={idx}
                     name={officer.name}
                     role={officer.role}
+                    photo={officer.photo}
                   />
                 ))}
               </motion.div>
