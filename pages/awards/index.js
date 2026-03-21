@@ -47,10 +47,17 @@ const Awards = () => {
   useEffect(() => {
     setLoading(true);
     client.fetch(QUERY).then((data) => {
-      setAwards(data || []);
+      const result = data || [];
+      setAwards(result);
       setLoading(false);
+
+      // Check if there's an ID in the query to open immediately
+      if (router.query.id) {
+        const award = result.find((a) => a._id === router.query.id);
+        if (award) setLightbox(award);
+      }
     });
-  }, []);
+  }, [router.query.id]);
 
   // Unique years derived from data
   const years = useMemo(() => {

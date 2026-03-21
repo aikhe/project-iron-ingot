@@ -113,7 +113,7 @@ function useMarquee(text, active, sides) {
     };
     apply(sys.update(text, active));
     document.fonts.ready.then(() => apply(sys.update(text, active)));
-  }, [text, active]);
+  }, [text, active, sides, sys]);
 
   useFrame((_, dt) => sys.textures.forEach((t) => (t.offset.x += dt * 0.08)));
 

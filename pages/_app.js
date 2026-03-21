@@ -16,7 +16,6 @@ export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useState("dark");
   const [showGrid, setShowGrid] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
-  
   const [yPos, setYPos] = useState(0);
   const { scrollY } = useScroll();
 
@@ -109,7 +108,7 @@ export default function App({ Component, pageProps }) {
           <title>Ingo</title>
         </Head>
 
-        <motion.header 
+        <motion.header
           className="w-full relative overflow-hidden z-[50]"
           style={{
             position: "sticky",

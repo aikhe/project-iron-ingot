@@ -34,10 +34,10 @@ export default function Home() {
       <AwardGallery />
       <SectionStripe className="mt-[4rem]" />
       <LatestOnIngo />
-      <LatestOnIngoCards 
-        blog={blogs?.[0]} 
-        thesis={thesis?.[0]} 
-        bulletin={bulletins?.[0]} 
+      <LatestOnIngoCards
+        blog={blogs?.[0]}
+        thesis={thesis?.[0]}
+        bulletin={bulletins?.[0]}
       />
       <SectionStripe className="mt-[5rem]" />
       <CouncilTicker />
