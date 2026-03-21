@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   CgArrowUp,
@@ -35,15 +36,13 @@ const QUERY = `
 // Year pill
 // ─────────────────────────────────────
 
-// ─────────────────────────────────────
-// Main page
-// ─────────────────────────────────────
 const Awards = () => {
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedYear, setSelectedYear] = useState("All");
   const [sortAsc, setSortAsc] = useState(false);
   const [lightbox, setLightbox] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true);

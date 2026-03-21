@@ -1,34 +1,25 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useInView } from "motion/react";
+import { motion, AnimatePresence, useMotionValue, useSpring, useInView } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "@geist-ui/icons";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { client } from "../lib/sanity";
 
-const awards = [
-  {
-    id: 1,
-    title: "Hack4Gov 2025",
-    description:
-      "Representing the University of Caloocan City (BS Computer Science) at the NCR Hack4Gov 2025 Competition.",
-    badges: ["HACK4GOV2025"],
-    year: "2025",
-  },
-  {
-    id: 2,
-    title: "Hack4Gov 2025",
-    description:
-      "Representing the University of Caloocan City (BS Computer Science) at the NCR Hack4Gov 2025 Competition.",
-    badges: ["HACK4GOV2025"],
-    year: "2025",
-  },
-  {
-    id: 3,
-    title: "Hack4Gov 2025",
-    description:
-      "Representing the University of Caloocan City (BS Computer Science) at the NCR Hack4Gov 2025 Competition.",
-    badges: ["HACK4GOV2025"],
-    year: "2025",
-  },
-];
+const AWARDS_QUERY = `
+  *[_type == 'award' && defined(headerImage)] | order(academicYear desc, dateAwarded desc) [0...10] {
+    _id,
+    "title": awardTitle,
+    "slug": slug.current,
+    "headerImage": headerImage.asset->url,
+    "images": awardImages[].asset->url,
+    "category": awardCategory,
+    "badges": awardBadges,
+    "description": awardDescription,
+    academicYear,
+    dateAwarded,
+    tags
+  }
+`;
 
 const positionConfig = {
   center: { scale: 1, x: "0%", zIndex: 20 },
@@ -38,41 +29,86 @@ const positionConfig = {
 
 const springTransition = { type: "spring", damping: 30, stiffness: 180 };
 
+const formatDescription = (text) => {
+  if (!text) return null;
+  const boldRegex = /([\uD835\uDC00-\uD835\uDC19\uD835\uDC1A-\uD835\uDC33\uD835\uDFCE-\uD835\uDFD7]+)/gu;
+
+  const diffUpper = 0x1D400 - 0x41;
+  const diffLower = 0x1D41A - 0x61;
+  const diffDigit = 0x1D7CE - 0x30;
+
+  const normalize = (str) => {
+    let result = '';
+    for (const char of str) {
+      const code = char.codePointAt(0);
+      if (code >= 0x1D400 && code <= 0x1D419) result += String.fromCharCode(code - diffUpper);
+      else if (code >= 0x1D41A && code <= 0x1D433) result += String.fromCharCode(code - diffLower);
+      else if (code >= 0x1D7CE && code <= 0x1D7D7) result += String.fromCharCode(code - diffDigit);
+      else result += char;
+    }
+    return result;
+  };
+
+  const parts = text.split(boldRegex);
+  return parts.map((part, i) => {
+    if (part.match(boldRegex)) {
+      return <strong key={i} className="font-bold text-white">{normalize(part)}</strong>;
+    }
+    return part;
+  });
+};
+
 function AwardCard({ award, position, onClick, onHover, isCursorHidden, isInView, isSwitching }) {
   const isCenter = position === "center";
   const config = positionConfig[position];
 
   return (
     <motion.div
-      onClick={!isCenter ? onClick : undefined}
-      onMouseEnter={() => !isCenter && onHover(position)}
-      onMouseLeave={() => !isCenter && onHover(null)}
-      className={`absolute top-0 w-[1000px] aspect-[16/9] ${
-        !isCenter ? (isCursorHidden ? "cursor-none" : "cursor-pointer") : ""
-      }`}
+      onClick={onClick}
+      onMouseEnter={() => onHover(isCenter ? "center" : position)}
+      onMouseLeave={() => onHover(null)}
+      className={`absolute top-0 w-[1000px] aspect-[16/9] ${isCursorHidden ? "cursor-none" : "cursor-pointer"
+        }`}
       animate={{ scale: config.scale, x: config.x }}
       transition={springTransition}
       style={{ zIndex: config.zIndex }}
     >
       {/* Main Card Wrapper */}
-      <motion.div 
+      <motion.div
         className="relative w-full overflow-hidden"
         initial={{ height: 2, opacity: 0 }}
         animate={{ height: isInView ? 562.5 : 2, opacity: isInView ? 1 : 0 }}
         transition={{
           duration: 0.55,
-          ease: [0.33, 1, 0.68, 1], // Expo ease matching the ray
-          delay: isInView ? 0.4 : 0, // Wait solidly for the ray to finish landing (starts at 0.05, ends at 0.35)
-          opacity: { duration: 0.05, delay: isInView ? 0.4 : 0 }, // Snap to visible ONLY when height starts growing
+          ease: [0.33, 1, 0.68, 1],
+          delay: isInView ? 0.4 : 0,
+          opacity: { duration: 0.05, delay: isInView ? 0.4 : 0 },
         }}
       >
         {/* The Actual Card Container */}
-        <div className="w-full h-full bg-[#242424] border border-[#5B5B5B] flex relative overflow-hidden">
+        <div className="w-full h-full bg-[#242424] flex relative overflow-hidden">
+          {/* Absolute border overlay to prevent clipping and stay above the image */}
+          <div className="absolute inset-0 border border-[#5B5B5B] pointer-events-none z-30" />
+          {/* Background Image from Sanity */}
+          {award.headerImage && (
+            <Image
+              src={award.headerImage}
+              alt={award.title}
+              fill
+              className="object-cover"
+              sizes="1000px"
+              priority={isCenter}
+            />
+          )}
+
+          {/* Text Overlay Gradient (Only covering the bottom) */}
+          <div className="absolute inset-x-0 bottom-0 top-1/3 bg-gradient-to-t from-[#121212] via-[#121212]/80 to-transparent z-10" />
+
           {/* Content Area */}
-          <div className="flex-1 p-8 flex flex-col justify-end relative z-10 bg-gradient-to-b from-[#141414]/[0.69] to-[#121212]">
+          <div className="flex-1 p-8 flex flex-col justify-end relative z-20">
             {isCenter && (
               <motion.div
-                key={award.id}
+                key={award._id}
                 initial="initial"
                 animate={isInView ? "animate" : "initial"}
                 variants={{
@@ -110,9 +146,9 @@ function AwardCard({ award, position, onClick, onHover, isCursorHidden, isInView
                       duration: 0.95,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className="text-[#EFEFEF] text-[1rem] leading-relaxed font-normal"
+                    className="text-[#EFEFEF] text-[1rem] leading-relaxed font-normal [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] overflow-hidden"
                   >
-                    {award.description}
+                    {formatDescription(award.description)}
                   </motion.p>
                 </div>
 
@@ -128,7 +164,12 @@ function AwardCard({ award, position, onClick, onHover, isCursorHidden, isInView
                     }}
                     className="flex items-center gap-2"
                   >
-                    {award.badges.map((badge) => (
+                    {award.category && (
+                      <div className="px-2 py-0.5 bg-[#333333] text-[#EFEFEF] text-[0.8rem] font-sans font-medium uppercase tracking-wide">
+                        {award.category}
+                      </div>
+                    )}
+                    {award.badges && award.badges.map((badge) => (
                       <div
                         key={badge}
                         className="px-2 py-0.5 bg-[#333333] text-[#EFEFEF] text-[0.8rem] font-sans font-medium uppercase tracking-wide"
@@ -136,9 +177,11 @@ function AwardCard({ award, position, onClick, onHover, isCursorHidden, isInView
                         {badge}
                       </div>
                     ))}
-                    <div className="px-2 py-0.5 bg-[#F02E31] text-[#EFEFEF] text-[0.8rem] font-sans font-medium tracking-wide">
-                      {award.year}
-                    </div>
+                    {award.academicYear && (
+                      <div className="px-2 py-0.5 bg-[#F02E31] text-[#EFEFEF] text-[0.8rem] font-sans font-medium tracking-wide">
+                        {award.academicYear}
+                      </div>
+                    )}
                   </motion.div>
                 </div>
               </motion.div>
@@ -157,14 +200,32 @@ function AwardCard({ award, position, onClick, onHover, isCursorHidden, isInView
 }
 
 export default function AwardGallery() {
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [awards, setAwards] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredSide, setHoveredSide] = useState(null);
   const [isCursorHidden, setIsCursorHidden] = useState(false);
   const [isRayVisible, setIsRayVisible] = useState(true);
   const [isSwitching, setIsSwitching] = useState(false);
+  const router = useRouter();
+
+  // Fetch awards from Sanity
+  useEffect(() => {
+    client.fetch(AWARDS_QUERY).then((data) => {
+      if (data && data.length > 0) {
+        setAwards(data);
+        // Find Hack4Gov award and set as initial middle card
+        const hackIndex = data.findIndex(a =>
+          a.title?.toLowerCase().includes("hack4gov")
+        );
+        if (hackIndex !== -1) {
+          setActiveIndex(hackIndex);
+        }
+      }
+    });
+  }, []);
 
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.15 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
 
   // Smooth mouse tracking
   const mouseX = useMotionValue(0);
@@ -203,12 +264,17 @@ export default function AwardGallery() {
   };
 
   const handleClick = (itemIndex) => {
+    if (itemIndex === activeIndex) {
+      router.push("/awards");
+      return;
+    }
+
     // Enable switching mode for faster text reveals
     setIsSwitching(true);
 
     // Hide ray immediately
     setIsRayVisible(false);
-    
+
     // Switch card
     setActiveIndex(itemIndex);
     setHoveredSide(null);
@@ -224,8 +290,10 @@ export default function AwardGallery() {
     }, 1500);
   };
 
+
+
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="relative w-full flex flex-col items-center pt-4 pb-2 overflow-hidden"
       onMouseMove={handleMouseMove}
@@ -238,25 +306,36 @@ export default function AwardGallery() {
           top: springY,
           pointerEvents: "none",
           zIndex: 9999,
-          width: "7.2rem",
-          height: "7.2rem",
+          overflow: "hidden",
         }}
         initial={{ scale: 0, x: "-50%", y: "-50%" }}
         animate={{
           scale: hoveredSide ? 1 : 0,
           x: "-50%",
           y: "-50%",
+          width: hoveredSide === "center" ? "11.2rem" : "7.2rem",
+          height: hoveredSide === "center" ? "2.6rem" : "7.2rem",
+          borderRadius: hoveredSide === "center" ? "6px" : "9999px",
         }}
         transition={{
           scale: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+          width: { duration: 0.3, ease: "easeOut" },
+          height: { duration: 0.3, ease: "easeOut" },
+          borderRadius: { duration: 0.3, ease: "easeOut" },
           x: { duration: 0 },
           y: { duration: 0 },
         }}
       >
-        <div className="w-full h-full rounded-full bg-gradient-to-r from-[#FF3538] to-[#DE2528] flex items-center justify-center text-white shadow-xl overflow-hidden p-3">
+        <div className="w-full h-full bg-gradient-to-r from-[#FF3538] to-[#DE2528] flex items-center justify-center text-white shadow-xl overflow-hidden px-2 py-1 gap-1">
           {/* left is physically on the right, right is physically on the left */}
           {hoveredSide === "left" && <ArrowRight size={44} strokeWidth={2.2} />}
           {hoveredSide === "right" && <ArrowLeft size={44} strokeWidth={2.2} />}
+          {hoveredSide === "center" && (
+            <>
+              <span className="font-semibold text-[1.05rem] whitespace-nowrap">See all awards</span>
+              <ArrowRight size={20} strokeWidth={2.4} />
+            </>
+          )}
         </div>
       </motion.div>
       {/* Robot Head */}
@@ -350,7 +429,7 @@ export default function AwardGallery() {
             if (!position) return null;
             return (
               <AwardCard
-                key={award.id}
+                key={award._id}
                 award={award}
                 position={position}
                 onClick={() => handleClick(i)}
