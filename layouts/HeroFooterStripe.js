@@ -6,7 +6,7 @@ const LogoMask = ({ stack }) => (
       initial: { backgroundColor: "#3A3A3A" },
       hover: { backgroundColor: "#EFEFEF" },
     }}
-    transition={{ duration: 0.2, ease: "easeInOut" }}
+    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
     style={{
       width: stack.w,
       height: stack.h,
@@ -93,7 +93,12 @@ export default function HeroFooterStripe() {
                   initial: { y: 0 },
                   hover: { y: "-50%" },
                 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 18,
+                  mass: 0.8,
+                }}
               >
                 {/* Original Logo taking exactly the visual bounds of the stripe */}
                 <div className="flex items-center justify-center w-full h-[3.2rem]">

@@ -32,6 +32,10 @@ export default function FeaturesList() {
     offset: ["start center", "end center"],
   });
 
+  const handleFeatureClick = (index) => {
+    setActiveIndex(index);
+  };
+
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     // latest goes from 0 to 1
     // Map latest (0-1) to indices (0, 1, 2)
@@ -44,14 +48,17 @@ export default function FeaturesList() {
   });
 
   return (
-    <div className="w-full font-sans mb-[4rem]">
+    <div className="w-full font-sans mb-[2rem]">
       <SecondaryStripe className="m-0" />
 
       <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
         <div className="relative z-10 flex pointer-events-none">
           {/* Left Column: 3D Scene */}
           <div className="absolute top-1/2 -translate-y-1/2 left-[4rem] right-[54rem] h-[80vh] flex items-center justify-center overflow-visible pointer-events-auto">
-            <Scene3D activeIndex={activeIndex} />
+            <Scene3D
+              activeIndex={activeIndex}
+              scrollYProgress={scrollYProgress}
+            />
           </div>
 
           {/* Right Column: Features List */}
@@ -68,7 +75,8 @@ export default function FeaturesList() {
               return (
                 <div
                   key={idx}
-                  className={`flex flex-col p-[2rem] border-b border-dashed border-[#2A2A2A] last:border-b-0 transition-colors duration-500 cursor-pointer ${
+                  onClick={() => handleFeatureClick(idx)}
+                  className={`feature-item flex flex-col p-[2rem] border-b border-dashed border-[#2A2A2A] last:border-b-0 transition-colors duration-500 cursor-pointer ${
                     isActive ? "bg-[#242424]" : "bg-[#1C1C1C]"
                   }`}
                 >

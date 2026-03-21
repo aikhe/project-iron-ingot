@@ -308,7 +308,46 @@ function BoxMesh({
 
 /* ── Exported scene wrapper ──────────────────────── */
 
-export default function Scene3D({ activeIndex = 0 }) {
+function SceneContent({ activeIndex, scrollYProgress }) {
+  const groupRef = useRef();
+
+  useFrame(() => {
+    if (groupRef.current && scrollYProgress) {
+      const p = scrollYProgress.get();
+      // Add a subtle smooth rotation/tilt based on scroll
+      // Y rotation follows scroll progress
+      // X tilt peaks at the middle of the scroll
+      const targetRotY = (p - 0.5) * Math.PI * 0.15;
+      const targetRotX = (p - 0.5) * 0.1;
+
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(
+        groupRef.current.rotation.y,
+        targetRotY,
+        0.1,
+      );
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(
+        groupRef.current.rotation.x,
+        targetRotX,
+        0.1,
+      );
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <ResponsiveZoom />
+      <EBoxMesh position={[0, 1.3, 0]} active={activeIndex === 0} />
+      <BoxMesh position={[0, 0, 0]} active={activeIndex === 1} />
+      <BoxMesh
+        position={[0, -1.3, 0]}
+        active={activeIndex === 2}
+        text="STUDENT COLLABORATIVE NETWORK"
+      />
+    </group>
+  );
+}
+
+export default function Scene3D({ activeIndex = 0, scrollYProgress }) {
   return (
     <Canvas
       orthographic
@@ -320,13 +359,9 @@ export default function Scene3D({ activeIndex = 0 }) {
       gl={{ alpha: true, antialias: true }}
       style={{ background: "transparent" }}
     >
-      <ResponsiveZoom />
-      <EBoxMesh position={[0, 1.3, 0]} active={activeIndex === 0} />
-      <BoxMesh position={[0, 0, 0]} active={activeIndex === 1} />
-      <BoxMesh
-        position={[0, -1.3, 0]}
-        active={activeIndex === 2}
-        text="STUDENT COLLABORATIVE NETWORK"
+      <SceneContent
+        activeIndex={activeIndex}
+        scrollYProgress={scrollYProgress}
       />
     </Canvas>
   );

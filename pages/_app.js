@@ -149,9 +149,9 @@ export default function App({ Component, pageProps }) {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`flex items-center gap-[0.4rem] cursor-pointer transition-colors duration-200 ${
+                    className={`nav-link flex items-center gap-[0.4rem] cursor-pointer transition-colors duration-200 ${
                       isActive
-                        ? "text-[#FF5154]"
+                        ? "active text-[#FF5154]"
                         : "text-[var(--color-text-muted)] hover:text-[#FF5154]"
                     }`}
                   >
