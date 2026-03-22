@@ -31,7 +31,7 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="relative w-full overflow-hidden font-sans">
-      <div className="max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[9.5rem] pt-[2.8rem] pb-0 flex flex-col">
+      <div className="section-container px-[9.5rem] pt-[2.8rem] pb-0 flex flex-col">
         {/* Main Grid Layout */}
         <div className="grid grid-cols-[3.5fr_1fr_1.5fr_1fr_1fr] gap-[2rem] w-full pb-[2rem] mb-0">
           {/* Logo Column */}
@@ -113,7 +113,7 @@ export default function Footer() {
         {/* Dashed Border right above the huge text */}
         <div className="absolute top-0 left-0 w-full border-dashed-long-h text-[var(--color-border-dashed)]"></div>
 
-        <div className="max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto h-full flex justify-center">
+        <div className="section-container h-full flex justify-center">
           <svg
             viewBox="0 -24 1000 140"
             className="w-full h-auto select-none pointer-events-none"

@@ -313,7 +313,7 @@ export default function LatestOnIngoCards({ blog, thesis, bulletin }) {
               idx === 0 ? "border-t" : "-mt-px"
             }`}
           >
-            <div className="relative max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto grid grid-cols-[12rem_1fr_1fr_12rem]">
+            <div className="relative section-container grid grid-cols-[12rem_1fr_1fr_12rem]">
               {/* Left Side Gutter (Stripe visible) */}
               <div className="border-l border-r border-dashed border-[#2A2A2A] relative z-0 overflow-hidden min-h-[480px]">
                 <div className="stripe-banner absolute inset-0"></div>
