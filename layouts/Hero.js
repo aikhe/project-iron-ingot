@@ -7,6 +7,9 @@ import HeroCarousel from "@/components/Home/Hero/HeroCarousel";
 export default function Hero() {
   return (
     <section className="relative section-container px-[6rem] mt-[2.6rem] mb-[2rem] font-sans">
+      {/* Background Ambient Glow - Positioned for no clipping & zoom stability */}
+      <div className="absolute top-[-6%] -left-[480px] w-[600px] h-[800px] rounded-full bg-gradient-to-br from-[#B9171A] to-[#FF3538] opacity-[0.16] blur-[134px] pointer-events-none -z-10" />
+
       <div className="grid grid-cols-[1.1fr_1.05fr] gap-[2rem] items-center">
         {/* Left Column: Hero Content */}
         <div className="flex flex-col items-start gap-2 pr-[2rem] -mt-16">

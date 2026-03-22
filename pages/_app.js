@@ -179,7 +179,7 @@ export default function App({ Component, pageProps }) {
 
             {/* Actions Group */}
             <div className="flex items-center justify-end gap-[1.2rem]">
-              <div
+              {/* <div
                 className="theme-switch"
                 onClick={toggleTheme}
                 title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
@@ -197,7 +197,7 @@ export default function App({ Component, pageProps }) {
                     <HiSun className="theme-switch-icon" />
                   )}
                 </div>
-              </div>
+              </div> */}
 
               <div className="relative group/search w-full max-w-[156px] font-sans">
                 <Search
@@ -219,7 +219,7 @@ export default function App({ Component, pageProps }) {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
+                  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-150 hover:text-[var(--color-text)]"
                 >
                   <SiFacebook size={20} />
                 </a>
@@ -227,7 +227,7 @@ export default function App({ Component, pageProps }) {
                   href="https://discord.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
+                  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-150 hover:text-[var(--color-text)]"
                 >
                   <SiDiscord size={20} />
                 </a>
@@ -235,7 +235,7 @@ export default function App({ Component, pageProps }) {
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full bg-[var(--color-bg-surface)] flex items-center justify-center transition-colors duration-150 hover:bg-[var(--color-bg-surface-hover)] hover:text-[var(--color-text)]"
+                  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-150 hover:text-[var(--color-text)]"
                 >
                   <SiGithub size={20} />
                 </a>
