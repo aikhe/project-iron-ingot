@@ -173,6 +173,68 @@ export default function App({ Component, pageProps }) {
                         : "text-[var(--color-text-muted)] hover:text-[#FF5154]"
                     }`;
 
+                    if (link.label === "Blog") {
+                      return (
+                        <NavigationMenuItem key={link.href}>
+                          <NavigationMenuTrigger hideIcon className={linkClass + " px-0 py-0 h-auto font-normal data-[state=open]:text-[#FF5154]"}>
+                            <span>{link.label}</span>
+                            {link.hasChevron && (
+                              <svg
+                                width="10"
+                                height="6"
+                                viewBox="0 0 10 6"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="transition-transform duration-300 group-data-[state=open]:-rotate-180"
+                              >
+                                <path
+                                  d="M1 1L5 5L9 1"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            )}
+                          </NavigationMenuTrigger>
+                          <NavigationMenuContent className="p-0 border-none bg-transparent shadow-none absolute top-full left-1/2 -translate-x-1/2 mt-[6px] data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
+                            <div className="relative pt-[12px] flex justify-center">
+                              {/* SVG Pointer precisely above the card */}
+                              <div className="absolute top-[3px] left-1/2 -translate-x-1/2 z-[51]">
+                                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M7.03688 2C8.57648 -0.66667 12.4255 -0.666667 13.9651 2L20.4603 13.25C21.9999 15.9167 20.0754 19.25 16.9962 19.25H4.00578C0.926581 19.25 -0.997917 15.9167 0.541684 13.25L7.03688 2Z" fill="#2A2A2A"/>
+                                </svg>
+                              </div>
+                              <div className="flex gap-[2.5rem] p-[1.2rem] px-[1.5rem] bg-[#2A2A2A] rounded-[10px] w-max select-none relative z-50">
+                                <div className="flex flex-col gap-[0.5rem] min-w-[200px]">
+                                  <span className="text-[#8C8C8C] text-sm mb-[0.1rem] font-medium">Blog Posts</span>
+                                {[
+                                  "AI Is Changing Dev Jobs",
+                                  "Small Habits, Big Results",
+                                  "How to Start Saving Money",
+                                  "Stay Consistent at the Gym",
+                                  "Take Back Your Time"
+                                ].map((item) => (
+                                  <Link key={item} href="#" className="text-[#EFEFEF] hover:text-[#FF5154] transition-colors text-[1rem]">
+                                    {item}
+                                  </Link>
+                                ))}
+                                <Link href="#" className="flex items-center gap-[0.4rem] text-[#8C8C8C] hover:text-[#EFEFEF] transition-colors text-[1rem] mt-1 group/more">
+                                  <div className="flex gap-[0.15rem]">
+                                    <span className="w-1 h-1 rounded-full bg-[#8C8C8C] group-hover/more:bg-[#EFEFEF] transition-colors"></span>
+                                    <span className="w-1 h-1 rounded-full bg-[#8C8C8C] group-hover/more:bg-[#EFEFEF] transition-colors"></span>
+                                    <span className="w-1 h-1 rounded-full bg-[#8C8C8C] group-hover/more:bg-[#EFEFEF] transition-colors"></span>
+                                  </div>
+                                  More
+                                </Link>
+                              </div>
+                              </div>
+                            </div>
+                          </NavigationMenuContent>
+                        </NavigationMenuItem>
+                      );
+                    }
+
                     if (link.label === "Thesis") {
                       return (
                         <NavigationMenuItem key={link.href}>
