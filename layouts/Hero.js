@@ -13,7 +13,7 @@ export default function Hero() {
           <div className="flex -ml-10 items-center gap-4">
             <div className="relative w-[180px] h-[180px]">
               <Image
-                src="/welcome-bot.png"
+                src="/mascot/welcome-bot.png"
                 alt="Welcome Bot"
                 fill
                 className="object-contain"

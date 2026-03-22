@@ -88,7 +88,7 @@ export default function FAQ() {
         <div className="flex items-center gap-[0.8rem] mb-[2rem] -ml-[1.2rem]">
           <div className="relative w-[110px] h-[110px]">
             <Image
-              src="/study-bot.png"
+              src="/mascot/study-bot.png"
               alt="Study Bot"
               fill
               className="object-contain"

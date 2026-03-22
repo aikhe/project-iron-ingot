@@ -114,7 +114,7 @@ export default function FeaturesList() {
         </div>
       </section>
 
-      <SecondaryStripe className="m-0" />
+      <Stripe className="m-0" />
     </div>
   );
 }

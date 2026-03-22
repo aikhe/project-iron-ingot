@@ -86,7 +86,7 @@ export default function CouncilAbout() {
             }}
           >
             <Image
-              src="/curious-bot.png"
+              src="/mascot/curious-bot.png"
               alt="Curious Bot"
               fill
               className="object-contain"
@@ -106,7 +106,7 @@ export default function CouncilAbout() {
           {/* Robot Image */}
           <div className="relative w-[340px] h-[200px]">
             <Image
-              src="/hero-bot.png"
+              src="/mascot/hero-bot.png"
               alt="Hero Bot"
               fill
               className="object-contain"

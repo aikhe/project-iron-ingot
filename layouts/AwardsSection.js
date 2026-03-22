@@ -82,7 +82,7 @@ export default function AwardsSection() {
             }}
           >
             <Image
-              src="/curious-bot.png"
+              src="/mascot/curious-bot.png"
               alt="Curious Bot"
               fill
               className="object-contain"

@@ -9,7 +9,7 @@ export default function HappyCodingSection() {
           {/* Graduation Bot Image */}
           <div className="relative w-[280px] h-[280px]">
             <Image
-              src="/grad-bot.png"
+              src="/mascot/grad-bot.png"
               alt="Graduation Bot"
               fill
               className="object-contain"

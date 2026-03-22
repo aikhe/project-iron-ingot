@@ -6,7 +6,7 @@ export default function CSBotSection() {
       <div className="flex flex-col items-center justify-center text-center gap-[0.6rem]">
         <div className="relative w-[200px] h-[200px]">
           <Image
-            src="/cs-bot.png"
+            src="/mascot/cs-bot.png"
             alt="CS Bot"
             fill
             className="object-contain"

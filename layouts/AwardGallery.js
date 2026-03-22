@@ -134,7 +134,7 @@ export default function AwardGallery() {
       <div className="relative z-30 mb-[-3.5rem]">
         <div className="relative w-[14rem] h-[14rem]">
           <Image
-            src="/awards-bot.png"
+            src="/mascot/awards-bot.png"
             alt="Award Bot"
             fill
             className="object-contain"
