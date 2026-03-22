@@ -1,6 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CgClose, CgArrowsExpandRight, CgCompressRight, CgSearch, CgChevronLeft } from "react-icons/cg";
+import {
+  CgClose,
+  CgArrowsExpandRight,
+  CgCompressRight,
+  CgSearch,
+  CgChevronLeft,
+} from "react-icons/cg";
 import {
   AiOutlineBook,
   AiOutlineInfoCircle,
@@ -26,7 +32,12 @@ function parseInline(text) {
   let buf = "";
   let k = 0;
 
-  const flush = () => { if (buf) { tokens.push(buf); buf = ""; } };
+  const flush = () => {
+    if (buf) {
+      tokens.push(buf);
+      buf = "";
+    }
+  };
 
   while (i < s.length) {
     // **bold**
@@ -34,7 +45,11 @@ function parseInline(text) {
       const end = s.indexOf("**", i + 2);
       if (end !== -1) {
         flush();
-        tokens.push(<strong key={k++} className="font-semibold text-gray-100">{s.slice(i + 2, end)}</strong>);
+        tokens.push(
+          <strong key={k++} className="font-semibold text-gray-100">
+            {s.slice(i + 2, end)}
+          </strong>,
+        );
         i = end + 2;
         continue;
       }
@@ -44,7 +59,11 @@ function parseInline(text) {
       const end = s.indexOf("*", i + 1);
       if (end !== -1 && s[end + 1] !== "*") {
         flush();
-        tokens.push(<em key={k++} className="italic text-gray-300">{s.slice(i + 1, end)}</em>);
+        tokens.push(
+          <em key={k++} className="italic text-gray-300">
+            {s.slice(i + 1, end)}
+          </em>,
+        );
         i = end + 1;
         continue;
       }
@@ -54,7 +73,14 @@ function parseInline(text) {
       const end = s.indexOf("`", i + 1);
       if (end !== -1) {
         flush();
-        tokens.push(<code key={k++} className="text-[11px] bg-gray-800 text-red-300 px-1 py-0.5 rounded font-mono">{s.slice(i + 1, end)}</code>);
+        tokens.push(
+          <code
+            key={k++}
+            className="text-[11px] bg-gray-800 text-red-300 px-1 py-0.5 rounded font-mono"
+          >
+            {s.slice(i + 1, end)}
+          </code>,
+        );
         i = end + 1;
         continue;
       }
@@ -72,9 +98,24 @@ const MarkdownText = ({ text }) => {
   return (
     <div className="flex flex-col gap-0.5">
       {lines.map((line, i) => {
-        if (line.startsWith("### ")) return <p key={i} className="font-semibold text-gray-200 mt-1">{parseInline(line.slice(4))}</p>;
-        if (line.startsWith("## "))  return <p key={i} className="font-bold text-gray-100 mt-1">{parseInline(line.slice(3))}</p>;
-        if (line.startsWith("# "))   return <p key={i} className="text-base font-bold text-gray-100 mt-1">{parseInline(line.slice(2))}</p>;
+        if (line.startsWith("### "))
+          return (
+            <p key={i} className="font-semibold text-gray-200 mt-1">
+              {parseInline(line.slice(4))}
+            </p>
+          );
+        if (line.startsWith("## "))
+          return (
+            <p key={i} className="font-bold text-gray-100 mt-1">
+              {parseInline(line.slice(3))}
+            </p>
+          );
+        if (line.startsWith("# "))
+          return (
+            <p key={i} className="text-base font-bold text-gray-100 mt-1">
+              {parseInline(line.slice(2))}
+            </p>
+          );
         if (line.startsWith("- ") || line.startsWith("• "))
           return (
             <div key={i} className="flex gap-1.5">
@@ -109,7 +150,7 @@ const StreamingMessage = ({ text, onDone }) => {
       }
     }, 16);
     return () => clearInterval(timer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   return <MarkdownText text={displayed} />;
@@ -134,7 +175,8 @@ const FLOW_TREE = {
           id: "thesis-browse",
           label: "Browse all theses",
           icon: AiOutlineUnorderedList,
-          message: "Show me all available thesis projects with their titles and tags",
+          message:
+            "Show me all available thesis projects with their titles and tags",
           quickAction: "browse-thesis",
         },
         {
@@ -277,9 +319,12 @@ const ChatThesisCard = ({ card, onNavigate }) => {
     <Link
       href={`/thesis/${card.slug}`}
       scroll={false}
-      onClick={() => { setNavigating(true); onNavigate?.(); }}
-      className="block mt-2 relative rounded-xl border border-white/10 bg-[#0f1218] hover:border-red-500/50 hover:bg-[#141720] transition-all group cursor-pointer overflow-hidden">
-
+      onClick={() => {
+        setNavigating(true);
+        onNavigate?.();
+      }}
+      className="block mt-2 relative rounded-xl border border-white/10 bg-[#0f1218] hover:border-red-500/50 hover:bg-[#141720] transition-all group cursor-pointer overflow-hidden"
+    >
       {/* Click-loading overlay */}
       {navigating && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 rounded-xl">
@@ -301,14 +346,18 @@ const ChatThesisCard = ({ card, onNavigate }) => {
       )}
       <div className="p-3.5">
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[9px] uppercase tracking-widest text-gray-500 font-semibold">Thesis</span>
+          <span className="text-[9px] uppercase tracking-widest text-gray-500 font-semibold">
+            Thesis
+          </span>
           {card.department && (
             <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 font-semibold">
               {card.department}
             </span>
           )}
           {card.academicYear && (
-            <span className="text-[9px] text-gray-600 ml-auto">{card.academicYear}</span>
+            <span className="text-[9px] text-gray-600 ml-auto">
+              {card.academicYear}
+            </span>
           )}
         </div>
 
@@ -334,7 +383,10 @@ const ChatThesisCard = ({ card, onNavigate }) => {
         {card.tags && card.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2.5">
             {card.tags.slice(0, 4).map((tag, i) => (
-              <span key={i} className="text-[10px] px-2 py-0.5 rounded-full bg-[#27292D] text-gray-400">
+              <span
+                key={i}
+                className="text-[10px] px-2 py-0.5 rounded-full bg-[#27292D] text-gray-400"
+              >
                 {tag}
               </span>
             ))}
@@ -347,33 +399,52 @@ const ChatThesisCard = ({ card, onNavigate }) => {
         )}
       </div>
       <div className="px-3.5 py-2 bg-[#0a0c10] border-t border-white/5 flex items-center justify-between">
-        <span className="text-[10px] text-gray-500 group-hover:text-red-400 transition-colors">View full thesis →</span>
-        <svg className="w-3 h-3 text-gray-600 group-hover:text-red-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <span className="text-[10px] text-gray-500 group-hover:text-red-400 transition-colors">
+          View full thesis →
+        </span>
+        <svg
+          className="w-3 h-3 text-gray-600 group-hover:text-red-400 transition-colors"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
       </div>
-
     </Link>
   );
 };
 
-const BotMessage = ({ text, cards, isFullscreen, isStreaming, onStreamDone, onNavigate }) => (
+const BotMessage = ({
+  text,
+  cards,
+  isFullscreen,
+  isStreaming,
+  onStreamDone,
+  onNavigate,
+}) => (
   <div className="flex flex-col gap-1 w-full">
-    <div className={`${isFullscreen ? "max-w-2xl" : "max-w-[85%]"} px-3 py-2 rounded-xl rounded-bl-sm bg-[#1a1d24] text-gray-200 text-sm leading-relaxed`}>
-      {isStreaming
-        ? <StreamingMessage text={text} onDone={onStreamDone} />
-        : <MarkdownText text={text} />
-      }
+    <div
+      className={`${isFullscreen ? "max-w-2xl" : "max-w-[85%]"} px-3 py-2 rounded-xl rounded-bl-sm bg-[#1a1d24] text-gray-200 text-sm leading-relaxed`}
+    >
+      {isStreaming ? (
+        <StreamingMessage text={text} onDone={onStreamDone} />
+      ) : (
+        <MarkdownText text={text} />
+      )}
     </div>
     {/* Cards reveal only after streaming finishes */}
     {!isStreaming && cards && cards.length > 0 && (
-      <div className={
-        isFullscreen && cards.length > 1
-          ? "max-w-2xl grid grid-cols-2 gap-2"
-          : isFullscreen
-            ? "w-72 flex flex-col gap-2"
-            : "max-w-[85%] flex flex-col gap-2"
-      }>
+      <div
+        className={
+          isFullscreen && cards.length > 1
+            ? "max-w-2xl grid grid-cols-2 gap-2"
+            : isFullscreen
+              ? "w-72 flex flex-col gap-2"
+              : "max-w-[85%] flex flex-col gap-2"
+        }
+      >
         {cards.map((card, i) => (
           <ChatThesisCard key={i} card={card} onNavigate={onNavigate} />
         ))}
@@ -387,9 +458,18 @@ const ThinkingIndicator = () => (
     <div className="bg-[#1a1d24] text-gray-400 px-4 py-2.5 rounded-xl rounded-bl-sm text-sm flex items-center gap-2">
       <span className="text-xs text-gray-500">Thinking</span>
       <span className="flex gap-0.5">
-        <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0ms", animationDuration: "0.8s" }} />
-        <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "200ms", animationDuration: "0.8s" }} />
-        <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "400ms", animationDuration: "0.8s" }} />
+        <span
+          className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"
+          style={{ animationDelay: "0ms", animationDuration: "0.8s" }}
+        />
+        <span
+          className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"
+          style={{ animationDelay: "200ms", animationDuration: "0.8s" }}
+        />
+        <span
+          className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"
+          style={{ animationDelay: "400ms", animationDuration: "0.8s" }}
+        />
       </span>
     </div>
   </div>
@@ -440,8 +520,8 @@ const FlowButtons = ({ node, onSelect, onBack, canGoBack }) => (
 const ChatBot = () => {
   const { siteConfig } = usePrefetcher() || {};
   const chatbotName = siteConfig?.chatbotName || "Ingo Assistant";
-  const chatbotIcon = siteConfig?.chatbotIcon || null;
-  const defaultWelcome = "Hi, I'm the Ingo Assistant. Use the buttons below to explore, or type a question directly.";
+  const defaultWelcome =
+    "Hi, I'm the Ingo Assistant. Use the buttons below to explore, or type a question directly.";
 
   const [isOpen, setIsOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -451,13 +531,15 @@ const ChatBot = () => {
 
   // Set welcome message once siteConfig is available
   useEffect(() => {
-    if (!welcomeSet.current && (siteConfig !== undefined)) {
+    if (!welcomeSet.current && siteConfig !== undefined) {
       welcomeSet.current = true;
-      setMessages([{
-        role: "bot",
-        text: siteConfig?.chatbotWelcomeMessage?.trim() || defaultWelcome,
-        cards: [],
-      }]);
+      setMessages([
+        {
+          role: "bot",
+          text: siteConfig?.chatbotWelcomeMessage?.trim() || defaultWelcome,
+          cards: [],
+        },
+      ]);
     }
   }, [siteConfig]);
   const [input, setInput] = useState("");
@@ -484,7 +566,12 @@ const ChatBot = () => {
   };
 
   // Clean up timer on unmount
-  useEffect(() => () => { if (cooldownRef.current) clearInterval(cooldownRef.current); }, []);
+  useEffect(
+    () => () => {
+      if (cooldownRef.current) clearInterval(cooldownRef.current);
+    },
+    [],
+  );
 
   // Guided flow state
   const [flowPath, setFlowPath] = useState([]); // stack of node ids for back navigation
@@ -503,7 +590,9 @@ const ChatBot = () => {
     el.style.height = Math.min(el.scrollHeight, 128) + "px";
   }, []);
 
-  useEffect(() => { autoResize(); }, [input, autoResize]);
+  useEffect(() => {
+    autoResize();
+  }, [input, autoResize]);
 
   // Escape key closes the chat
   useEffect(() => {
@@ -558,26 +647,50 @@ const ChatBot = () => {
         startCooldown(wait);
         setMessages((prev) => {
           setStreamingMsgIdx(prev.length);
-          return [...prev, { role: "bot", text: data.reply, cards: [], isError: true }];
+          return [
+            ...prev,
+            { role: "bot", text: data.reply, cards: [], isError: true },
+          ];
         });
       } else if (res.ok) {
         // Minimum 3s cooldown between every message
         startCooldown(3);
         setMessages((prev) => {
           setStreamingMsgIdx(prev.length);
-          return [...prev, { role: "bot", text: data.reply, cards: data.cards || [], warning: data.warning || null }];
+          return [
+            ...prev,
+            {
+              role: "bot",
+              text: data.reply,
+              cards: data.cards || [],
+              warning: data.warning || null,
+            },
+          ];
         });
       } else {
         startCooldown(3);
         setMessages((prev) => {
           setStreamingMsgIdx(prev.length);
-          return [...prev, { role: "bot", text: data.reply || "Something went wrong. Please try again.", cards: [], isError: true }];
+          return [
+            ...prev,
+            {
+              role: "bot",
+              text: data.reply || "Something went wrong. Please try again.",
+              cards: [],
+              isError: true,
+            },
+          ];
         });
       }
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: "Could not connect. Please try again later.", cards: [], isError: true },
+        {
+          role: "bot",
+          text: "Could not connect. Please try again later.",
+          cards: [],
+          isError: true,
+        },
       ]);
     } finally {
       setIsLoading(false);
@@ -590,7 +703,10 @@ const ChatBot = () => {
   const handleFlowSelect = (node) => {
     // If it's a leaf with a direct message → send immediately
     if (node.message) {
-      setMessages((prev) => [...prev, { role: "user", text: node.message, cards: [] }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", text: node.message, cards: [] },
+      ]);
       sendToAPI(node.message, node.quickAction || null);
       return;
     }
@@ -632,12 +748,18 @@ const ChatBot = () => {
       const finalMessage = flowInputNode.messageTemplate
         ? flowInputNode.messageTemplate(userMessage)
         : userMessage;
-      setMessages((prev) => [...prev, { role: "user", text: finalMessage, cards: [] }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", text: finalMessage, cards: [] },
+      ]);
       sendToAPI(finalMessage, flowInputNode.quickAction || null);
       setFlowInputNode(null);
     } else {
       // Freeform message — bypass flow
-      setMessages((prev) => [...prev, { role: "user", text: userMessage, cards: [] }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", text: userMessage, cards: [] },
+      ]);
       sendToAPI(userMessage);
     }
   };
@@ -653,33 +775,43 @@ const ChatBot = () => {
       {/* ── Floating Action Button ── */}
       <AnimatePresence>
         {!isOpen && (
-          <motion.button
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            transition={{ duration: 0.18, delay: isOpen ? 0 : 0.06 }}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsOpen(true)}
-            className={`fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full text-white flex items-center justify-center shadow-lg shadow-red-900/30 hover:shadow-xl hover:shadow-red-900/40 transition-shadow overflow-hidden ${
-              chatbotIcon ? "" : "bg-gradient-to-br from-red-600 to-red-800"
-            }`}
-            aria-label="Open chat"
-          >
-            {chatbotIcon ? (
-              <div className="w-full h-full relative">
-                <Image src={chatbotIcon} alt={chatbotName} fill style={{ objectFit: "cover" }} sizes="48px" />
-                {/* Green online indicator */}
-                <span className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-green-400 border-2 border-[#0e1015] shadow" />
-              </div>
-            ) : (
-              <>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
-              </>
-            )}
-          </motion.button>
+          <div className="fixed bottom-5 right-5 z-50 flex items-center justify-center w-[4.25rem] h-[4.25rem] pointer-events-none">
+            {/* Background Ambient Glow (Hero Style) */}
+            <motion.div
+              initial={{ scale: 0, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 0.2, y: 100 }}
+              exit={{ scale: 0, opacity: 0, y: 30 }}
+              transition={{ duration: 0.4, delay: isOpen ? 0 : 0.1 }}
+              className="absolute -inset-[100px] bg-gradient-to-br from-[#B9171A] to-[#FF3538] rounded-full blur-[134px] pointer-events-none"
+            />
+            {/* Glow Background */}
+            <motion.div
+              animate={{ scale: 1, opacity: 0.6, y: 4.3 }}
+              exit={{ scale: 0, opacity: 0, y: 40 }}
+              transition={{ duration: 0.18, delay: isOpen ? 0 : 0.06 }}
+              className="absolute inset-0 bg-[linear-gradient(135deg,#FF3538_0%,#FF4346_50%,#FF5154_100%)] rounded-full blur-[8px] opacity-10"
+            />
+            {/* Main Button */}
+            <motion.button
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ duration: 0.18, delay: isOpen ? 0 : 0.06 }}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsOpen(true)}
+              className="pointer-events-auto relative w-full h-full rounded-full text-white flex items-center justify-center bg-[linear-gradient(135deg,#FF3538_0%,#FF4346_50%,#FF5154_100%)] transition-shadow overflow-hidden shadow-lg cursor-pointer"
+              aria-label="Open chat"
+            >
+              <Image
+                src="/mascot/chat-bot.png"
+                alt="Chat Bot Mascot"
+                width={56}
+                height={56}
+                className="object-contain"
+              />
+            </motion.button>
+          </div>
         )}
       </AnimatePresence>
 
@@ -702,7 +834,9 @@ const ChatBot = () => {
             <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-red-700 to-red-900 text-white shrink-0">
               <div className="flex items-center gap-2.5">
                 <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="font-semibold text-sm tracking-wide">{chatbotName}</span>
+                <span className="font-semibold text-sm tracking-wide">
+                  {chatbotName}
+                </span>
               </div>
               <div className="flex items-center gap-1">
                 <button
@@ -710,7 +844,11 @@ const ChatBot = () => {
                   className="p-1.5 rounded-md hover:bg-white/10 transition-colors"
                   aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
                 >
-                  {isFullscreen ? <CgCompressRight size={16} /> : <CgArrowsExpandRight size={16} />}
+                  {isFullscreen ? (
+                    <CgCompressRight size={16} />
+                  ) : (
+                    <CgArrowsExpandRight size={16} />
+                  )}
                 </button>
                 <button
                   onClick={closeChat}
@@ -744,7 +882,9 @@ const ChatBot = () => {
                         onNavigate={closeChat}
                       />
                       {msg.warning && i !== streamingMsgIdx && (
-                        <p className="text-[10px] text-amber-500/70 mt-0.5 px-1">{msg.warning}</p>
+                        <p className="text-[10px] text-amber-500/70 mt-0.5 px-1">
+                          {msg.warning}
+                        </p>
                       )}
                     </div>
                   )}
@@ -807,7 +947,9 @@ const ChatBot = () => {
                       style={{ width: `${(cooldown / (cooldown + 1)) * 100}%` }}
                     />
                   </div>
-                  <span className="text-[10px] text-gray-500 shrink-0">Wait {cooldown}s</span>
+                  <span className="text-[10px] text-gray-500 shrink-0">
+                    Wait {cooldown}s
+                  </span>
                 </div>
               )}
               <div className="flex items-end gap-2">
@@ -820,7 +962,14 @@ const ChatBot = () => {
                   tabIndex={-1}
                   autoComplete="off"
                   aria-hidden="true"
-                  style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0, pointerEvents: "none" }}
+                  style={{
+                    position: "absolute",
+                    left: "-9999px",
+                    opacity: 0,
+                    height: 0,
+                    width: 0,
+                    pointerEvents: "none",
+                  }}
                 />
                 <textarea
                   ref={inputRef}
@@ -855,7 +1004,9 @@ const ChatBot = () => {
                   aria-label="Send message"
                 >
                   {cooldown > 0 ? (
-                    <span className="text-[11px] font-bold tabular-nums">{cooldown}</span>
+                    <span className="text-[11px] font-bold tabular-nums">
+                      {cooldown}
+                    </span>
                   ) : (
                     <AiOutlineSend size={16} />
                   )}
@@ -870,4 +1021,3 @@ const ChatBot = () => {
 };
 
 export default ChatBot;
-

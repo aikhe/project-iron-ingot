@@ -4,12 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { PrefetcherWrapper } from "../components/Prefetcher";
+import { PrefetcherWrapper, usePrefetcher } from "../components/Prefetcher";
+import ChatBot from "../components/ChatBot";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { HiSun } from "react-icons/hi";
 import { Input } from "@/components/ui/input";
 import { Search, X } from "@geist-ui/icons";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
+
+const AppChatBot = () => {
+  const { siteConfig } = usePrefetcher();
+  return (!siteConfig || siteConfig.chatbotEnabled !== false) ? <ChatBot /> : null;
+};
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -268,6 +274,9 @@ export default function App({ Component, pageProps }) {
             </div>
           </div>
         )}
+
+        {/* Render ChatBot conditionally */}
+        <AppChatBot />
       </div>
     </PrefetcherWrapper>
   );
