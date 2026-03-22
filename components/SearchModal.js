@@ -106,7 +106,7 @@ const SearchModal = ({ isOpen, onClose }) => {
                       scroll={false}
                       onClick={onClose}
                     >
-                    <div className="flex flex-col gap-1.5 px-4 py-4 hover:bg-[#252525] cursor-pointer transition-colors">
+                      <div className="flex flex-col gap-1.5 px-4 py-4 hover:bg-[#252525] cursor-pointer transition-colors">
                         <span className="text-[0.8rem] font-sans font-semibold uppercase tracking-wider text-[#FF5154]">
                           {TYPE_LABELS[item._type] || item._type}
                         </span>

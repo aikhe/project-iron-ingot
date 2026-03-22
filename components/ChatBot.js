@@ -551,7 +551,7 @@ const FlowButtons = ({ node, onSelect, onBack, canGoBack }) => (
 
 const ChatBot = () => {
   const { siteConfig } = usePrefetcher() || {};
-  const [chatbotName, setChatbotName] = useState("Ingo Bot");
+  const [chatbotName] = useState("Ingo Bot");
   const defaultWelcome =
     "Hi, I'm the Ingo Bot. Use the buttons below to explore, or type a question directly.";
 
@@ -577,7 +577,7 @@ const ChatBot = () => {
   const [input, setInput] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isInputFocused, setIsInputFocused] = useState(false);
+
   const [cooldown, setCooldown] = useState(0); // seconds remaining before next send allowed
   const cooldownRef = useRef(null);
 
@@ -1048,8 +1048,6 @@ const ChatBot = () => {
                   rows={1}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onFocus={() => setIsInputFocused(true)}
-                  onBlur={() => setIsInputFocused(false)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
                       e.preventDefault();

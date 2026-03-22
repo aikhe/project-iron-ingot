@@ -1,15 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-
 import BlogCard from "../../components/Card/Blog";
 import Head from "../../components/Head";
-import TopGradient from "../../components/TopGradient";
 import { _Transition_Page } from "../../lib/animations";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePrefetcher } from "../../components/Prefetcher";
-import { CgArrowUp, CgArrowDown, CgSearch, CgClose } from "react-icons/cg";
-import YearPill from "../../components/YearPill";
 
-// ─── helpers ───────────────────────────────────
 const ALL = "All";
 
 function getYears(blogs) {
@@ -17,53 +12,39 @@ function getYears(blogs) {
   return [ALL, ...years];
 }
 
-function authorString(authors) {
-  return (authors || [])
-    .map((a) => `${a.fullName?.firstName || ""} ${a.fullName?.lastName || ""}`.trim())
-    .join(" ");
-}
-
-// ─── Page ──────────────────────────────────────
-const BlogPage = () => {
+export default function BlogPage() {
   const { blogs } = usePrefetcher();
   const [blogList, setBlogList] = useState([]);
   const [selectedYear, setSelectedYear] = useState(ALL);
-  const [sortAsc, setSortAsc] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const [sortLatest, setSortLatest] = useState(true);
 
   useEffect(() => {
     setBlogList(blogs || []);
   }, [blogs]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const years = useMemo(() => getYears(blogList), [blogList]);
 
   const filtered = useMemo(() => {
-    const q = searchValue.trim().toLowerCase();
     let list = selectedYear === ALL
       ? blogList
       : blogList.filter((b) => (b.academicYear || "Unknown") === selectedYear);
-    if (q) {
-      list = list.filter((b) => {
-        const titleMatch = (b.title || "").toLowerCase().includes(q);
-        const tagMatch = (b.tags || []).some((t) => (t || "").toLowerCase().includes(q));
-        const authorMatch = authorString(b.authors).toLowerCase().includes(q);
-        const yearMatch = (b.academicYear || "").toLowerCase().includes(q);
-        return titleMatch || tagMatch || authorMatch || yearMatch;
-      });
-    }
+
     return [...list].sort((a, b) => {
-      const diff = new Date(a._createdAt) - new Date(b._createdAt);
-      return sortAsc ? diff : -diff;
+      const diff = new Date(b._createdAt) - new Date(a._createdAt);
+      return sortLatest ? diff : -diff;
     });
-  }, [blogList, selectedYear, sortAsc, searchValue]);
+  }, [blogList, selectedYear, sortLatest]);
+
+  const rows = useMemo(() => {
+    const res = [];
+    for (let i = 0; i < filtered.length; i += 2) {
+      res.push(filtered.slice(i, i + 2));
+    }
+    return res;
+  }, [filtered]);
 
   return (
     <>
-      <TopGradient colorLeft={"#fd0101"} colorRight={"#a50000"} />
       <Head
         title="Blog | Ingo"
         description="Latest blog posts from BSCS students and faculty. Computer science trends, tutorials, and insights."
@@ -75,93 +56,105 @@ const BlogPage = () => {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="py-36 z-10 min-h-screen"
+        className="max-w-[1440px] w-[80%] mx-auto pt-[4rem] pb-[4rem] z-10 min-h-screen relative"
       >
-        {/* Header */}
-        <div className="flex flex-col gap-2 justify-center mt-16">
-          <p className="text-4xl font-semibold">Blog</p>
-          <p className="text-lg font-semibold text-white/60">
-            See what CS students are up to in the BSCS Program
-          </p>
-        </div>
+        {/* Full-height vertical borders for the layout sides */}
+        <div className="absolute left-[calc(240px+4rem)] top-0 bottom-0 w-px border-l border-dashed border-[#2F2F2F] hidden md:block" />
+        <div className="absolute right-0 top-0 bottom-0 w-px border-r border-dashed border-[#2F2F2F] hidden md:block" />
 
-        {/* Search bar */}
-        <div className="mt-10 relative max-w-md">
-          <CgSearch
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none"
-          />
-          <input
-            type="text"
-            placeholder="Search by title, author, tag, or year…"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-full pl-9 pr-9 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white/25 transition-colors"
-          />
-          {searchValue && (
-            <button
-              onClick={() => setSearchValue("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors"
-            >
-              <CgClose size={14} />
-            </button>
-          )}
-        </div>
+        {/* Full-height vertical dashed borders between columns */}
+        {/* These calculate the center of the 1fr section and add/subtract 1.5rem offset */}
+        <div className="absolute left-[calc(240px+4rem+(100%-(240px+4rem))/2-1.5rem)] top-0 bottom-0 w-px border-l border-dashed border-[#2F2F2F] hidden md:block" />
+        <div className="absolute left-[calc(240px+4rem+(100%-(240px+4rem))/2+1.5rem)] top-0 bottom-0 w-px border-l border-dashed border-[#2F2F2F] hidden md:block" />
 
-        {/* Controls */}
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          {/* Year pills */}
-          <div className="flex flex-wrap gap-1">
-            {years.map((y) => (
-              <YearPill
-                key={y}
-                label={y}
-                active={selectedYear === y}
-                onClick={() => setSelectedYear(y)}
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] md:gap-[4rem] min-h-full">
+          {/* Sidebar */}
+          <aside className="flex flex-col w-full sticky top-[4rem] h-fit pr-4 md:pr-0 pb-10 md:pb-0">
+            <h1 className="text-[2rem] text-[#ffffff] font-semibold mb-4 tracking-normal">
+              Blog
+            </h1>
+            <p className="text-[1rem] text-[#8C8C8C] font-normal leading-normal mb-10 max-w-[95%]">
+              See what CS students are up to in the BSCS Program
+            </p>
 
-          {/* Sort toggle */}
-          <button
-            onClick={() => setSortAsc((v) => !v)}
-            className="ml-auto flex items-center gap-1.5 text-sm text-white/50 hover:text-white/80 transition-colors border border-white/10 rounded-full px-3 py-1.5"
-          >
-            {sortAsc ? <CgArrowUp size={14} /> : <CgArrowDown size={14} />}
-            {sortAsc ? "Oldest first" : "Newest first"}
-          </button>
-        </div>
-
-        {/* Grid */}
-        <div className="mt-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedYear + sortAsc}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25 }}
-            >
-              {filtered.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {filtered.map((blog, index) => (
-                    <div key={blog._id || index}>
-                      <BlogCard blog={blog} />
-                    </div>
-                  ))}
+            <div className="flex flex-col gap-[2.5rem]">
+              {/* Year Filter */}
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col pr-6">
+                  {years.map((y) => {
+                    const isActive = selectedYear === y;
+                    return (
+                      <button
+                        key={y}
+                        onClick={() => setSelectedYear(y)}
+                        className={`text-left px-3 py-1.5 rounded-[4px] text-[1rem] font-normal leading-normal transition-colors ${
+                          isActive
+                            ? "bg-[#EA2B2E] text-white"
+                            : "text-[#EFEFEF] hover:bg-[#202020]"
+                        }`}
+                      >
+                        {y}
+                      </button>
+                    );
+                  })}
                 </div>
-              ) : (
-                <p className="text-white/40 text-lg">
-                  No blog posts found{searchValue ? ` for "${searchValue}"` : selectedYear !== ALL ? ` in ${selectedYear}` : ""}.
-                </p>
-              )}
-            </motion.div>
-          </AnimatePresence>
+              </div>
+            </div>
+          </aside>
+
+          {/* Main Content Area */}
+          <section className="flex flex-col w-full relative min-h-full">
+            <div className="flex items-center justify-end mb-[1.5rem] mt-2 gap-1.5 relative z-10">
+              <span className="text-[1rem] text-[#8C8C8C] font-normal leading-normal">
+                Sort by:
+              </span>
+              <button
+                onClick={() => setSortLatest(!sortLatest)}
+                className="flex items-center gap-4 pl-0 pr-3 py-1 text-[1rem] text-[#EFEFEF] font-normal leading-normal hover:text-white transition-colors"
+              >
+                <span>{sortLatest ? "Latest" : "Oldest"}</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+                  <path
+                    d="M1 1L5 5L9 1"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${selectedYear}-${sortLatest}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="flex flex-col"
+              >
+                {rows.length === 0 ? (
+                  <p className="text-[1rem] text-[#8C8C8C] font-normal leading-normal text-center w-full py-10">
+                    No blog posts found.
+                  </p>
+                ) : (
+                  rows.map((row, rowIndex) => (
+                    <div
+                      key={rowIndex}
+                      className="grid grid-cols-1 md:grid-cols-2 gap-x-12 pb-4 mb-12 border-t border-b border-dashed border-[#2F2F2F]"
+                    >
+                      {row.map((blog, index) => (
+                        <BlogCard key={blog._id || index} blog={blog} />
+                      ))}
+                    </div>
+                  ))
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </section>
         </div>
       </motion.main>
     </>
   );
-};
-
-export default BlogPage;
-
+}

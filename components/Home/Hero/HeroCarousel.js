@@ -20,7 +20,7 @@ export default function HeroCarousel() {
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  
+
   const springConfig = { damping: 25, stiffness: 200 };
   const springX = useSpring(cursorX, springConfig);
   const springY = useSpring(cursorY, springConfig);
@@ -60,8 +60,6 @@ export default function HeroCarousel() {
     setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
-
-
 
   return (
     <div className="relative w-full aspect-square bg-[#1D1D1D] rounded-[12px] flex flex-col items-center justify-end overflow-hidden group">
@@ -160,7 +158,7 @@ export default function HeroCarousel() {
         {images.map((_, index) => {
           const dist = Math.abs(index - currentIndex);
           const isActive = dist === 0;
-          
+
           return (
             <motion.button
               key={index}

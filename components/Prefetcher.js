@@ -40,6 +40,7 @@ const query_thesis = `
     "title": thesisTitle,
     "slug": slug.current,
     "authors": postAuthor[] -> { fullName, pronouns, "authorPhoto": authorPhoto.asset -> url },
+    "description": pt::text(thesisContent),
     academicYear,
     department,
     tags,
