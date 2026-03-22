@@ -1,25 +1,23 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  CgClose,
-  CgArrowsExpandRight,
-  CgCompressRight,
-  CgSearch,
-  CgChevronLeft,
-} from "react-icons/cg";
-import {
-  AiOutlineBook,
-  AiOutlineInfoCircle,
-  AiOutlineBell,
-  AiOutlineSend,
-  AiOutlineTrophy,
-  AiOutlineFileText,
-  AiOutlineTeam,
-  AiOutlineTag,
-  AiOutlineUser,
-  AiOutlineQuestionCircle,
-  AiOutlineUnorderedList,
-} from "react-icons/ai";
+  X,
+  Maximize,
+  Minimize,
+  Search,
+  ChevronLeft,
+  BookOpen,
+  Info,
+  Bell,
+  Send,
+  Award,
+  File,
+  Users,
+  Tag,
+  User,
+  HelpCircle,
+  List,
+} from "@geist-ui/icons";
 import Link from "next/link";
 import { usePrefetcher } from "./Prefetcher";
 import Image from "next/image";
@@ -76,7 +74,7 @@ function parseInline(text) {
         tokens.push(
           <code
             key={k++}
-            className="text-[11px] bg-gray-800 text-red-300 px-1 py-0.5 rounded font-mono"
+            className="text-[0.9375rem] bg-gray-800 text-red-300 px-1 py-0.5 rounded font-mono"
           >
             {s.slice(i + 1, end)}
           </code>,
@@ -112,19 +110,19 @@ const MarkdownText = ({ text }) => {
           );
         if (line.startsWith("# "))
           return (
-            <p key={i} className="text-base font-bold text-gray-100 mt-1">
+            <p key={i} className="text-[0.9375rem] font-bold text-gray-100 mt-1">
               {parseInline(line.slice(2))}
             </p>
           );
         if (line.startsWith("- ") || line.startsWith("• "))
           return (
-            <div key={i} className="flex gap-1.5">
+            <div key={i} className="flex gap-1.5 text-[#EFEFEF]">
               <span className="text-gray-500 shrink-0 mt-0.5">•</span>
               <span>{parseInline(line.slice(2))}</span>
             </div>
           );
         if (line.trim() === "") return <div key={i} className="h-1" />;
-        return <p key={i}>{parseInline(line)}</p>;
+        return <p key={i} className="text-[0.9375rem] text-[#EFEFEF]">{parseInline(line)}</p>;
       })}
     </div>
   );
@@ -168,13 +166,13 @@ const FLOW_TREE = {
     {
       id: "thesis",
       label: "Thesis Projects",
-      icon: AiOutlineBook,
+      icon: BookOpen,
       prompt: "What would you like to know about theses?",
       children: [
         {
           id: "thesis-browse",
           label: "Browse all theses",
-          icon: AiOutlineUnorderedList,
+          icon: List,
           message:
             "Show me all available thesis projects with their titles and tags",
           quickAction: "browse-thesis",
@@ -182,7 +180,7 @@ const FLOW_TREE = {
         {
           id: "thesis-search-topic",
           label: "Search by topic",
-          icon: CgSearch,
+          icon: Search,
           input: true,
           placeholder: "Enter a topic or keyword...",
           messageTemplate: (v) => `Find thesis projects related to "${v}"`,
@@ -191,7 +189,7 @@ const FLOW_TREE = {
         {
           id: "thesis-search-author",
           label: "Search by author",
-          icon: AiOutlineUser,
+          icon: User,
           input: true,
           placeholder: "Enter an author name...",
           messageTemplate: (v) => `Find thesis projects by author "${v}"`,
@@ -200,7 +198,7 @@ const FLOW_TREE = {
         {
           id: "thesis-search-tag",
           label: "Search by tag",
-          icon: AiOutlineTag,
+          icon: Tag,
           input: true,
           placeholder: "Enter a tag (e.g. AI, web, mobile)...",
           messageTemplate: (v) => `Find thesis projects tagged with "${v}"`,
@@ -209,7 +207,7 @@ const FLOW_TREE = {
         {
           id: "thesis-ask",
           label: "Ask a question",
-          icon: AiOutlineQuestionCircle,
+          icon: HelpCircle,
           input: true,
           placeholder: "Type your thesis question...",
           messageTemplate: (v) => v,
@@ -220,20 +218,20 @@ const FLOW_TREE = {
     {
       id: "blogs",
       label: "Blogs",
-      icon: AiOutlineFileText,
+      icon: File,
       prompt: "What about blogs?",
       children: [
         {
           id: "blogs-latest",
           label: "Latest blog posts",
-          icon: AiOutlineBell,
+          icon: Bell,
           message: "What are the latest blog posts on the site?",
           quickAction: "recent-updates",
         },
         {
           id: "blogs-search",
           label: "Search blogs",
-          icon: CgSearch,
+          icon: Search,
           input: true,
           placeholder: "Search blogs by topic or keyword...",
           messageTemplate: (v) => `Find blog posts about "${v}"`,
@@ -243,20 +241,20 @@ const FLOW_TREE = {
     {
       id: "bulletins",
       label: "Bulletins",
-      icon: AiOutlineBell,
+      icon: Bell,
       prompt: "What about bulletins?",
       children: [
         {
           id: "bulletins-latest",
           label: "Latest bulletins",
-          icon: AiOutlineUnorderedList,
+          icon: List,
           message: "What are the latest bulletins and announcements?",
           quickAction: "recent-updates",
         },
         {
           id: "bulletins-search",
           label: "Search bulletins",
-          icon: CgSearch,
+          icon: Search,
           input: true,
           placeholder: "Search bulletins...",
           messageTemplate: (v) => `Find bulletins about "${v}"`,
@@ -266,33 +264,33 @@ const FLOW_TREE = {
     {
       id: "awards",
       label: "Awards",
-      icon: AiOutlineTrophy,
+      icon: Award,
       message: "Show me the awards and achievements on the site",
     },
     {
       id: "about",
       label: "About Ingo",
-      icon: AiOutlineInfoCircle,
+      icon: Info,
       prompt: "What do you want to know?",
       children: [
         {
           id: "about-what",
           label: "What is Ingo?",
-          icon: AiOutlineInfoCircle,
+          icon: Info,
           message: "What is Ingo and what does this website do?",
           quickAction: "about-ingo",
         },
         {
           id: "about-team",
           label: "Development team",
-          icon: AiOutlineTeam,
+          icon: Users,
           message: "Tell me about the Ingo development team",
           quickAction: "about-ingo",
         },
         {
           id: "about-council",
           label: "CS Student Council",
-          icon: AiOutlineTeam,
+          icon: Users,
           message: "Tell me about the Computer Science Student Council",
           quickAction: "about-ingo",
         },
@@ -301,7 +299,7 @@ const FLOW_TREE = {
     {
       id: "ask-anything",
       label: "Ask anything",
-      icon: AiOutlineQuestionCircle,
+      icon: HelpCircle,
       input: true,
       placeholder: "Type your question...",
       messageTemplate: (v) => v,
@@ -323,87 +321,88 @@ const ChatThesisCard = ({ card, onNavigate }) => {
         setNavigating(true);
         onNavigate?.();
       }}
-      className="block mt-2 relative rounded-xl border border-white/10 bg-[#0f1218] hover:border-red-500/50 hover:bg-[#141720] transition-all group cursor-pointer overflow-hidden"
+      className="flex flex-col h-full mt-2 relative rounded-lg border border-[#2A2A2A] bg-[#252525] hover:bg-[#2A2A2A] transition-all group cursor-pointer overflow-hidden"
     >
       {/* Click-loading overlay */}
       {navigating && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 rounded-xl">
-          <div className="w-6 h-6 border-2 border-white/80 border-t-transparent rounded-full animate-spin" />
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#181818]/80 rounded-lg">
+          <div className="w-6 h-6 border-2 border-[#EFEFEF]/80 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
       {/* Banner image */}
       {card.headerImage && (
-        <div className="relative w-full h-24 overflow-hidden transition-transform duration-500 group-hover:scale-105">
-          <Image
-            src={card.headerImage}
-            alt={card.title}
-            fill
-            style={{ objectFit: "cover" }}
-            sizes="(max-width: 768px) 100vw, 33vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0f1218]" />
+        <div className="relative w-full h-24 overflow-hidden">
+          <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+            <Image
+              src={card.headerImage}
+              alt={card.title}
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          </div>
+          {/* Removed the blur gradient overlay to keep it clean */}
         </div>
       )}
-      <div className="p-3.5">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-[9px] uppercase tracking-widest text-gray-500 font-semibold">
+      <div className="p-4 flex-1 flex flex-col">
+        <div className="flex flex-wrap items-center gap-2 mb-3">
+          <span className="text-[0.9375rem] text-[#EFEFEF] font-semibold leading-relaxed">
             Thesis
           </span>
           {card.department && (
-            <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 font-semibold">
+            <span className="text-[0.9375rem] text-[#EFEFEF] font-semibold leading-relaxed">
               {card.department}
             </span>
           )}
           {card.academicYear && (
-            <span className="text-[9px] text-gray-600 ml-auto">
+            <span className="px-2 py-0.5 bg-[#EA2B2E] text-[#EFEFEF] text-[0.8rem] font-sans font-medium tracking-wide ml-auto">
               {card.academicYear}
             </span>
           )}
         </div>
 
-        <p className="text-sm font-semibold text-gray-100 group-hover:text-white transition-colors leading-snug">
+        <p className="text-[0.9375rem] font-normal text-[#EFEFEF] group-hover:text-white transition-colors leading-relaxed">
           {card.title}
         </p>
 
         {/* Members — prioritise owners (thesis authors), fall back to post authors */}
         {(card.owners || card.authors) && (
-          <p className="text-xs text-gray-400 mt-1.5 leading-snug">
-            <span className="text-gray-600">By </span>
-            {card.owners || card.authors}
+          <p className="text-[0.875rem] text-[#8C8C8C] mt-1.5 leading-snug font-normal">
+            By {card.owners || card.authors}
           </p>
         )}
 
         {/* IMRAD summary snippet */}
         {card.summary && (
-          <p className="text-[11px] text-gray-500 mt-2 leading-relaxed line-clamp-3">
+          <p className="text-[0.9375rem] text-[#8C8C8C] mt-2.5 leading-relaxed line-clamp-3 font-normal">
             {card.summary}
           </p>
         )}
 
         {card.tags && card.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-2.5">
+          <div className="flex flex-wrap gap-2 mt-3.5">
             {card.tags.slice(0, 4).map((tag, i) => (
               <span
                 key={i}
-                className="text-[10px] px-2 py-0.5 rounded-full bg-[#27292D] text-gray-400"
+                className="px-2 py-0.5 bg-[#333333] text-[#EFEFEF] text-[0.8rem] font-sans font-medium uppercase tracking-wide"
               >
                 {tag}
               </span>
             ))}
             {card.tags.length > 4 && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#27292D] text-gray-500">
+              <span className="px-2 py-0.5 bg-[#333333] text-[#EFEFEF] text-[0.8rem] font-sans font-medium uppercase tracking-wide">
                 +{card.tags.length - 4} more
               </span>
             )}
           </div>
         )}
       </div>
-      <div className="px-3.5 py-2 bg-[#0a0c10] border-t border-white/5 flex items-center justify-between">
-        <span className="text-[10px] text-gray-500 group-hover:text-red-400 transition-colors">
-          View full thesis →
+      <div className="px-4 py-3 border-t border-[#2A2A2A] group-hover:border-[#3A3A3A] mt-auto transition-colors flex items-center justify-between shrink-0">
+        <span className="text-[0.875rem] text-[#8C8C8C] group-hover:text-[#EFEFEF] transition-colors font-normal">
+          View full thesis
         </span>
         <svg
-          className="w-3 h-3 text-gray-600 group-hover:text-red-400 transition-colors"
+          className="w-4 h-4 text-[#8C8C8C] group-hover:text-[#EFEFEF] transition-colors shrink-0"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -424,25 +423,43 @@ const BotMessage = ({
   onStreamDone,
   onNavigate,
 }) => (
-  <div className="flex flex-col gap-1 w-full">
-    <div
-      className={`${isFullscreen ? "max-w-2xl" : "max-w-[85%]"} px-3 py-2 rounded-xl rounded-bl-sm bg-[#1a1d24] text-gray-200 text-sm leading-relaxed`}
-    >
-      {isStreaming ? (
-        <StreamingMessage text={text} onDone={onStreamDone} />
-      ) : (
-        <MarkdownText text={text} />
-      )}
+  <div className="flex flex-col gap-1 w-full relative">
+    <div className="relative w-full">
+      <div
+        className={`${
+          isFullscreen ? "max-w-2xl" : "max-w-[88%]"
+        } px-4 py-3 rounded-2xl rounded-bl-none bg-[#252525] text-[#EFEFEF] text-[0.9375rem] leading-relaxed font-normal relative z-10`}
+      >
+        {isStreaming ? (
+          <StreamingMessage text={text} onDone={onStreamDone} />
+        ) : (
+          <MarkdownText text={text} />
+        )}
+      </div>
+      <div className="absolute -left-[5.5px] bottom-0 z-0">
+        <svg
+          width="9"
+          height="17"
+          viewBox="0 0 9 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.02389 17H8.78125V0H7.78125C7.78125 3 5.28125 6.5 4.78125 7.5C4.56043 7.94164 2.77922 9.84615 0.858964 11.8352C-0.997362 13.7581 0.351176 17 3.02389 17Z"
+            fill="#252525"
+          />
+        </svg>
+      </div>
     </div>
     {/* Cards reveal only after streaming finishes */}
     {!isStreaming && cards && cards.length > 0 && (
       <div
         className={
           isFullscreen && cards.length > 1
-            ? "max-w-2xl grid grid-cols-2 gap-2"
+            ? "max-w-2xl grid grid-cols-2 gap-2 mt-1"
             : isFullscreen
-              ? "w-72 flex flex-col gap-2"
-              : "max-w-[85%] flex flex-col gap-2"
+              ? "w-72 flex flex-col gap-2 mt-1"
+              : "max-w-[85%] flex flex-col gap-2 mt-1"
         }
       >
         {cards.map((card, i) => (
@@ -455,22 +472,37 @@ const BotMessage = ({
 
 const ThinkingIndicator = () => (
   <div className="flex justify-start">
-    <div className="bg-[#1a1d24] text-gray-400 px-4 py-2.5 rounded-xl rounded-bl-sm text-sm flex items-center gap-2">
-      <span className="text-xs text-gray-500">Thinking</span>
-      <span className="flex gap-0.5">
-        <span
-          className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"
-          style={{ animationDelay: "0ms", animationDuration: "0.8s" }}
-        />
-        <span
-          className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"
-          style={{ animationDelay: "200ms", animationDuration: "0.8s" }}
-        />
-        <span
-          className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"
-          style={{ animationDelay: "400ms", animationDuration: "0.8s" }}
-        />
-      </span>
+    <div className="relative">
+      <div className="bg-[#2A2A2A] px-5 py-[18px] rounded-2xl rounded-bl-none flex items-center justify-center relative z-10 w-fit min-w-[50px]">
+        <span className="flex items-center gap-1.5">
+          <span
+            className="w-1.5 h-1.5 bg-[#8C8C8C] rounded-full animate-bounce"
+            style={{ animationDelay: "0ms", animationDuration: "0.8s" }}
+          />
+          <span
+            className="w-1.5 h-1.5 bg-[#8C8C8C] rounded-full animate-bounce"
+            style={{ animationDelay: "200ms", animationDuration: "0.8s" }}
+          />
+          <span
+            className="w-1.5 h-1.5 bg-[#8C8C8C] rounded-full animate-bounce"
+            style={{ animationDelay: "400ms", animationDuration: "0.8s" }}
+          />
+        </span>
+      </div>
+      <div className="absolute -left-[5.5px] bottom-0 z-0">
+        <svg
+          width="9"
+          height="17"
+          viewBox="0 0 9 17"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.02389 17H8.78125V0H7.78125C7.78125 3 5.28125 6.5 4.78125 7.5C4.56043 7.94164 2.77922 9.84615 0.858964 11.8352C-0.997362 13.7581 0.351176 17 3.02389 17Z"
+            fill="#2A2A2A"
+          />
+        </svg>
+      </div>
     </div>
   </div>
 );
@@ -481,18 +513,18 @@ const FlowButtons = ({ node, onSelect, onBack, canGoBack }) => (
     initial={{ opacity: 0, y: 6 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.15 }}
-    className="flex flex-col gap-1.5 pt-1"
+    className="flex flex-col gap-2 pt-1"
   >
     {node.prompt && (
-      <p className="text-[11px] text-gray-500 mb-0.5 px-1">{node.prompt}</p>
+      <p className="text-[0.9375rem] text-[#8C8C8C] mb-1 px-1 font-normal">{node.prompt}</p>
     )}
-    <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap gap-2">
       {canGoBack && (
         <button
           onClick={onBack}
-          className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium text-gray-500 border border-gray-800 hover:border-gray-600 hover:text-gray-300 transition-all"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[0.9375rem] font-medium bg-[#333333] hover:bg-[#3d3d3d] text-gray-200 transition-colors"
         >
-          <CgChevronLeft size={12} />
+          <ChevronLeft size={16} strokeWidth={2.5} />
           <span>Back</span>
         </button>
       )}
@@ -502,9 +534,9 @@ const FlowButtons = ({ node, onSelect, onBack, canGoBack }) => (
           <button
             key={child.id}
             onClick={() => onSelect(child)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-transparent text-gray-400 border border-gray-700 hover:border-red-500/60 hover:text-gray-200 hover:bg-gray-800/50 transition-all"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[0.9375rem] font-medium bg-[#333333] hover:bg-[#3d3d3d] text-gray-200 transition-colors"
           >
-            {Icon && <Icon size={13} />}
+            {Icon && <Icon size={16} strokeWidth={2.5} />}
             <span>{child.label}</span>
           </button>
         );
@@ -519,9 +551,9 @@ const FlowButtons = ({ node, onSelect, onBack, canGoBack }) => (
 
 const ChatBot = () => {
   const { siteConfig } = usePrefetcher() || {};
-  const chatbotName = siteConfig?.chatbotName || "Ingo Assistant";
+  const [chatbotName, setChatbotName] = useState("Ingo Bot");
   const defaultWelcome =
-    "Hi, I'm the Ingo Assistant. Use the buttons below to explore, or type a question directly.";
+    "Hi, I'm the Ingo Bot. Use the buttons below to explore, or type a question directly.";
 
   const [isOpen, setIsOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -613,6 +645,14 @@ const ChatBot = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, currentFlowNode, scrollToBottom]);
+
+  // Scroll to bottom when opening the chat box
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(scrollToBottom, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, scrollToBottom]);
 
   // Reset flow to root
   const resetFlow = () => {
@@ -808,7 +848,9 @@ const ChatBot = () => {
                 alt="Chat Bot Mascot"
                 width={56}
                 height={56}
-                className="object-contain"
+                priority
+                unoptimized
+                className="object-contain transform-gpu"
               />
             </motion.button>
           </div>
@@ -826,50 +868,83 @@ const ChatBot = () => {
             className={`${
               isFullscreen
                 ? "fixed inset-0 z-[100] rounded-none"
-                : "fixed bottom-5 right-5 z-50 w-[380px] h-[540px] rounded-2xl shadow-2xl border border-gray-700/50"
-            } flex flex-col overflow-hidden`}
-            style={{ background: "#0e1015" }}
+                : "fixed bottom-5 right-5 z-50 w-[380px] h-[540px] rounded-xl shadow-2xl border border-[#2A2A2A]"
+            } flex flex-col overflow-hidden bg-[#181818] font-sans`}
+            style={{ background: "#181818" }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-red-700 to-red-900 text-white shrink-0">
-              <div className="flex items-center gap-2.5">
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="font-semibold text-sm tracking-wide">
-                  {chatbotName}
-                </span>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[#2A2A2A] shrink-0">
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/mascot/chitchat-bot.png"
+                  alt="Chat Bot Mascot"
+                  width={64}
+                  height={64}
+                  priority
+                  unoptimized
+                  className="object-contain transform-gpu"
+                />
+                <div className="flex flex-col gap-[4px]">
+                  <span className="font-semibold text-[0.9375rem] text-gray-100">
+                    {chatbotName}
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                    <span className="text-[0.875rem] text-gray-400 font-normal leading-none">
+                      Assistance on the Go!
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5 text-gray-100">
                 <button
                   onClick={() => setIsFullscreen((f) => !f)}
-                  className="p-1.5 rounded-md hover:bg-white/10 transition-colors"
+                  className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
                   aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
                 >
                   {isFullscreen ? (
-                    <CgCompressRight size={16} />
+                    <Minimize size={22} />
                   ) : (
-                    <CgArrowsExpandRight size={16} />
+                    <Maximize size={22} />
                   )}
                 </button>
                 <button
                   onClick={closeChat}
-                  className="p-1.5 rounded-md hover:bg-white/10 transition-colors"
+                  className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
                   aria-label="Close chat"
                 >
-                  <CgClose size={16} />
+                  <X size={22} />
                 </button>
               </div>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+            <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 custom-scrollbar">
               {messages.map((msg, i) => (
                 <div
                   key={i}
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {msg.role === "user" ? (
-                    <div className="max-w-[85%] px-3 py-2 rounded-xl rounded-br-sm bg-red-700/80 text-white text-sm leading-relaxed whitespace-pre-wrap">
-                      {msg.text}
+                    <div className="flex flex-col gap-1 w-full relative items-end">
+                      <div className="w-fit max-w-[85%] px-4 py-2.5 rounded-2xl rounded-br-none bg-[#EA2B2E] text-white text-[0.9375rem] leading-relaxed font-normal whitespace-pre-wrap relative z-10 [word-break:break-word] hyphens-auto">
+                        {msg.text}
+                      </div>
+                      <div className="absolute -right-[5.5px] bottom-0 z-0">
+                        <svg
+                          width="9"
+                          height="17"
+                          viewBox="0 0 9 17"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="scale-x-[-1]"
+                        >
+                          <path
+                            d="M3.02389 17H8.78125V0H7.78125C7.78125 3 5.28125 6.5 4.78125 7.5C4.56043 7.94164 2.77922 9.84615 0.858964 11.8352C-0.997362 13.7581 0.351176 17 3.02389 17Z"
+                            fill="#EA2B2E"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   ) : (
                     <div className="flex flex-col gap-0.5 w-full">
@@ -912,17 +987,17 @@ const ChatBot = () => {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="px-4 py-2 bg-[#13151b] border-t border-gray-800 flex items-center justify-between overflow-hidden shrink-0"
+                  className="px-4 py-2 bg-[#121212] border-t border-[#2A2A2A] flex items-center justify-between overflow-hidden shrink-0"
                 >
-                  <span className="text-xs text-gray-400 truncate">
-                    {flowInputNode.placeholder || "Type your answer..."}
+                  <span className="text-[0.9375rem] text-[#8C8C8C] truncate font-normal">
+                    {flowInputNode.prompt || flowInputNode.placeholder || "Type your question..."}
                   </span>
                   <button
                     onClick={() => {
                       setFlowInputNode(null);
                       setInput("");
                     }}
-                    className="text-xs text-gray-600 hover:text-gray-300 transition-colors ml-2 shrink-0"
+                    className="text-[0.95rem] text-gray-500 hover:text-gray-300 transition-colors ml-2 shrink-0 font-normal underline decoration-gray-700/50 underline-offset-4"
                   >
                     Cancel
                   </button>
@@ -930,25 +1005,22 @@ const ChatBot = () => {
               )}
             </AnimatePresence>
 
-            {/* Input */}
             <form
               onSubmit={sendMessage}
-              className={`flex flex-col gap-1.5 px-3 pt-2 pb-3 border-t shrink-0 transition-colors ${
-                isInputFocused ? "border-red-700/40" : "border-gray-800"
-              }`}
-              style={{ background: "#0e1015" }}
+              className="px-4 py-3 border-t border-[#2A2A2A] transition-colors duration-200 shrink-0"
+              style={{ background: "#181818" }}
             >
               {/* Cooldown bar */}
               {cooldown > 0 && (
-                <div className="flex items-center gap-2 px-1">
-                  <div className="flex-1 h-0.5 rounded-full bg-gray-800 overflow-hidden">
+                <div className="flex items-center gap-3 px-1 mb-2 animate-in fade-in duration-300">
+                  <div className="flex-1 h-0.5 rounded-full bg-[#2A2A2A] overflow-hidden">
                     <div
-                      className="h-full bg-red-600/60 transition-all duration-1000"
-                      style={{ width: `${(cooldown / (cooldown + 1)) * 100}%` }}
+                      className="h-full bg-[#EA2B2E] transition-all duration-1000 ease-linear"
+                      style={{ width: `${(cooldown / 5) * 100}%` }}
                     />
                   </div>
-                  <span className="text-[10px] text-gray-500 shrink-0">
-                    Wait {cooldown}s
+                  <span className="text-[0.8125rem] text-[#8C8C8C] shrink-0 font-normal tabular-nums">
+                    Please wait {cooldown}s
                   </span>
                 </div>
               )}
@@ -991,25 +1063,19 @@ const ChatBot = () => {
                         ? flowInputNode.placeholder
                         : "Or type a question..."
                   }
-                  className={`flex-1 bg-[#1a1d24] text-gray-200 text-sm rounded-lg px-3 py-2.5 outline-none focus:ring-1 focus:ring-red-700/50 placeholder-gray-600 transition-shadow resize-none overflow-y-auto leading-relaxed ${
-                    cooldown > 0 ? "opacity-50 cursor-not-allowed" : ""
+                  className={`flex-1 bg-[#252525] text-[#EFEFEF] text-[0.9375rem] rounded-lg px-4 py-[10px] outline-none placeholder-gray-500 transition-colors resize-none overflow-y-auto leading-relaxed font-normal ${
+                    cooldown ? "opacity-50 cursor-not-allowed" : ""
                   }`}
-                  style={{ minHeight: "40px", maxHeight: "128px" }}
+                  style={{ minHeight: "44px", maxHeight: "128px" }}
                   disabled={isLoading || cooldown > 0}
                 />
                 <button
                   type="submit"
                   disabled={isLoading || !input.trim() || cooldown > 0}
-                  className="p-2.5 rounded-lg bg-gradient-to-br from-red-600 to-red-800 text-white disabled:opacity-30 hover:brightness-110 transition-all shrink-0 relative"
+                  className="p-3 rounded-lg bg-[#EA2B2E] hover:bg-[#d02528] text-white disabled:opacity-50 transition-all shrink-0 relative flex items-center justify-center"
                   aria-label="Send message"
                 >
-                  {cooldown > 0 ? (
-                    <span className="text-[11px] font-bold tabular-nums">
-                      {cooldown}
-                    </span>
-                  ) : (
-                    <AiOutlineSend size={16} />
-                  )}
+                  <Send size={20} strokeWidth={2.5} />
                 </button>
               </div>
             </form>
