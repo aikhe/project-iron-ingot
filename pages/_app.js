@@ -6,9 +6,9 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { PrefetcherWrapper, usePrefetcher } from "../components/Prefetcher";
 import ChatBot from "../components/ChatBot";
+import SearchModal from "../components/SearchModal";
 import { SiDiscord, SiFacebook, SiGithub } from "react-icons/si";
 import { HiSun } from "react-icons/hi";
-import { Input } from "@/components/ui/input";
 import { Search, X } from "@geist-ui/icons";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 
@@ -22,6 +22,7 @@ export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useState("dark");
   const [showGrid, setShowGrid] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [yPos, setYPos] = useState(0);
   const { scrollY } = useScroll();
 
@@ -53,6 +54,10 @@ export default function App({ Component, pageProps }) {
       const key = e.key.toLowerCase();
       if (e.shiftKey && (key === "g" || e.code === "KeyG")) toggleGrid();
       if (e.shiftKey && (key === "t" || e.code === "KeyT")) toggleTheme();
+      if (e.ctrlKey && key === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
     };
     window.addEventListener("keydown", handleKeydown);
     return () => window.removeEventListener("keydown", handleKeydown);
@@ -205,16 +210,18 @@ export default function App({ Component, pageProps }) {
                 </div>
               </div> */}
 
-              <div className="relative group/search w-full max-w-[156px] font-sans">
+              <div
+                onClick={() => setSearchOpen(true)}
+                className="relative group/search w-full max-w-[260px] font-sans cursor-pointer"
+              >
                 <Search
-                  className="absolute left-2 top-1/2 -translate-y-1/2 group-focus-within/search:text-[var(--color-text)] transition-colors duration-200"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 group-hover/search:text-[var(--color-text)] transition-colors duration-200"
                   size={20}
                   color="#8C8C8C"
                 />
-                <Input
-                  className="pl-8 pr-14 h-[42px] bg-[#1D1D1D] border-[#333333] rounded-[6px] focus-visible:ring-0 focus-visible:border-[var(--color-border-vivid)] transition-all placeholder:text-[#8C8C8C] placeholder:text-[1rem] text-[#8C8C8C] text-[1.125rem]"
-                  placeholder="Search"
-                />
+                <div className="pl-8 pr-14 h-[42px] bg-[#1D1D1D] border border-[#333333] rounded-[6px] flex items-center text-[#8C8C8C] text-[1rem] select-none">
+                  Search
+                </div>
                 <div className="absolute right-2 top-1/2 -translate-y-1/2 px-[8px] py-[2px] border border-[#333333] rounded-[4px] bg-[var(--color-bg-secondary)] text-[0.8rem] text-[#8C8C8C] font-sans whitespace-nowrap">
                   Ctrl K
                 </div>
@@ -277,6 +284,8 @@ export default function App({ Component, pageProps }) {
 
         {/* Render ChatBot conditionally */}
         <AppChatBot />
+
+        <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
       </div>
     </PrefetcherWrapper>
   );

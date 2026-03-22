@@ -8,9 +8,9 @@ export default function Hero() {
   return (
     <section className="relative section-container px-[6rem] mt-[2.6rem] mb-[2rem] font-sans">
       {/* Background Ambient Glow */}
-      <div className="absolute opacity-[0.14] top-[-6%] -left-[480px] w-[600px] h-[800px] rounded-full bg-gradient-to-br from-[#B9171A] to-[#FF3538] blur-[134px] pointer-events-none z-[60]" />
+      <div className="absolute opacity-[0.14] top-[-6%] -left-[480px] w-[600px] h-[800px] rounded-full bg-gradient-to-br from-[#B9171A] to-[#FF3538] blur-[134px] pointer-events-none z-0" />
 
-      <div className="grid grid-cols-[1.1fr_1.05fr] gap-[2rem] items-center">
+      <div className="relative z-10 grid grid-cols-[1.1fr_1.05fr] gap-[2rem] items-center">
         {/* Left Column: Hero Content */}
         <div className="flex flex-col items-start gap-2 pr-[2rem] -mt-16">
           {/* Welcome Tag */}
