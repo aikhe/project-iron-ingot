@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "@geist-ui/icons";
 import { motion } from "motion/react";
+import HeroCarousel from "@/components/Home/Hero/HeroCarousel";
 
 export default function Hero() {
   return (
@@ -89,17 +90,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right Column: Carousel Placeholder */}
-        <div className="relative w-full aspect-[3/3] bg-[#1D1D1D] rounded-[12px] p-4 flex flex-col items-center justify-end">
-          {/* Pagination Dots Placeholder */}
-          <div className="flex items-center justify-center gap-[0.6rem] mb-2 w-full">
-            <div className="h-1.5 w-10 bg-[#444444] rounded-full"></div>
-            <div className="h-1.5 w-12 bg-[#EFEFEF] rounded-full"></div>
-            <div className="h-1.5 w-10 bg-[#444444] rounded-full"></div>
-            <div className="h-1.5 w-8 bg-[#444444] rounded-full"></div>
-            <div className="h-1.5 w-6 bg-[#444444] rounded-full"></div>
-          </div>
-        </div>
+        {/* Right Column: Hero Carousel */}
+        <HeroCarousel />
       </div>
     </section>
   );
