@@ -41,7 +41,7 @@ export default function CouncilAbout() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mb-[2rem] font-sans py-[1.5rem] overflow-visible"
+      className="relative section-container px-[6rem] mb-[2rem] font-sans py-[1.5rem] overflow-visible"
     >
       {/* Custom Cursor Circle */}
       <motion.div

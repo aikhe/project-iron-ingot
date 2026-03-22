@@ -82,7 +82,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(-1);
 
   return (
-    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[3rem] mb-[6rem] font-sans">
+    <section className="relative section-container px-[6rem] mt-[3rem] mb-[6rem] font-sans">
       <div className="flex flex-col w-full max-w-[900px] mx-auto">
         {/* Header Section */}
         <div className="flex items-center gap-[0.8rem] mb-[2rem] -ml-[1.2rem]">

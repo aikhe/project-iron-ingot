@@ -93,7 +93,7 @@ export default function Council() {
   return (
     <div className="w-full flex flex-col items-center">
       {/* Adviser Section */}
-      <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[1.4rem] font-sans flex flex-col items-center">
+      <section className="relative section-container px-[6rem] mt-[1.4rem] font-sans flex flex-col items-center">
         <h3 className="text-[1.6rem] font-semibold text-white leading-tight tracking-wide mb-[1.5rem]">
           Adviser
         </h3>
@@ -124,7 +124,7 @@ export default function Council() {
       </section>
 
       {/* Officers Section */}
-      <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[3.4rem] mb-[2rem] font-sans">
+      <section className="relative section-container px-[6rem] mt-[3.4rem] mb-[2rem] font-sans">
         <div className="flex gap-[6rem]">
           {/* Executive Column */}
           <div className="flex flex-col">

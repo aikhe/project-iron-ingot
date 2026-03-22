@@ -41,7 +41,7 @@ export default function AwardsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem]  mb-[1.5rem] font-sans overflow-visible py-[1.5rem]"
+      className="relative section-container px-[6rem]  mb-[1.5rem] font-sans overflow-visible py-[1.5rem]"
     >
       {/* Custom Cursor Circle */}
       <motion.div

@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 
 export default function Hero() {
   return (
-    <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto px-[6rem] mt-[2.6rem] mb-[2rem] font-sans">
+    <section className="relative section-container px-[6rem] mt-[2.6rem] mb-[2rem] font-sans">
       <div className="grid grid-cols-[1.1fr_1.05fr] gap-[2rem] items-center">
         {/* Left Column: Hero Content */}
         <div className="flex flex-col items-start gap-2 pr-[2rem] -mt-16">

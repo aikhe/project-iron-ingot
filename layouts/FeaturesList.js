@@ -51,7 +51,7 @@ export default function FeaturesList() {
     <div className="w-full font-sans mb-[2rem]">
       <SecondaryStripe className="m-0" />
 
-      <section className="relative w-full max-w-[var(--container-max-width)] w-[var(--container-width)] mx-auto">
+      <section className="relative section-container">
         <div className="relative z-10 flex pointer-events-none">
           {/* Left Column: 3D Scene */}
           <div className="absolute top-1/2 -translate-y-1/2 left-[4rem] right-[54rem] h-[80vh] flex items-center justify-center overflow-visible pointer-events-auto">
