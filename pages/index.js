@@ -4,11 +4,10 @@ import HeroFooterStripe from "@/layouts/HeroFooterStripe";
 import CSBotSection from "@/layouts/CSBotSection";
 import FeaturesList from "@/layouts/FeaturesList";
 import AwardsSection from "@/layouts/AwardsSection";
-import SecondaryStripe from "@/layouts/SecondaryStripe";
+import Stripe from "@/layouts/Stripe";
 import AwardGallery from "@/layouts/AwardGallery";
 import SectionStripe from "@/components/SectionStripe";
 import LatestOnIngo from "@/layouts/LatestOnIngo";
-import LatestOnIngoCards from "@/layouts/LatestOnIngoCards";
 import CouncilTicker from "@/layouts/CouncilTicker";
 import Council from "@/layouts/Council";
 import CouncilAbout from "@/layouts/CouncilAbout";
@@ -30,11 +29,10 @@ export default function Home() {
       <CSBotSection />
       <FeaturesList />
       <AwardsSection />
-      <SecondaryStripe className="mt-0 mb-0" />
+      <Stripe className="mt-0 mb-0" />
       <AwardGallery />
       <SectionStripe className="mt-[4rem]" />
-      <LatestOnIngo />
-      <LatestOnIngoCards
+      <LatestOnIngo
         blog={blogs?.[0]}
         thesis={thesis?.[0]}
         bulletin={bulletins?.[0]}

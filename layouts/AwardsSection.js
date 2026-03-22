@@ -71,11 +71,7 @@ export default function AwardsSection() {
           <motion.div
             className="relative w-full h-full translate-x-[-0.34rem] translate-y-[-0.4rem]"
             animate={
-              isHovered
-                ? {
-                    rotate: [0, -5, 8, -5, 8, 0],
-                  }
-                : { rotate: 0 }
+              isHovered ? { rotate: [0, -5, 8, -5, 8, 0] } : { rotate: 0 }
             }
             transition={{
               delay: 0.35,

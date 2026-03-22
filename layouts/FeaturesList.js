@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useScroll, useMotionValueEvent } from "motion/react";
 import dynamic from "next/dynamic";
-import SecondaryStripe from "./SecondaryStripe";
+import Stripe from "./Stripe";
 
 const Scene3D = dynamic(() => import("../components/Scene3D"), { ssr: false });
 
@@ -49,7 +49,7 @@ export default function FeaturesList() {
 
   return (
     <div className="w-full font-sans mb-[2rem]">
-      <SecondaryStripe className="m-0" />
+      <Stripe className="m-0" />
 
       <section className="relative section-container">
         <div className="relative z-10 flex pointer-events-none">
