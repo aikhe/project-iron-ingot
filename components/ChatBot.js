@@ -522,9 +522,9 @@ const FlowButtons = ({ node, onSelect, onBack, canGoBack }) => (
       {canGoBack && (
         <button
           onClick={onBack}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[0.9375rem] font-medium bg-[#333333] hover:bg-[#3d3d3d] text-gray-200 transition-colors"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[0.9375rem] font-normal bg-[#333333] hover:bg-[#3d3d3d] text-gray-200 transition-colors"
         >
-          <ChevronLeft size={16} strokeWidth={2.5} />
+          <ChevronLeft size={16} strokeWidth={2} />
           <span>Back</span>
         </button>
       )}
@@ -534,9 +534,9 @@ const FlowButtons = ({ node, onSelect, onBack, canGoBack }) => (
           <button
             key={child.id}
             onClick={() => onSelect(child)}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[0.9375rem] font-medium bg-[#333333] hover:bg-[#3d3d3d] text-gray-200 transition-colors"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[0.9375rem] font-normal bg-[#333333] hover:bg-[#3d3d3d] text-gray-200 transition-colors"
           >
-            {Icon && <Icon size={16} strokeWidth={2.5} />}
+            {Icon && <Icon size={16} strokeWidth={2} />}
             <span>{child.label}</span>
           </button>
         );
