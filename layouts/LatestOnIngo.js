@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { useMotionValue, useSpring } from "motion/react";
 import { useState, useEffect } from "react";
 import BlogCard from "../components/Home/LatestOnIngo/BlogCard";
 import ArticleCard from "../components/Home/LatestOnIngo/ArticleCard";
@@ -93,7 +93,11 @@ export default function LatestOnIngo({ blog, thesis, bulletin }) {
   return (
     <div className="w-full font-sans bg-[#181818] relative overflow-hidden">
       {/* Shared Custom Cursor */}
-      <LatestOnCursor hoveredCard={hoveredCard} springX={springX} springY={springY} />
+      <LatestOnCursor
+        hoveredCard={hoveredCard}
+        springX={springX}
+        springY={springY}
+      />
 
       {/* Header Section */}
       <section className="relative w-full py-[3.4rem] flex justify-center items-center">

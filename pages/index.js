@@ -8,9 +8,7 @@ import Stripe from "@/layouts/Stripe";
 import AwardGallery from "@/layouts/AwardGallery";
 import SectionStripe from "@/components/SectionStripe";
 import LatestOnIngo from "@/layouts/LatestOnIngo";
-import CouncilTicker from "@/layouts/CouncilTicker";
 import Council from "@/layouts/Council";
-import CouncilAbout from "@/layouts/CouncilAbout";
 import FAQ from "@/layouts/FAQ";
 import HappyCodingSection from "@/layouts/HappyCodingSection";
 import Footer from "@/layouts/Footer";
@@ -38,9 +36,7 @@ export default function Home() {
         bulletin={bulletins?.[0]}
       />
       <SectionStripe className="mt-[5rem]" />
-      <CouncilTicker />
       <Council />
-      <CouncilAbout />
       <SectionStripe className="mt-[4rem]" />
       <FAQ />
       <HappyCodingSection />
