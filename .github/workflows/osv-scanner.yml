@@ -17,16 +17,16 @@ jobs:
       security-events: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Run OSV Scanner
-        uses: google/osv-scanner-action/osv-scanner-action@v2
+        uses: ghcr.io/google/osv-scanner-action/osv-scanner-action@be30617b4122dd755e6a986f5e222f5e45b90b8e # v2.0.1
         with:
           args: scan --output-format sarif --output results.sarif .
         continue-on-error: true
 
       - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@28deaeda6a3de11c7b93c00d2745c6cdee23960c # v3.28.12
         if: always()
         with:
           sarif_file: results.sarif

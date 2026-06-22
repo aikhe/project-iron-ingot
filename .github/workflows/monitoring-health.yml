@@ -11,25 +11,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check main site
-        uses: actions/http-request@v1
         id: site
-        with:
-          url: ${{ vars.SITE_URL || 'https://uccingo.tech' }}
-          method: GET
-          timeout: 30000
+        run: |
+          status_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "${{ vars.SITE_URL || 'https://uccingo.tech' }}" || echo "000")
+          echo "status_code=$status_code" >> "$GITHUB_OUTPUT"
+          if [ "$status_code" -ge 200 ] && [ "$status_code" -lt 400 ]; then
+            echo "outcome=success" >> "$GITHUB_OUTPUT"
+          else
+            echo "outcome=failure" >> "$GITHUB_OUTPUT"
+          fi
         continue-on-error: true
 
       - name: Check chat endpoint
-        uses: actions/http-request@v1
         id: chat
-        with:
-          url: ${{ vars.SITE_URL || 'https://uccingo.tech' }}/api/chat
-          method: GET
-          timeout: 30000
+        run: |
+          status_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "${{ vars.SITE_URL || 'https://uccingo.tech' }}/api/chat" || echo "000")
+          echo "status_code=$status_code" >> "$GITHUB_OUTPUT"
+          if [ "$status_code" -ge 200 ] && [ "$status_code" -lt 400 ]; then
+            echo "outcome=success" >> "$GITHUB_OUTPUT"
+          else
+            echo "outcome=failure" >> "$GITHUB_OUTPUT"
+          fi
         continue-on-error: true
 
       - name: Create issue on failure
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         if: steps.site.outcome == 'failure' || steps.chat.outcome == 'failure'
         env:
           SITE_OUTCOME: ${{ steps.site.outcome }}

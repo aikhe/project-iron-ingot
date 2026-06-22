@@ -17,10 +17,10 @@ jobs:
       security-events: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Run Checkov
-        uses: bridgecrewio/checkov-action@v12
+        uses: bridgecrewio/checkov-action@0aeacc1a8cd5e19e3d0b3f8b4d25e7f21d2c8850 # v12
         with:
           directory: .
           framework: terraform
@@ -29,7 +29,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@28deaeda6a3de11c7b93c00d2745c6cdee23960c # v3.28.12
         if: always()
         with:
           sarif_file: results.sarif
